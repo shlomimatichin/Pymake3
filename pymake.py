@@ -61,7 +61,7 @@ def copy(srcpath, destpath, pattern=None):
         else:
             copy(src, dest, pattern)
 
-def make(target):
+def make(target=None):
     if not target:
         target = sys.argv[1] if len(sys.argv) > 1 else 'all'
 
