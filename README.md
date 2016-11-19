@@ -1,4 +1,4 @@
-# PyMake <img align="right" src="img/pymake-logo.png">
+# PyMake <img align="right" src="res/images/pymake-logo.png">
 
 **PyMake** is a tool for automating build tasks. It comes with ready-made templates for several different compilers, allowing you to quickly set up portable build tasks. **With PyMake, it becomes trivial to set up complex build tasks, doing everything from library and executable compilation to asset building and even deployment.**
 
