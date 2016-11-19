@@ -44,7 +44,7 @@ def copy(srcpath, destpath, pattern=None):
                 return
 
         path, filename = os.path.split(destpath)
-        print trace('copying {} to {}', filename, path)
+        trace('copying {} to {}', filename, path)
 
         shutil.copyfile(srcpath, destpath)
         return
@@ -95,4 +95,4 @@ def trace(s=None, *args):
         print
         return
 
-    print s.format(args)
+    print s.format(*args)
