@@ -21,7 +21,7 @@ FLAGS = [
     '/target:exe'
 ]
 
-TARGET = 'Pong.exe'
+TARGET = 'Program.exe'
 
 LIBS = [
     'PresentationCore.dll',
