@@ -144,13 +144,16 @@ def remove_dir(path):
     if os.path.isdir(path):
         shutil.rmtree(path)
 
-def run_program(s, args):
+def run_program(s, args=None):
     """
     Runs the specified program with the specified arguments.
 
     :param s:    Name of the program to run.
     :param args: Program arguments.
     """
+
+    if not args:
+        args = []
 
     global exit_code
     exit_code = subprocess.call([s] + args)

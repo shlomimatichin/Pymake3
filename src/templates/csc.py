@@ -1,5 +1,6 @@
+#!/usr/bin/env python
 import os, sys
-sys.path.insert(0, os.path.join('build/pymake'))
+sys.path.insert(0, os.path.join('build', 'pymake'))
 from pymake import *
 
 NAME = 'Program.exe'
@@ -35,8 +36,7 @@ def clean():
 
 @target
 def compile():
-    if not os.path.exists(BINDIR):
-        os.mkdir(BINDIR)
+    create_dir(BINDIR)
 
     libdirs = ['/lib:' + ','.join(LIBDIRS)]
     libs    = ['/r:' + lib for lib in LIBS]
@@ -48,6 +48,6 @@ def compile():
 @target
 def run():
     os.chdir(BINDIR)
-    subprocess.call([TARGET])
+    run_program(NAME)
 
 pymake()
