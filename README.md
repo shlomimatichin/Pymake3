@@ -1,15 +1,21 @@
 # PyMake <img align="right" src="res/images/pymake-logo.png">
 
-**PyMake** is a tool for automating build tasks. It comes with ready-made templates for several different compilers, allowing you to quickly set up portable build tasks. **With PyMake, it becomes trivial to set up complex build tasks, doing everything from library and executable compilation to asset building and even deployment.**
+**PyMake** is a tool for automating build tasks. It comes with ready-made
+templates for several different compilers, allowing you to quickly set up
+portable build tasks. **With PyMake, it becomes trivial to set up complex build
+tasks, doing everything from library and executable compilation to asset
+building and even deployment.**
 
 ### -> [Download now!](https://github.com/philiparvidsson/pymake/releases/) <-
 
 ## Getting Started
 
 1. Download and install [Python 2.7.x](https://www.python.org/downloads/).
-2. Start with one of the [example](examples) or [template](templates) files, picking one relevant to your project.
+2. Start with one of the [example](examples) or [template](templates) files,
+picking one relevant to your project.
 3. If needed, modify the file. See the guide for instructions on how to do so.
-3. Build your project by running your make script. You can either type `python your_make_file.py` or `./your_make_file.py` (only on Linux).
+3. Build your project by running your make script. You can either type `python
+your_make_file.py` or `./your_make_file.py` (only on Linux).
 
 ### Prerequisities
 
@@ -81,7 +87,7 @@ Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code of conduc
 
 ## Versioning
 
-We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/philiparvidsson/pymake/tags). 
+We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/philiparvidsson/pymake/tags).
 
 ## Authors
 
