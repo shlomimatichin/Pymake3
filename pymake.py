@@ -62,6 +62,9 @@ def copy(srcpath, destpath, pattern=None):
             copy(src, dest, pattern)
 
 def make(target):
+    if not target:
+        target = sys.argv[1] if len(sys.argv) > 1 else 'all'
+
     if target not in targets:
         trace('no such target {}', target)
         return

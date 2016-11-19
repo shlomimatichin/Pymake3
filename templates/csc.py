@@ -2,16 +2,20 @@
 # IMPORTS
 #---------------------------------------
 
+import os
 import sys
-sys.path.insert(0, 'tools/pymake')
+
+sys.path.insert(0, os.path.join('build/pymake'))
 from pymake import *
 
 #---------------------------------------
 # CONSTANTS
 #---------------------------------------
 
-CSC = 'C:\\Program Files (x86)\\MSBuild\\14.0\\Bin\\csc.exe'
+# Name of the program.
+NAME = 'Program.exe'
 
+# Flags specifying how to compile the program.
 FLAGS = [
 #    '/debug',
 #    '/define:DEBUG',
@@ -21,8 +25,7 @@ FLAGS = [
     '/target:exe'
 ]
 
-TARGET = 'Program.exe'
-
+# Libraries needed to compile the program.
 LIBS = [
     'PresentationCore.dll',
     'System.IO.dll',
@@ -30,13 +33,20 @@ LIBS = [
     'WindowsBase.dll',
 ]
 
-BINDIR = 'bin'
-SRCDIR = 'src'
-
+# Library directories to search for libraries in.
 LIBDIRS = [
     'C:\\Windows\\Microsoft.NET\\Framework64\\v4.0.30319\\',
     'C:\\Windows\\Microsoft.NET\\Framework64\\v4.0.30319\\WPF',
 ]
+
+# Where to put the compiled binary files.
+BINDIR = 'bin'
+
+# Source code directory.
+SRCDIR = 'src'
+
+# Path to the C# compiler executable.
+CSC = 'C:\\Program Files (x86)\\MSBuild\\14.0\\Bin\\csc.exe'
 
 #---------------------------------------
 # FUNCTIONS
@@ -59,7 +69,7 @@ def compile():
     flags   = FLAGS
     libdirs = ['/lib:' + ','.join(LIBDIRS)]
     libs    = ['/r:' + s for s in LIBS]
-    out     = ['/out:' + os.path.join(BINDIR, TARGET)]
+    out     = ['/out:' + os.path.join(BINDIR, NAME)]
     sources = ['/recurse:' + os.path.join(SRCDIR, '*.cs')]
 
     run_cmd(CSC, flags + libdirs + libs + out + sources)
@@ -73,4 +83,4 @@ def run():
 # SCRIPT
 #---------------------------------------
 
-make(sys.argv[1] if len(sys.argv) > 1 else 'all')
+make()
