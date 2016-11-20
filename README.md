@@ -2,8 +2,8 @@
 
 **PyMake** is a tool for automating build tasks. It comes with ready-made templates for several different kinds of projects, allowing you to quickly set up portable build tasks. **With PyMake, it becomes trivial to set up complex build tasks, doing everything from library and executable compilation to asset building and even deployment.**
 
-### * [Download](https://github.com/philiparvidsson/pymake/releases/)
-### * [Manual](docs/manual.md)
+* [Download](https://github.com/philiparvidsson/pymake/releases/)
+* [Manual](docs/manual.md)
 
 ## Getting Started
 
