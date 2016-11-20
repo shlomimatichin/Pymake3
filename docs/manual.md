@@ -8,7 +8,7 @@
   * [Making your projects](#making-your-projects)
 
 
-3. [Quick Reference](#3-quick-reference)
+2. [Quick Reference](#2-quick-reference)
   * [Copying files/directories](#copying-filesdirectories)
   * [Creating directories](#creating-directories)
   * [Defining a target](#defining-a-target)
@@ -151,7 +151,7 @@ When you have written your make script and saved `pymake.py` in your project fol
 
 If, for example, you saved your script to `make.py` in your project root, you can run it by typing `python make.py` to make the `all` target. If you want to specify what target to make, you can type `python make.py my_target_name`. Dependencies will automatically be resolved, so even if you attempt to invoke the `link` target from the examples above, the `compile` target will be invoked before it.
 
-## 3. Quick Reference
+## 2. Quick Reference
 
 ### Copying files/directories
 
