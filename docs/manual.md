@@ -1,6 +1,6 @@
 # PyMake Manual
 
-### Configuring your project
+## Configuring your project
 
 To use PyMake in your projects, at the very least, you need to download and store a copy of `pymake.py` in your project somewhere. The default location that PyMake is configured for is `build/pymake`, but this can be configured. If you intend to use one of the templates for your project, you need to make a decision:
 
@@ -9,7 +9,7 @@ To use PyMake in your projects, at the very least, you need to download and stor
 
 When you have saved the needed files into your project, you can run PyMake on it by invoking your make script in the project root. If, for example, you saved your script to `make.py`, begin making your project by typing `python make.py` in your project root. Alternatively, you can just type `./make.py` if you're using Linux.
 
-### Writing make scripts
+## Writing make scripts
 
 The make scripts are written in Python. For the sake of clarity, we discuss a few details individually before presenting a complete make script.
 
@@ -128,7 +128,7 @@ pymake(csc.defaultConf(), {
 As you can see, PyMake is almost infinitely flexible and can be used for any
 kind of project.
 
-### Making your projects
+## Making your projects
 
 When you have written your make script and saved `pymake.py` in your project folder, you can make your project easily by invoking your make script.
 
