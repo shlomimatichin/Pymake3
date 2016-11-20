@@ -11,7 +11,7 @@
   * [Defining a target](#defining-a-target)
   * [Specifying dependencies](#specifying-dependencies)
 
-3. [Quick reference](#3-quick-reference)
+3. [Quick Reference](#3-quick-reference)
   * [Copying files/directories](#copying-filesdirectories)
   * [Creating directories](#creating-directories)
   * [Removing directories](#removing-directories)
