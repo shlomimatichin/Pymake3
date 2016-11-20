@@ -16,7 +16,7 @@
 
 * [Python 2.7](https://wiki.python.org/moin/BeginnersGuide/Download)
 
-### Installing
+### Installation
 
 #### Begin by downloading and installing [Python 2.7](https://www.python.org/downloads/).
 On Linux, depending on your distribution, Python comes pre-installed. This means that you do not need to install anything for pymake to work. If you don't have Python (you can check by typing python in a terminal), you might be able to install it by typing `sudo apt-get install python`.
@@ -26,7 +26,7 @@ On Windows, you need to install Python manually. See [this link](https://wiki.py
 #### Download the latest pymake release.
 The latest pymake scripts are always available [here](https://github.com/philiparvidsson/pymake/releases/). Download and save `pymake.py` along with any make script you need for your project.
 
-### Building
+### Usage
 
 #### Begin by creating a simple make script.
 To familiarize yourself with pymake, you can begin by writing a simple make script. You could also use one of the [example programs](examples), or the one below if you just want to try out pymake quickly. In case you use the script below, make sure to put `pymake.py` in the same directory.

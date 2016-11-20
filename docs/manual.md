@@ -1,5 +1,9 @@
 # Pymake Manual
 
+## Table of Contents
+
+[test](#writing-make-scripts)
+
 ## Configuring your project
 
 To use pymake in your projects, at the very least, you need to download and store a copy of `pymake.py` in your project somewhere. pymake should normally be stored in `build/pymake`, but this can be configured if needed. If you intend to use one of the templates for your project, you need to make a decision:
