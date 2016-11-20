@@ -11,7 +11,7 @@ When you have saved the needed files into your project, you can run PyMake on it
 
 ## Writing make scripts
 
-The make scripts are written in Python. For the sake of clarity, we discuss a few details individually before presenting a complete make script.
+Make scripts for PyMake are written in the Python language. For the sake of clarity, we discuss a few aspects of PyMake individually before presenting a complete make script.
 
 Firstly, you should place `pymake.py` in build/pymake/ in your project folder. Then, PyMake can be imported in the following way:
 
