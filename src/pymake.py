@@ -22,6 +22,24 @@ _targets = {}
 # FUNCTIONS
 #---------------------------------------
 
+def check_dependencies(target, dependencies=tuple()):
+    """
+    Checks the specified target recursively, making sure there are no circular
+    dependencies.
+
+    :param target:       Target to check for circular dependencies.
+    :param dependencies: Do not specify. Used internally to track dependencies.
+    """
+
+    if target not in _targets:
+        error('no such target: {}', target)
+
+    if target in dependencies:
+        error('circular dependency found while making target: {}', target)
+
+    for dep in get_dependencies(target):
+        check_dependencies(dep, (target,) + dependencies)
+
 def copy(srcpath, destpath, pattern=None):
     """
     Copies all files in the source path to the specified destination path.  The
@@ -50,13 +68,14 @@ def copy(srcpath, destpath, pattern=None):
                 return 0
 
         path, filename = os.path.split(destpath)
-        trace('copying {} to {}', filename, path)
 
         if not os.path.exists(path):
             # Make sure all directories needed to copy the file exist.
-            os.makedirs(path)
+            create_dir(path)
 
         shutil.copyfile(srcpath, destpath)
+        trace('copied {} to {}', srcpath, destpath)
+
         return 1
 
     num_files_copied = 0
@@ -77,8 +96,8 @@ def create_dir(path):
     """
 
     if not os.path.exists(path):
-        os.mkdir(path)
-
+        os.makedirs(path)
+        trace('created directory {}', path)
 
 def depends_on(*targets):
     """
@@ -92,6 +111,17 @@ def depends_on(*targets):
         return func
 
     return decorator
+
+def error(s, *args):
+    """
+    Exits pymake with an error message.
+
+    :param s:    Text to display.
+    :param args: Text formatting arguments.
+    """
+
+    trace('error: ' + s, *args)
+    sys.exit(-1)
 
 def find_files(path, pattern=None):
     """
@@ -117,38 +147,39 @@ def find_files(path, pattern=None):
 
     return sources
 
-def make(target, conf, completed=[], dependencies=tuple()):
+def make(target, conf, completed=[]):
     """
     Attempts to make the specified target, making all its dependencies first.
 
-    :param target:       Name of the target to make.
-    :param conf:         Configuration settings.
-    :param completed:    Used to keep track of previously completed targets
-                         during recursion.
-    :param dependencies: Used to find circular dependencies.
-
+    :param target:    Name of the target to make.
+    :param conf:      Configuration settings.
+    :param completed: Used to keep track of previously completed targets
+                      during recursion.
     """
-
-    if target not in _targets:
-        trace('no such target: {}', target)
-        return
 
     if target in completed:
         return
 
-    if target in dependencies:
-        trace('circular dependency found while making target: {}', target)
-        return
+    make_func = _targets[target]
+
+    for dependency in get_dependencies(target):
+        make(dependency, conf, completed)
+
+    make_func(conf)
+    completed.append(target)
+
+    trace()
+
+def get_dependencies(target):
+    if target not in _targets:
+        error('no such target: {}', target)
 
     make_func = _targets[target]
 
-    if hasattr(make_func, 'dependencies'):
-        for dep in make_func.dependencies:
-            make(dep, conf, completed, (target,) + dependencies)
+    if not hasattr(make_func, 'dependencies'):
+        return []
 
-    trace()
-    make_func(conf)
-    completed.append(target)
+    return make_func.dependencies
 
 def pymake(*args):
     """
@@ -158,6 +189,9 @@ def pymake(*args):
 
     :param conf: Make configuration.
     """
+
+    target = sys.argv[1] if len(sys.argv) > 1 else 'all'
+    check_dependencies(target)
 
     # Simple hack to create attributes from the configuration keys.
     final_config = lambda: None
@@ -175,7 +209,6 @@ def pymake(*args):
 
             setattr(final_config, key, new_value)
 
-    target = sys.argv[1] if len(sys.argv) > 1 else 'all'
     make(target, final_config)
     sys.exit(_exit_code)
 
@@ -189,6 +222,7 @@ def remove_dir(path):
 
     if os.path.isdir(path):
         shutil.rmtree(path)
+        trace('removed directory {}', path)
 
 def run_program(s, args=None):
     """
@@ -225,7 +259,7 @@ def trace(s=None, *args):
     """
     Displays the specified text, formatted with the specified arguments.
 
-    :param s:     Text to display.
+    :param s:    Text to display.
     :param args: Text formatting arguments.
     """
 
