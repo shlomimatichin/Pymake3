@@ -1,3 +1,10 @@
+"""
+PyMake provides automated build tasks and enormous flexibility, all without
+esoteric syntax constructs!
+
+See https://github.com/philiparvidsson/pymake for more information.
+"""
+
 #---------------------------------------
 # IMPORTS
 #---------------------------------------
