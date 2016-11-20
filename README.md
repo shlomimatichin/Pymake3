@@ -7,7 +7,7 @@
 ## Getting Started
 
 1. Download and install [Python 2.7](https://www.python.org/downloads/).
-2. Start with one of the [example](examples) or [template](templates) scripts, picking one relevant to your type of project.
+2. Start with one of the [example](examples) or [template](src/templates) scripts, picking one relevant to your type of project.
 3. Modify the script as needed for your project. See the guide for instructions on how to do so.
 3. Build your project by running your make script. You can either type `python your_make_file.py` or `./your_make_file.py` (only on Linux).
 
