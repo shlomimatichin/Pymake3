@@ -2,12 +2,16 @@
 
 ### Table of Contents
 
-1. [Using pymake](#using-pymake)
+1. [Basics](#basics)
   * [Configuring your project](#configuring-your-project)
   * [Writing make scripts](#writing-make-scripts)
   * [Making your projects](#making-your-projects)
 
-## 1. Using pymake
+2. [Targets](#targets)
+  * [Defining a target](#defining-a-target)
+  * [Specifying dependencies](#specifying-dependencies)
+
+## 1. Basics
 
 ### Configuring your project
 
@@ -142,4 +146,27 @@ When you have written your make script and saved `pymake.py` in your project fol
 
 If, for example, you saved your script to `make.py` in your project root, you can run it by typing `python make.py` to make the `all` target. If you want to specify what target to make, you can type `python make.py my_target_name`. Dependencies will automatically be resolved, so even if you attempt to invoke the `link` target from the examples above, the `compile` target will be invoked before it.
 
-Happy making!
+## 2. Targets
+
+### Defining a target
+
+A pymake target is defined by applying the `@target` decorator to a function:
+
+```python
+@target
+def my_target(conf):
+    # ...
+```
+
+A target function always takes in a `conf` argument containing the pymake configuration.
+
+### Specifying dependencies
+
+Pymake targets can depend on other targets. Dependencies are specified with the `@depends_on` decorator:
+
+```python
+@target
+@depends_on('my_target')
+def my_other_target(conf):
+    # my_target will always be invoked before we reach this point
+```
