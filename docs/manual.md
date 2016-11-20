@@ -2,7 +2,7 @@
 
 ### Table of Contents
 
-1. [Basics](#1-basics)
+1. [Guide](#1-guide)
   * [Configuring your project](#configuring-your-project)
   * [Writing make scripts](#writing-make-scripts)
   * [Making your projects](#making-your-projects)
@@ -16,7 +16,7 @@
   * [Running programs](#running-programs)
   * [Specifying dependencies](#specifying-dependencies)
 
-## 1. Basics
+## 1. Guide
 
 ### Configuring your project
 
