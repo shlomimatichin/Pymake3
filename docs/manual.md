@@ -2,14 +2,20 @@
 
 ### Table of Contents
 
-1. [Basics](#basics)
+1. [Basics](#1-basics)
   * [Configuring your project](#configuring-your-project)
   * [Writing make scripts](#writing-make-scripts)
   * [Making your projects](#making-your-projects)
 
-2. [Targets](#targets)
+2. [Targets](#2-targets)
   * [Defining a target](#defining-a-target)
   * [Specifying dependencies](#specifying-dependencies)
+
+3. [Quick reference](#3-quick-reference)
+  * [Copying files/directories](#copying-files-directories)
+  * [Creating directories](#creating-directories)
+  * [Removing directories](#removing-directories)
+  * [Running programs](#running-programs)
 
 ## 1. Basics
 
@@ -169,4 +175,64 @@ Pymake targets can depend on other targets. Dependencies are specified with the 
 @depends_on('my_target')
 def my_other_target(conf):
     # my_target will always be invoked before we reach this point
+```
+
+## 3. Operations
+
+### Copying files/directories
+
+Copying files (for example, copying resource files to the bin folder when building an executable) can easily be done with the `copy()` function:
+
+```python
+@target
+def copy_assets(conf):
+    num = copy(conf.assetsdir, conf.bindir, '*.wav')
+    trace('{} files copied', num)
+```
+
+If a directory path is passed to the `copy()` function, that directory is copied recursively to the target path. If the source path is a file, that file will be copied. Optionally, a filename pattern can be specfied, as in the case above. Only files matching the pattern will be copied.
+
+### Creating directories
+
+Directories are created with the `create_dir()` function:
+
+```python
+@target
+def compile(conf):
+    create_dir(conf.bindir)
+    # ...
+```
+
+The directory will be created if it does not already exist.
+
+### Finding files
+
+Files can be found with the `find_files()` function, when you, for example, need to find all source files to compile:
+
+```python
+@target
+def compile(conf):
+    sources = find_files(conf.srcdir, '*.c')
+    # ...
+```
+
+### Removing directories
+
+Remove directories with the `remove_dir()` function:
+
+```python
+@target
+def clean(conf):
+    remove_dir(conf.bindir)
+    remove_dir(conf.objdir)
+```
+
+### Running programs
+
+Run programs with the `run_program()` function:
+
+```python
+@target
+def compile(conf):
+    run_program('g++', ['hello.cpp', '-o', 'hello'])
 ```
