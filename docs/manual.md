@@ -12,7 +12,7 @@
   * [Specifying dependencies](#specifying-dependencies)
 
 3. [Quick reference](#3-quick-reference)
-  * [Copying files/directories](#copying-files-directories)
+  * [Copying files/directories](#copying-filesdirectories)
   * [Creating directories](#creating-directories)
   * [Removing directories](#removing-directories)
   * [Running programs](#running-programs)
