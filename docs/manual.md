@@ -177,6 +177,8 @@ def compile(conf):
     # ...
 ```
 
+The directory will be created if it does not already exist.
+
 ### Defining a target
 
 A pymake target is defined by applying the `@target` decorator to a function:
@@ -187,9 +189,7 @@ def my_target(conf):
     # ...
 ```
 
-A target function always takes in a `conf` argument containing the pymake configuration.
-
-The directory will be created if it does not already exist.
+A target function always takes in a `conf` argument containing the pymake configuration. The target's name is the name of the function.
 
 ### Finding files
 
