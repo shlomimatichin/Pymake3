@@ -177,7 +177,7 @@ def my_other_target(conf):
     # my_target will always be invoked before we reach this point
 ```
 
-## 3. Operations
+## 3. Quick Reference
 
 ### Copying files/directories
 
