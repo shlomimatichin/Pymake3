@@ -2,9 +2,9 @@
 
 ### Table of Contents
 
-* #### [Configuring your project](#configuring-your-project)
-* [Writing make scripts](#writing-make-scripts)
-* [Making your projects](#making-your-projects)
+1. [Configuring your project](#configuring-your-project)
+2. [Writing make scripts](#writing-make-scripts)
+3. [Making your projects](#making-your-projects)
 
 ## Configuring your project
 
