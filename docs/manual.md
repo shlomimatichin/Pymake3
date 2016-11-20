@@ -125,8 +125,7 @@ pymake(csc.defaultConf(), {
 })
 ```
 
-As you can see, PyMake is almost infinitely flexible and can be used for any
-kind of project.
+As you can tell by now, PyMake is almost infinitely flexible and can be used for any kind of project.
 
 ## Making your projects
 
