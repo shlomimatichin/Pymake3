@@ -117,25 +117,38 @@ def find_files(path, pattern=None):
 
     return sources
 
-def make(target, conf):
+def make(target, conf, completed=[], dependencies=tuple()):
     """
     Attempts to make the specified target, making all its dependencies first.
 
-    :param target: The name of the target to make.
+    :param target:       Name of the target to make.
+    :param conf:         Configuration settings.
+    :param completed:    Used to keep track of previously completed targets
+                         during recursion.
+    :param dependencies: Used to find circular dependencies.
+
     """
 
     if target not in _targets:
         trace('no such target: {}', target)
         return
 
+    if target in completed:
+        return
+
+    if target in dependencies:
+        trace('circular dependency found while making target: {}', target)
+        return
+
     make_func = _targets[target]
 
     if hasattr(make_func, 'dependencies'):
         for dep in make_func.dependencies:
-            make(dep, conf)
+            make(dep, conf, completed, (target,) + dependencies)
 
     trace()
     make_func(conf)
+    completed.append(target)
 
 def pymake(*args):
     """
