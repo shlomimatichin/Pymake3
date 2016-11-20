@@ -13,7 +13,46 @@ When you have saved the needed files into your project, you can run PyMake on it
 
 ### Writing make scripts
 
-The make scripts are written in Python. For the sake of clarity, we provide a make script example below and discuss it before delving into details:
+The make scripts are written in Python. For the sake of clarity, we discuss a few details individually before presenting a complete make script.
+
+Firstly, you should place `pymake.py` in build/pymake/ in your project folder. Then, PyMake can be imported in the following way:
+
+```python
+import sys
+sys.path.insert(0, 'build/pymake')
+from pymake import *
+```
+
+After this, we can start building the make script by defining our targets. Defining a target is trivial:
+
+```python
+@target
+def my_target(conf):
+    print 'hello from my_target!'
+```
+
+That's it! That is all that is needed for PyMake to register your target and be able to invoke it. Some targets need to be sure that other targets have been completed first. For example, before linking an executable, we need to compile it. This can be achieved easily by specifying dependencies on your targets:
+
+```python
+@target
+def compile(conf):
+    print 'compiling', conf.name
+
+@target
+@depends_on('compile')
+def link(conf):
+    print 'linking', conf.name
+```
+
+By specifying dependencies, you ensure that they will always be completed before your target is invoked. In the case above, the compile target will always be invoked before the link target.
+
+At the end of your make script, you need to begin the make process by calling the `pymake()` function. Normally, you want to pass a configuration object to the function and use it in your targets. In this example, we pass in a name since we used it in the target examples above:
+
+```python
+pymake({ 'name': 'my_program' })
+```
+
+As we now have a basic understanding of how PyMake operates, let's look at a more complex make script. Read the comments carefully.
 
 ```python
 #!/usr/bin/env python
@@ -90,3 +129,11 @@ pymake(csc.defaultConf(), {
 
 As you can see, PyMake is almost infinitely flexible and can be used for any
 kind of project.
+
+### Making your projects
+
+When you have written your make script and saved `pymake.py` in your project folder, you can make your project easily by invoking your make script.
+
+If, for example, you saved your script to `make.py` in your project root, you can run it by typing `python make.py` to make the `all` target. If you want to specify what target to make, you can type `python make.py my_target_name`. Dependencies will automatically be resolved, so even if you attempt to invoke the `link` target from the examples above, the `compile` target will be invoked be fore it.
+
+Happy making!
