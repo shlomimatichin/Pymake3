@@ -34,7 +34,6 @@ To familiarize yourself with pymake, you can begin by writing a simple make scri
 ```python
 #!/usr/bin/env python
 
-import os, sys
 from pymake import *
 
 @target
@@ -50,9 +49,7 @@ def build(conf):
 def compile(conf):
     print 'compiling...'
 
-pymake({
-    'name': 'some_program.bin',
-})
+pymake({ 'name': 'some_program.bin' })
 ```
 
 Since pymake scripts are written in Python, there is really no limit to what can be done. This allows you to easily create very complex and secure build and deployment scripts for your projects.
