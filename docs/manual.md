@@ -1,7 +1,5 @@
 # PyMake Manual
 
-## Using PyMake
-
 ### Configuring your project
 
 To use PyMake in your projects, at the very least, you need to download and store a copy of `pymake.py` in your project somewhere. The default location that PyMake is configured for is `build/pymake`, but this can be configured. If you intend to use one of the templates for your project, you need to make a decision:
