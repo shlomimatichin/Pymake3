@@ -1,6 +1,6 @@
 # PyMake <img align="right" src="assets/images/pymake-logo.png">
 
-**PyMake** is a tool for automating build tasks. It comes with ready-made templates for several different compilers, allowing you to quickly set up portable build tasks. **With PyMake, it becomes trivial to set up complex build tasks, doing everything from library and executable compilation to asset building and even deployment.**
+**PyMake** is a tool for automating build tasks. It comes with ready-made templates for several different kinds of projects, allowing you to quickly set up portable build tasks. **With PyMake, it becomes trivial to set up complex build tasks, doing everything from library and executable compilation to asset building and even deployment.**
 
 ### -> [Download now!](https://github.com/philiparvidsson/pymake/releases/) <-
 
@@ -73,7 +73,7 @@ Along with your `make.py` file, you need to store the `pymake.py` file in your p
 
 ## Built With
 
-* **emacs** - The best text editor out there! ;-)
+* **Emacs** - Emacs is, along with vi, one of the two main contenders in the traditional editor wars of Unix culture. Both are among the oldest application programs still in use.
 * **Python** - A widely used high-level, general-purpose, interpreted, dynamic programming language.
 
 ## Contributing
