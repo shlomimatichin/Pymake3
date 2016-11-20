@@ -1,6 +1,6 @@
-# PyMake <img align="right" src="assets/images/pymake-logo.png">
+# What is pymake? <img align="right" src="assets/images/pymake-logo.png">
 
-**PyMake** is a tool for automating build tasks. It comes with ready-made templates for several different kinds of projects, allowing you to quickly set up portable build tasks. **With PyMake, it becomes trivial to set up complex build tasks, doing everything from library and executable compilation to asset building and even deployment.**
+**Pymake** is a tool for automating build tasks. It comes with ready-made templates for several different kinds of projects, allowing you to quickly set up portable build tasks. **With pymake, it becomes trivial to set up complex build tasks, doing everything from library and executable compilation to asset building and even deployment.**
 
 * [Download](https://github.com/philiparvidsson/pymake/releases/)
 * [Manual](docs/manual.md)
@@ -33,7 +33,6 @@ To familiarize yourself with pymake, you can begin by writing a simple make scri
 
 ```python
 #!/usr/bin/env python
-
 from pymake import *
 
 @target

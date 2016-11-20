@@ -1,19 +1,19 @@
-# PyMake Manual
+# Pymake Manual
 
 ## Configuring your project
 
-To use PyMake in your projects, at the very least, you need to download and store a copy of `pymake.py` in your project somewhere. The default location that PyMake is configured for is `build/pymake`, but this can be configured. If you intend to use one of the templates for your project, you need to make a decision:
+To use pymake in your projects, at the very least, you need to download and store a copy of `pymake.py` in your project somewhere. pymake should normally be stored in `build/pymake`, but this can be configured if needed. If you intend to use one of the templates for your project, you need to make a decision:
 
 1. Modify the template script as needed for your project and store it in your project root, for example `make.py`.
 2. Write your own, separate make script and import the template script from it. In this case, you should store the template file together with `pymake.py` for easy access from your own make script.
 
-When you have saved the needed files into your project, you can run PyMake on it by invoking your make script in the project root. If, for example, you saved your script to `make.py`, begin making your project by typing `python make.py` in your project root. Alternatively, you can just type `./make.py` if you're using Linux.
+When you have saved the needed files into your project, you can run pymake on it by invoking your make script in the project root. If, for example, you saved your script to `make.py`, begin making your project by typing `python make.py` in your project root. Alternatively, you can just type `./make.py` if you're using Linux.
 
 ## Writing make scripts
 
-Make scripts for PyMake are written in the Python language. For the sake of clarity, we discuss a few aspects of PyMake individually before presenting a complete make script.
+Make scripts for pymake are written in the Python language. For the sake of clarity, we discuss a few aspects of pymake individually before presenting a complete make script.
 
-Firstly, you should place `pymake.py` in build/pymake/ in your project folder. Then, PyMake can be imported in the following way:
+Firstly, you should place `pymake.py` in build/pymake/ in your project folder. Then, pymake can be imported in the following way:
 
 ```python
 import sys
@@ -29,7 +29,7 @@ def my_target(conf):
     print 'hello from my_target!'
 ```
 
-That's it! That is all that is needed for PyMake to register your target and be able to invoke it. Some targets need to be sure that other targets have been completed first. For example, before linking an executable, we need to compile it. This can be achieved easily by specifying dependencies on your targets:
+That's it! That is all that is needed for pymake to register your target and be able to invoke it. Some targets need to be sure that other targets have been completed first. For example, before linking an executable, we need to compile it. This can be achieved easily by specifying dependencies on your targets:
 
 ```python
 @target
@@ -50,7 +50,7 @@ At the end of your make script, you need to begin the make process by calling th
 pymake({ 'name': 'my_program' })
 ```
 
-As we now have a basic understanding of how PyMake operates, let's look at a more complex make script. Read the comments carefully.
+As we now have a basic understanding of how pymake operates, let's look at a more complex make script. Read the comments carefully.
 
 ```python
 #!/usr/bin/env python
@@ -71,13 +71,13 @@ import csc
 # We can also specify targets by using the @target decorator.
 @target
 def my_first_target(conf):
-    # PyMake passes the configuration in the conf parameter, where each setting
+    # Pymake passes the configuration in the conf parameter, where each setting
     # is an attribute.  For example, we can print the name setting in the
     # following way:
     print 'name is', conf.name
 
-    # Note that the attributes depend on the configuration passed to PyMake.
-    # PyMake does not care about your configuration and will only pass it on to
+    # Note that the attributes depend on the configuration passed to pymake.
+    # pymake does not care about your configuration and will only pass it on to
     # your targets as you provided it.
     pass
 
@@ -120,12 +120,12 @@ pymake(csc.defaultConf(), {
 
     # We have our source files in the current directory in this example.  More
     # source could be added in the source directory, and they would all be
-    # automatically compiled by PyMake.
+    # automatically compiled by pymake.
     'srcdir': '.'
 })
 ```
 
-As you can tell by now, PyMake is almost infinitely flexible and can be used for any kind of project.
+As you can tell by now, pymake is almost infinitely flexible and can be used for any kind of project.
 
 ## Making your projects
 
