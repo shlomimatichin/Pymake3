@@ -2,7 +2,9 @@
 
 ## Table of Contents
 
-[test](#writing-make-scripts)
+* [Configuring your project](#configuring-your-project)
+* [Writing make scripts](#writing-make-scripts)
+* [Making your projects](#making-your-projects)
 
 ## Configuring your project
 
