@@ -2,11 +2,14 @@
 
 ### Table of Contents
 
-1. [Configuring your project](#1-configuring-your-project)
-2. [Writing make scripts](#2-writing-make-scripts)
-3. [Making your projects](#3-making-your-projects)
+1. [Using pymake](#using-pymake)
+  * [Configuring your project](#configuring-your-project)
+  * [Writing make scripts](#writing-make-scripts)
+  * [Making your projects](#making-your-projects)
 
-## 1. Configuring your project
+## 1. Using pymake
+
+### Configuring your project
 
 To use pymake in your projects, at the very least, you need to download and store a copy of `pymake.py` in your project somewhere. pymake should normally be stored in `build/pymake`, but this can be configured if needed. If you intend to use one of the templates for your project, you need to make a decision:
 
@@ -15,7 +18,7 @@ To use pymake in your projects, at the very least, you need to download and stor
 
 When you have saved the needed files into your project, you can run pymake on it by invoking your make script in the project root. If, for example, you saved your script to `make.py`, begin making your project by typing `python make.py` in your project root. Alternatively, you can just type `./make.py` if you're using Linux.
 
-## 2. Writing make scripts
+### Writing make scripts
 
 Make scripts for pymake are written in the Python language. For the sake of clarity, we discuss a few aspects of pymake individually before presenting a complete make script.
 
@@ -133,7 +136,7 @@ pymake(csc.defaultConf(), {
 
 As you can tell by now, pymake is almost infinitely flexible and can be used for any kind of project.
 
-## 3. Making your projects
+### Making your projects
 
 When you have written your make script and saved `pymake.py` in your project folder, you can make your project easily by invoking your make script.
 
