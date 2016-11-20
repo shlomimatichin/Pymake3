@@ -2,13 +2,14 @@
 
 **PyMake** is a tool for automating build tasks. It comes with ready-made templates for several different kinds of projects, allowing you to quickly set up portable build tasks. **With PyMake, it becomes trivial to set up complex build tasks, doing everything from library and executable compilation to asset building and even deployment.**
 
-### -> [Download now!](https://github.com/philiparvidsson/pymake/releases/) <-
+### * [Download](https://github.com/philiparvidsson/pymake/releases/)
+### * [Manual](docs/manual.md)
 
 ## Getting Started
 
 1. Download and install [Python 2.7](https://www.python.org/downloads/).
 2. Start with one of the [example](examples) or [template](src/templates) scripts, picking one relevant to your type of project.
-3. Modify the script as needed for your project. See the guide for instructions on how to do so.
+3. Modify the script as needed for your project. See [the manual](docs/manual.md) for instructions on how to do so.
 3. Build your project by running your make script. You can either type `python your_make_file.py` or `./your_make_file.py` (only on Linux).
 
 ### Prerequisities
