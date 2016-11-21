@@ -11,8 +11,9 @@ sys.path.insert(0, '../src/')
 
 def assert_equal(actual, expected, s):
     if actual <> expected:
+        print
         print "-----"
-        print "test failed"
+        print "TEST FAILED"
         print s
         print "expected:", expected
         print "actual:  ", actual
@@ -22,7 +23,7 @@ def assert_equal(actual, expected, s):
 def assert_false(a, s):
     if a:
         print "-----"
-        print "test failed"
+        print "TEST FAILED"
         print s
         print "value should not be false"
         print "-----"
@@ -31,7 +32,7 @@ def assert_false(a, s):
 def assert_not_equal(a, b, s):
     if a == b:
         print "-----"
-        print "test failed"
+        print "TEST FAILED"
         print s
         print "values should not be equal"
         print "-----"
@@ -40,7 +41,7 @@ def assert_not_equal(a, b, s):
 def assert_true(a, s):
     if not a:
         print "-----"
-        print "test failed"
+        print "TEST FAILED"
         print s
         print "value should not be true"
         print "-----"
@@ -49,7 +50,7 @@ def assert_true(a, s):
 def test_fail(reason=None):
     if reason:
         print "-----"
-        print "test failed"
+        print "TEST FAILED"
         print reason
         print "-----"
     sys.exit(-1)
