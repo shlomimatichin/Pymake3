@@ -28,7 +28,6 @@ def my_target_1(conf):
     global_var_5 += '1'
 
 @target
-@depends_on('my_target_1')
 def my_target_2(conf):
     global global_var_2
     global_var_2 += 1
@@ -37,7 +36,7 @@ def my_target_2(conf):
     global_var_5 += '2'
 
 @target
-@depends_on('my_target_1', 'my_target_2')
+@depends_on('my_target_2', 'my_target_1')
 def my_target_3(conf):
     global global_var_3
     global_var_3 += 1

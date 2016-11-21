@@ -48,14 +48,19 @@ def _check_target(target, dependencies=tuple()):
         error('no such target: {}', target)
         return False
 
+    make_func = _targets[target]
+    if hasattr(make_func, '_pymake_ok'):
+        return True
+
     if target in dependencies:
-        error('circular dependency found while making target: {}', target)
+        error('circular dependency found in target: {}', target)
         return False
 
     for dep in get_dependencies(target):
         if not _check_target(dep, (target,) + dependencies):
             return False
 
+    make_func._pymake_ok = True
     return True
 
 def _def_copy_pred(srcpath, destpath):
@@ -156,7 +161,7 @@ def depends_on(*targets):
     """
 
     def decorator(func):
-        func.dependencies = targets
+        func._pymake_deps = targets
         return func
 
     return decorator
@@ -217,6 +222,9 @@ def make(target, conf, completed=[]):
 
     make_func = _targets[target]
 
+    if not hasattr(make_func, '_pymake_ok') and not _check_target(target):
+        return
+
     for dependency in get_dependencies(target):
         make(dependency, conf, completed)
 
@@ -232,10 +240,10 @@ def get_dependencies(target):
 
     make_func = _targets[target]
 
-    if not hasattr(make_func, 'dependencies'):
+    if not hasattr(make_func, '_pymake_deps'):
         return []
 
-    return make_func.dependencies
+    return make_func._pymake_deps
 
 def pymake(*args):
     """
@@ -247,8 +255,6 @@ def pymake(*args):
     """
 
     target = sys.argv[1] if len(sys.argv) > 1 else 'all'
-    if not _check_target(target):
-        return -1
 
     make(target, conf_obj)
     sys.exit(_exit_code)
