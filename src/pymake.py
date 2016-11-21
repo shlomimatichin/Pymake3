@@ -19,7 +19,7 @@ import sys
 # CONSTANTS
 #---------------------------------------
 
-VERSION = "0.17b"
+VERSION = "0.27b"
 
 #---------------------------------------
 # GLOBALS
@@ -58,6 +58,26 @@ def _check_target(target, dependencies=tuple()):
 
     return True
 
+def _def_copy_pred(srcpath, destpath):
+    """
+    Default file copying predicate. Does not overwrite newer files.
+
+    :param srcpath:  Source path.
+    :param destpath: Destination path.
+
+    :return: True if the source file is newer than the destination file.
+    """
+
+    if not os.path.exists(destpath):
+        return True
+
+    # Only overwrite the file if the source is modified at a later time
+    # than the destination.
+    src_modified_time  = os.path.getmtime(srcpath)
+    dest_modified_time = os.path.getmtime(destpath)
+
+    return src_modified_time >= dest_modified_time
+
 def _dict_to_obj(d):
     """
     Creates an object with properties from a dictionary.
@@ -75,7 +95,7 @@ def _dict_to_obj(d):
 
     return o
 
-def copy(srcpath, destpath, pattern=None):
+def copy(srcpath, destpath, pattern=None, pred=_def_copy_pred):
     """
     Copies all files in the source path to the specified destination path.  The
     source path can be a file, in which case that file will be copied as long as
@@ -86,6 +106,7 @@ def copy(srcpath, destpath, pattern=None):
     :param srcpath:  Source path to copy files from.
     :param destpath: Destination path to copy files to.
     :param pattern:  Pattern to match filenames against.
+    :param pred:     Predicate to decide which files to copy/overwrite.
 
     :return: Number of files copied.
     """
@@ -94,13 +115,8 @@ def copy(srcpath, destpath, pattern=None):
         if pattern and not fnmatch.fnmatch(srcpath, pattern):
             return 0
 
-        if os.path.exists(destpath):
-            # Only overwrite the file if the source is modified at a later time
-            # than the destination.
-            src_modified_time  = os.path.getmtime(srcpath)
-            dest_modified_time = os.path.getmtime(destpath)
-            if src_modified_time <= dest_modified_time:
-                return 0
+        if pred and pred(srcpath, destpath) == False:
+            return 0
 
         path, filename = os.path.split(destpath)
 
@@ -109,7 +125,6 @@ def copy(srcpath, destpath, pattern=None):
             create_dir(path)
 
         shutil.copyfile(srcpath, destpath)
-        #trace('copied {} to {}', srcpath, destpath)
 
         return 1
 
@@ -132,7 +147,6 @@ def create_dir(path):
 
     if not os.path.exists(path):
         os.makedirs(path)
-        #trace('created directory {}', path)
 
 def depends_on(*targets):
     """
@@ -214,6 +228,7 @@ def make(target, conf, completed=[]):
 def get_dependencies(target):
     if target not in _targets:
         error('no such target: {}', target)
+        return []
 
     make_func = _targets[target]
 
@@ -248,7 +263,6 @@ def remove_dir(path):
 
     if os.path.isdir(path):
         shutil.rmtree(path)
-        #trace('removed directory {}', path)
 
 def run_program(s, args=None):
     """
