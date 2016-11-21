@@ -19,13 +19,13 @@ import sys
 # CONSTANTS
 #---------------------------------------
 
-VERSION = "0.1b"
+VERSION = "0.17b"
 
 #---------------------------------------
 # GLOBALS
 #---------------------------------------
 
-# Exit code to exit with when done.
+# Exit code returned by the last call to the run_program() function.
 _exit_code = 0
 
 # Known targets that have been registered with the @target decorator.
@@ -35,7 +35,7 @@ _targets = {}
 # FUNCTIONS
 #---------------------------------------
 
-def check_dependencies(target, dependencies=tuple()):
+def _check_target(target, dependencies=tuple()):
     """
     Checks the specified target recursively, making sure there are no circular
     dependencies.
@@ -46,12 +46,34 @@ def check_dependencies(target, dependencies=tuple()):
 
     if target not in _targets:
         error('no such target: {}', target)
+        return False
 
     if target in dependencies:
         error('circular dependency found while making target: {}', target)
+        return False
 
     for dep in get_dependencies(target):
-        check_dependencies(dep, (target,) + dependencies)
+        if not _check_target(dep, (target,) + dependencies):
+            return False
+
+    return True
+
+def _dict_to_obj(d):
+    """
+    Creates an object with properties from a dictionary.
+
+    :param d: Dictionary to create an object with attributes form.
+
+    :return: Object with attributes matching the dictionary keys and values.
+    """
+
+    # Simple hack to create attributes from the dictionary keys.
+    o = lambda: None
+
+    for key, value in d.iteritems():
+        setattr(o, key, value)
+
+    return o
 
 def copy(srcpath, destpath, pattern=None):
     """
@@ -87,7 +109,7 @@ def copy(srcpath, destpath, pattern=None):
             create_dir(path)
 
         shutil.copyfile(srcpath, destpath)
-        trace('copied {} to {}', srcpath, destpath)
+        #trace('copied {} to {}', srcpath, destpath)
 
         return 1
 
@@ -110,7 +132,7 @@ def create_dir(path):
 
     if not os.path.exists(path):
         os.makedirs(path)
-        trace('created directory {}', path)
+        #trace('created directory {}', path)
 
 def depends_on(*targets):
     """
@@ -127,14 +149,13 @@ def depends_on(*targets):
 
 def error(s, *args):
     """
-    Exits pymake with an error message.
+    Prints an error message.
 
     :param s:    Text to display.
     :param args: Text formatting arguments.
     """
 
     trace('error: ' + s, *args)
-    sys.exit(-1)
 
 def find_files(path, pattern=None):
     """
@@ -149,7 +170,7 @@ def find_files(path, pattern=None):
 
     sources = []
 
-    for s in os.path.listdir(path):
+    for s in os.listdir(path):
         s = os.path.join(path, s)
 
         if os.path.isfile(s):
@@ -170,8 +191,15 @@ def make(target, conf, completed=[]):
                       during recursion.
     """
 
+    if target not in _targets:
+        error('no such target: {}', target)
+        return
+
     if target in completed:
         return
+
+    if isinstance(conf, dict):
+        conf = _dict_to_obj(conf)
 
     make_func = _targets[target]
 
@@ -181,7 +209,7 @@ def make(target, conf, completed=[]):
     make_func(conf)
     completed.append(target)
 
-    trace()
+    #trace()
 
 def get_dependencies(target):
     if target not in _targets:
@@ -197,32 +225,17 @@ def get_dependencies(target):
 def pymake(*args):
     """
     Starts the make process using the specified configuration.  When the make
-    process has completed, exists the script.  The exit code will be the result
+    process has completed, exits the script.  The exit code will be the result
     of the last program executed by the make process.
 
     :param conf: Make configuration.
     """
 
     target = sys.argv[1] if len(sys.argv) > 1 else 'all'
-    check_dependencies(target)
+    if not _check_target(target):
+        return -1
 
-    # Simple hack to create attributes from the configuration keys.
-    final_config = lambda: None
-
-    for conf in args:
-        for key, value in conf.iteritems():
-            new_value = value
-            old_value = getattr(final_config, key, None)
-
-            if old_value:
-                if isinstance(old_value, list):
-                    new_value.extend(old_value)
-                elif isinstance(old_value, tuple):
-                    new_value = new_value + old_value
-
-            setattr(final_config, key, new_value)
-
-    make(target, final_config)
+    make(target, conf_obj)
     sys.exit(_exit_code)
 
 def remove_dir(path):
@@ -235,7 +248,7 @@ def remove_dir(path):
 
     if os.path.isdir(path):
         shutil.rmtree(path)
-        trace('removed directory {}', path)
+        #trace('removed directory {}', path)
 
 def run_program(s, args=None):
     """
@@ -250,10 +263,10 @@ def run_program(s, args=None):
     if not args:
         args = []
 
-    global exit_code
-    exit_code = subprocess.call([s] + args)
+    global _exit_code
+    _exit_code = subprocess.call([s] + args)
 
-    return exit_code
+    return _exit_code
 
 def target(func):
     """
@@ -281,3 +294,13 @@ def trace(s=None, *args):
         return
 
     print s.format(*args)
+
+def warning(s, *args):
+    """
+    Prints a warning  message.
+
+    :param s:    Text to display.
+    :param args: Text formatting arguments.
+    """
+
+    trace('warning: ' + s, *args)
