@@ -57,7 +57,7 @@ def compile(conf):
 
     run_program(CSC, flags + libdirs + libs + out + sources)
 
-def defaultConf():
+def default_conf():
     """
     Gets the default configuration.
 
