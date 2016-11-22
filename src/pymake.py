@@ -25,6 +25,8 @@ VERSION = "0.29b"
 # GLOBALS
 #---------------------------------------
 
+_def_target = None
+
 # Exit code returned by the last call to the run_program() function.
 _exit_code = 0
 
@@ -152,6 +154,25 @@ def create_dir(path):
 
     if not os.path.exists(path):
         os.makedirs(path)
+
+def default_target(func):
+    """
+    Marks a function as the default make target.  The function name will be its
+    name.
+
+    :param func: Function to register as a target.
+
+    :return: The function passed intp the decorator.
+    """
+
+    global _def_target
+
+    if _def_target:
+        warn('default target set multiple times in target {}', func.__name__)
+
+    _def_target = func.__name__
+
+    return target(func)
 
 def delete_dir(path):
     """
@@ -286,7 +307,12 @@ def pymake(*args):
     :param args: Make configuration.
     """
 
-    target = sys.argv[1] if len(sys.argv) > 1 else 'all'
+    global _def_target
+
+    if not _def_target:
+        _def_target = 'all'
+
+    target = sys.argv[1] if len(sys.argv) > 1 else _def_target
 
     d = {}
     for conf in args:
@@ -318,7 +344,7 @@ def run_program(s, args=None):
 
 def target(func):
     """
-    Marks a function as a make target. The function name will be its name.
+    Marks a function as a make target.  The function name will be its name.
 
     :param func: Function to register as a target.
 

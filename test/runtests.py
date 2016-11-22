@@ -29,11 +29,11 @@ def run_all_tests():
 
         test_name = filename[:-3]
 
-        print test_name,
+        print "running test:", test_name
         r = subprocess.call(['python', filename])
 
         if r == 0:
-            print (17 - len(test_name)) * " ", ".. ok"
+            #print (17 - len(test_name)) * " ", ".. ok"
             passing.append(test_name)
         else:
             failing.append(test_name)

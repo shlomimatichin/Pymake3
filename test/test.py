@@ -6,6 +6,12 @@ import sys
 sys.path.insert(0, '../src/')
 
 #---------------------------------------
+# GLOBALS
+#---------------------------------------
+
+_should_fail = False
+
+#---------------------------------------
 # FUNCTIONS
 #---------------------------------------
 
@@ -53,7 +59,13 @@ def test_fail(reason=None):
         print "TEST FAILED"
         print reason
         print "-----"
-    sys.exit(-1)
+
+    sys.exit(0 if _should_fail else -1)
+
 
 def test_pass():
-    sys.exit(0)
+    sys.exit(-1 if _should_fail else 0)
+
+def test_should_fail():
+    global _should_fail
+    _should_fail = True

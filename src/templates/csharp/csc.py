@@ -14,7 +14,17 @@ from pymake import *
 # CONSTANTS
 #---------------------------------------
 
+# Path to the csc compiler to use.
 CSC = r'C:\Program Files (x86)\MSBuild\14.0\Bin\csc.exe'
+
+# Path to the .NET framework.
+DOTNET = r'C:\Windows\Microsoft.NET\Framework64\v4.0.30319'
+
+# The default csc compiler specified is the one included with Visual Studio 15.
+# If it doesn't exist, fall back to the one included with the .NET framework
+# version 4.5.
+if not os.path.isfile(CSC):
+    CSC = os.path.join(DOTNET, 'csc.exe')
 
 #---------------------------------------
 # FUNCTIONS
@@ -59,6 +69,12 @@ def compile(conf):
     out     = ['/out:' + os.path.join(conf.bindir, conf.name)]
     sources = ['/recurse:' + os.path.join(conf.srcdir, '*.cs')]
 
+    if getattr(conf, 'debug', False):
+        flags += ['/debug', '/define:DEBUG']
+
+    if getattr(conf, 'optimize', False):
+        flags += ['/o']
+
     run_program(CSC, flags + libdirs + libs + out + sources)
 
 def default_conf():
@@ -67,18 +83,14 @@ def default_conf():
 
     :return: Default configuration settings.
     """
+
     return {
-        'name': 'Program.exe',
-
-        'flags': ['/nologo'],
-
-        'libs': [],
-
-        'libdirs': [r'C:\Windows\Microsoft.NET\Framework64\v4.0.30319',
-                    r'C:\Windows\Microsoft.NET\Framework64\v4.0.30319\WPF'],
-
-        'bindir': 'bin',
-        'srcdir': 'src'
+        'bindir'        : 'bin',
+        'flags'         : ['/nologo'],
+        'libs'          : [],
+        'libdirs'       : [DOTNET, os.path.join(DOTNET, 'WPF')],
+        'name'          : 'Program.exe',
+        'srcdir'        : 'src'
     }
 
 @target
