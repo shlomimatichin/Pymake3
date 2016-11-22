@@ -153,6 +153,37 @@ def create_dir(path):
     if not os.path.exists(path):
         os.makedirs(path)
 
+def delete_dir(path):
+    """
+    Deletes the specified directory if it exists.  All files inside the
+    directory will be deleted.
+
+    :param path: Path of the directory to delete.
+
+    :return: True if the path was a directory and was deleted.
+    """
+
+    if os.path.isdir(path):
+        shutil.rmtree(path)
+        return True
+
+    return False
+
+def delete_file(path):
+    """
+    Deletes the specified file if it exists.
+
+    :param path: Path of the file to delete.
+
+    :return: True if the path was a file and was deleted.
+    """
+
+    if os.path.isfile(path):
+        os.remove(path)
+        return True
+
+    return False
+
 def depends_on(*targets):
     """
     Registers dependencies for a make target.
@@ -200,7 +231,7 @@ def find_files(path, pattern=None):
 
     return sources
 
-def make(target, conf, completed=[]):
+def make(target, conf, completed=None):
     """
     Attempts to make the specified target, making all its dependencies first.
 
@@ -213,6 +244,9 @@ def make(target, conf, completed=[]):
     if target not in _targets:
         error('no such target: {}', target)
         return
+
+    if not completed:
+        completed = []
 
     if target in completed:
         return
@@ -230,8 +264,6 @@ def make(target, conf, completed=[]):
 
     make_func(conf)
     completed.append(target)
-
-    #trace()
 
 def get_dependencies(target):
     if target not in _targets:
@@ -251,24 +283,20 @@ def pymake(*args):
     process has completed, exits the script.  The exit code will be the result
     of the last program executed by the make process.
 
-    :param conf: Make configuration.
+    :param args: Make configuration.
     """
 
     target = sys.argv[1] if len(sys.argv) > 1 else 'all'
 
+    d = {}
+    for conf in args:
+        for key, value in conf.iteritems():
+            d[key] = value
+
+    conf_obj = _dict_to_obj(d)
     make(target, conf_obj)
+
     sys.exit(_exit_code)
-
-def remove_dir(path):
-    """
-    Removes the specified directory if it exists.  All files inside the
-    directory will be removed.
-
-    :param path: Path of the directory to remove.
-    """
-
-    if os.path.isdir(path):
-        shutil.rmtree(path)
 
 def run_program(s, args=None):
     """
@@ -315,9 +343,9 @@ def trace(s=None, *args):
 
     print s.format(*args)
 
-def warning(s, *args):
+def warn(s, *args):
     """
-    Prints a warning  message.
+    Prints a warning message.
 
     :param s:    Text to display.
     :param args: Text formatting arguments.

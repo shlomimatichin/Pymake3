@@ -12,6 +12,7 @@ from pymake import *
 @target
 def my_target(conf):
     assert_true(conf.value == '123abc', "conf.value should be '123abc'")
+
     test_pass()
 
 #---------------------------------------

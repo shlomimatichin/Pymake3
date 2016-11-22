@@ -25,7 +25,7 @@ def assert_false(a, s):
         print "-----"
         print "TEST FAILED"
         print s
-        print "value should not be false"
+        print "value should be false"
         print "-----"
         test_fail()
 
@@ -43,7 +43,7 @@ def assert_true(a, s):
         print "-----"
         print "TEST FAILED"
         print s
-        print "value should not be true"
+        print "value should be true"
         print "-----"
         test_fail()
 

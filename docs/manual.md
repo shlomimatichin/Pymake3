@@ -12,7 +12,8 @@
   * [Copying files/directories](#copying-filesdirectories)
   * [Creating directories](#creating-directories)
   * [Defining a target](#defining-a-target)
-  * [Removing directories](#removing-directories)
+  * [Deleting directories](#deleting-directories)
+  * [Deleting files](#deleting-files)
   * [Running programs](#running-programs)
   * [Specifying dependencies](#specifying-dependencies)
 
@@ -191,6 +192,27 @@ def my_target(conf):
 
 A target function always takes in a `conf` argument containing the pymake configuration. The target's name is the name of the function.
 
+### Deleting directories
+
+Delete directories with the `delete_dir()` function:
+
+```python
+@target
+def clean(conf):
+    delete_dir(conf.bindir)
+    delete_dir(conf.objdir)
+```
+
+### Deleting files
+
+Files can be deleted with the `delete_file()` function:
+
+```python
+@target
+def clean(conf):
+    delete_file('my_file.xyz')
+```
+
 ### Finding files
 
 Files can be found with the `find_files()` function, when you, for example, need to find all source files to compile:
@@ -200,17 +222,6 @@ Files can be found with the `find_files()` function, when you, for example, need
 def compile(conf):
     sources = find_files(conf.srcdir, '*.c')
     # ...
-```
-
-### Removing directories
-
-Remove directories with the `remove_dir()` function:
-
-```python
-@target
-def clean(conf):
-    remove_dir(conf.bindir)
-    remove_dir(conf.objdir)
 ```
 
 ### Running programs

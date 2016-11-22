@@ -2,7 +2,7 @@
 # IMPORTS
 #---------------------------------------
 
-import os
+from os import path
 
 from test   import *
 from pymake import *
@@ -11,15 +11,19 @@ from pymake import *
 # CONSTANTS
 #---------------------------------------
 
-DESTDIR = 'files2'
-SRCDIR  = 'files'
+FILENAME = 'tempfile.xyz'
 
 #---------------------------------------
 # SCRIPT
 #---------------------------------------
 
-assert_true(os.path.exists(SRCDIR), "test files missing")
-assert_false(os.path.exists(DESTDIR), "temp dir should not exist yet")
-assert_equal(copy(SRCDIR , DESTDIR, '*.txt'), 3, "wrong number of files copied")
+try:
+    with open(FILENAME, 'w') as f:
+        f.write('foo')
+except:
+    test_fail("could not write to file")
+
+assert_true(delete_file(FILENAME), "could not delete file")
+assert_false(path.exists(FILENAME) and path.isfile(FILENAME), "temp file found")
 
 test_pass()

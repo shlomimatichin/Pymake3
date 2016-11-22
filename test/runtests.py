@@ -33,7 +33,7 @@ def run_all_tests():
         r = subprocess.call(['python', filename])
 
         if r == 0:
-            print (19 - len(test_name)) * " ", ".. ok"
+            print (17 - len(test_name)) * " ", ".. ok"
             passing.append(test_name)
         else:
             failing.append(test_name)
@@ -45,12 +45,17 @@ def run_all_tests():
     t = "{:.2}".format(b - a)
 
     print
-    print 'ran', num_tests, 'tests in', t, 'seconds'
+    print "ran", num_tests, "tests in", t, "seconds"
     print
-    print "passing ({}):".format(len(passing)), ", ".join(passing)
+    print "results:"
+    print
+    print "passing ({}):".format(len(passing))
+    print " ".join(passing)
+
     if len(failing) > 0:
         print
-        print "failing ({}):".format(len(failing)), ", ".join(failing)
+        print "failing ({}):".format(len(failing))
+        print " ".join(failing)
 
 
 

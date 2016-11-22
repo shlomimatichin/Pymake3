@@ -2,6 +2,8 @@
 # IMPORTS
 #---------------------------------------
 
+import os
+
 from pymake import *
 
 #---------------------------------------
@@ -20,6 +22,8 @@ def all(conf):
     """
     The 'all' target does not do anything on its own.  Instead, it depends on
     other targets that are needed to complete make process.
+
+    :param conf: Make configuration.
     """
 
     pass
@@ -27,10 +31,31 @@ def all(conf):
 @target
 def clean(conf):
     """
-    Cleans the build by removing the bin directory and all its contents.
+    Cleans the build by deleting the bin directory and all its contents.
+
+    :param conf: Make configuration.
     """
 
-    remove_dir(conf.bindir)
+    delete_dir(conf.bindir)
+
+@target
+def compile(conf):
+    """
+    This target compiles the executable program from its sources in the src
+    directory.
+
+    :param conf: Make configuration.
+    """
+
+    create_dir(conf.bindir)
+
+    flags   = conf.flags
+    libdirs = ['/lib:' + ','.join(conf.libdirs)]
+    libs    = ['/r:' + lib for lib in conf.libs]
+    out     = ['/out:' + os.path.join(conf.bindir, conf.name)]
+    sources = ['/recurse:' + os.path.join(conf.srcdir, '*.cs')]
+
+    run_program(CSC, flags + libdirs + libs + out + sources)
 
 def defaultConf():
     """
@@ -53,27 +78,12 @@ def defaultConf():
     }
 
 @target
-def compile(conf):
-    """
-    This target compiles the executable program from its sources in the src
-    directory.
-    """
-
-    create_dir(conf.bindir)
-
-    flags   = conf.flags
-    libdirs = ['/lib:' + ','.join(conf.libdirs)]
-    libs    = ['/r:' + lib for lib in conf.libs]
-    out     = ['/out:' + os.path.join(conf.bindir, conf.name)]
-    sources = ['/recurse:' + os.path.join(conf.srcdir, '*.cs')]
-
-    run_program(CSC, flags + libdirs + libs + out + sources)
-
-@target
 def run(conf):
     """
     Runs the target executable.  This target has no dependencies, so the program
     needs to be built first.
+
+    :param conf: Make configuration.
     """
 
     os.chdir(conf.bindir)
@@ -84,6 +94,6 @@ def run(conf):
 #---------------------------------------
 
 if __name__ == '__main__':
-    # If this file is executed directly, run pymake with the default
+    # If this script is executed directly, run pymake with the default
     # configuration.
     pymake(defaultConf())

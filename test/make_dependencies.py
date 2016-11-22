@@ -61,6 +61,7 @@ def my_target_5(conf):
     assert_equal(global_var_3, 1, "target 3 invoked incorrent number of times")
     assert_equal(global_var_4, 1, "target 4 invoked incorrent number of times")
     assert_equal(global_var_5, '1234', "targets invoked in incorrect order")
+
     test_pass()
 
 #---------------------------------------

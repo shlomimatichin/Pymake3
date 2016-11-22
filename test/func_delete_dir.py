@@ -2,7 +2,7 @@
 # IMPORTS
 #---------------------------------------
 
-import os
+from os import path
 
 from test   import *
 from pymake import *
@@ -11,15 +11,14 @@ from pymake import *
 # CONSTANTS
 #---------------------------------------
 
-DESTDIR = 'files2'
-SRCDIR  = 'files'
+# Directory is created by the func_create_dir test.
+DIRNAME = 'tempdir'
 
 #---------------------------------------
 # SCRIPT
 #---------------------------------------
 
-assert_true(os.path.exists(SRCDIR), "test files missing")
-assert_false(os.path.exists(DESTDIR), "temp dir should not exist yet")
-assert_equal(copy(SRCDIR , DESTDIR, '*.txt'), 3, "wrong number of files copied")
+assert_true(delete_dir(DIRNAME), "could not delete dir")
+assert_false(path.exists(DIRNAME) and path.isdir(DIRNAME), "temp dir found")
 
 test_pass()
