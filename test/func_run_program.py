@@ -2,8 +2,6 @@
 # IMPORTS
 #---------------------------------------
 
-import sys
-
 from os import path
 
 from test   import *

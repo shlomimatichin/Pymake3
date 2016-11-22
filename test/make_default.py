@@ -21,4 +21,4 @@ def my_target(conf):
 # SCRIPT
 #---------------------------------------
 
-pymake()
+make()

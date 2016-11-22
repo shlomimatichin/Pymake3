@@ -11,7 +11,7 @@ import csc
 
 # The configuration below depends on the backend used for the make process.  In
 # this case, we're using csc, which uses the options set below, among others.
-pymake(csc.defaultConf(), {
+pymake(csc.default_conf(), {
     'name': 'HelloWorld.exe',
 
     'flags': ['/target:exe',

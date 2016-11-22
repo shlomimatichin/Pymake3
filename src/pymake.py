@@ -226,7 +226,7 @@ def error(s, *args):
     :param args: Text formatting arguments.
     """
 
-    trace('error: ' + s, *args)
+    println('error: ' + s, *args)
 
 def find_files(path, pattern=None):
     """
@@ -252,15 +252,23 @@ def find_files(path, pattern=None):
 
     return sources
 
-def make(target, conf, completed=None):
+def make(target=None, conf=None, completed=None):
     """
     Attempts to make the specified target, making all its dependencies first.
 
     :param target:    Name of the target to make.
     :param conf:      Configuration settings.
     :param completed: Used to keep track of previously completed targets
-                      during recursion.
+                      during recursion. Do not specify.
     """
+
+    if target == None:
+        global _def_target
+
+        if not _def_target:
+            _def_target = 'all'
+
+        target = _def_target
 
     if target not in _targets:
         error('no such target: {}', target)
@@ -298,6 +306,21 @@ def get_dependencies(target):
 
     return make_func._pymake_deps
 
+
+def println(s=None, *args):
+    """
+    Displays the specified text, formatted with the specified arguments.
+
+    :param s:    Text to display.
+    :param args: Text formatting arguments.
+    """
+
+    if not s:
+        print
+        return
+
+    print s.format(*args)
+
 def pymake(*args):
     """
     Starts the make process using the specified configuration.  When the make
@@ -306,11 +329,6 @@ def pymake(*args):
 
     :param args: Make configuration.
     """
-
-    global _def_target
-
-    if not _def_target:
-        _def_target = 'all'
 
     target = sys.argv[1] if len(sys.argv) > 1 else _def_target
 
@@ -355,20 +373,6 @@ def target(func):
 
     return func
 
-def trace(s=None, *args):
-    """
-    Displays the specified text, formatted with the specified arguments.
-
-    :param s:    Text to display.
-    :param args: Text formatting arguments.
-    """
-
-    if not s:
-        print
-        return
-
-    print s.format(*args)
-
 def warn(s, *args):
     """
     Prints a warning message.
@@ -377,4 +381,4 @@ def warn(s, *args):
     :param args: Text formatting arguments.
     """
 
-    trace('warning: ' + s, *args)
+    println('warning: ' + s, *args)
