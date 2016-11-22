@@ -100,4 +100,4 @@ def run(conf):
 if __name__ == '__main__':
     # If this script is executed directly, run pymake with the default
     # configuration.
-    pymake(defaultConf())
+    pymake(default_conf())
