@@ -1,5 +1,5 @@
 """
-Template makke script for Microsoft's C# compiler csc.
+Template make script for pdflatex.
 """
 
 #---------------------------------------
@@ -7,14 +7,9 @@ Template makke script for Microsoft's C# compiler csc.
 #---------------------------------------
 
 import os
+import time
 
 from pymake import *
-
-#---------------------------------------
-# CONSTANTS
-#---------------------------------------
-
-CSC = r'C:\Program Files (x86)\MSBuild\14.0\Bin\csc.exe'
 
 #---------------------------------------
 # FUNCTIONS
@@ -53,13 +48,12 @@ def compile(conf):
 
     create_dir(conf.bindir)
 
-    flags   = conf.flags
-    libdirs = ['/lib:' + ','.join(conf.libdirs)]
-    libs    = ['/r:' + lib for lib in conf.libs]
-    out     = ['/out:' + os.path.join(conf.bindir, conf.name)]
-    sources = ['/recurse:' + os.path.join(conf.srcdir, '*.cs')]
+    flags      = conf.flags
+    job_name   = '-job-name=' + conf.name
+    output_dir = '-output-directory=' + conf.bindir
+    srcfile    = conf.srcfile
 
-    run_program(CSC, flags + libdirs + libs + out + sources)
+    run_program('pdflatex', flags + [job_name] + [output_dir] + [srcfile])
 
 def default_conf():
     """
@@ -68,30 +62,33 @@ def default_conf():
     :return: Default configuration settings.
     """
     return {
-        'name': 'Program.exe',
-
-        'flags': ['/nologo'],
-
-        'libs': [],
-
-        'libdirs': [r'C:\Windows\Microsoft.NET\Framework64\v4.0.30319',
-                    r'C:\Windows\Microsoft.NET\Framework64\v4.0.30319\WPF'],
-
-        'bindir': 'bin',
-        'srcdir': 'src'
+        'bindir' : 'bin',
+        'flags'  : ['-c-style-errors', '-quiet']
     }
 
 @target
-def run(conf):
+def watch(conf):
     """
-    Runs the target executable.  This target has no dependencies, so the program
-    needs to be built first.
+    This target automatically compiles the source when changes are detected.
 
     :param conf: Make configuration.
     """
 
-    os.chdir(conf.bindir)
-    run_program(conf.name)
+    last_mtime = None
+    srcfile    = conf.srcfile
+
+    while True:
+        if not os.path.isfile(srcfile):
+            warn('source file deleted - exiting')
+            break
+
+        mtime = os.path.getmtime(srcfile)
+        if mtime <> last_mtime:
+            make('compile', conf)
+            last_mtime = mtime
+
+        time.sleep(0.5)
+
 
 #---------------------------------------
 # SCRIPT
