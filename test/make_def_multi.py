@@ -2,23 +2,26 @@
 # IMPORTS
 #---------------------------------------
 
-from test   import *
+import test
+
 from pymake import *
 
 #---------------------------------------
 # FUNCTIONS
 #---------------------------------------
 
-@target
-def all(conf):
-    test_fail()
+@default_target
+def my_target_1(conf):
+    test.fail("only the last default target should be called")
 
 @default_target
-def my_target(conf):
-    test_pass()
+def my_target_2(conf):
+    test.success()
 
 #---------------------------------------
 # SCRIPT
 #---------------------------------------
 
-make()
+pymake({}, ['--no-warn'])
+
+test.fail("'my_target_2' was not made")

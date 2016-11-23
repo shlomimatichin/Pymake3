@@ -4,7 +4,6 @@
 
 import os
 import subprocess
-import sys
 import time
 
 #---------------------------------------
@@ -12,13 +11,13 @@ import time
 #---------------------------------------
 
 def run_all_tests():
-    print 'running tests!'
+    print 'running tests...'
     print
 
     failing = []
     passing = []
 
-    a = time.time()
+    start_time = time.time()
 
     for filename in os.listdir('.'):
         if not filename.endswith('.py'):
@@ -32,17 +31,14 @@ def run_all_tests():
         print "running test:", test_name
         r = subprocess.call(['python', filename])
 
-        if r == 0:
-            #print (17 - len(test_name)) * " ", ".. ok"
-            passing.append(test_name)
-        else:
-            failing.append(test_name)
+        if r:  failing.append(test_name)
+        else:  passing.append(test_name)
 
-    b = time.time()
+    end_time = time.time()
 
     num_tests = len(passing) + len(failing)
 
-    t = "{:.2}".format(b - a)
+    t = "{:.2}".format(end_time - start_time)
 
     print
     print "ran", num_tests, "tests in", t, "seconds"
@@ -56,8 +52,6 @@ def run_all_tests():
         print
         print "failing ({}):".format(len(failing))
         print " ".join(failing)
-
-
 
 #---------------------------------------
 # SCRIPT

@@ -2,7 +2,8 @@
 # IMPORTS
 #---------------------------------------
 
-from test   import *
+import test
+
 from pymake import *
 
 #---------------------------------------
@@ -10,9 +11,13 @@ from pymake import *
 #---------------------------------------
 
 @default_target
-def my_target_1(conf):
-    pass
+def my_target(conf):
+    test.success()
 
-@default_target
-def my_target_2(conf):
-    pass
+#---------------------------------------
+# SCRIPT
+#---------------------------------------
+
+pymake({}, [])
+
+test.fail("'my_target' was not made")

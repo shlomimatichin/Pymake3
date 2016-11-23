@@ -4,20 +4,22 @@
 
 from os import path
 
-from test   import *
+import test
+
 from pymake import *
 
 #---------------------------------------
 # CONSTANTS
 #---------------------------------------
 
-DIRNAME = 'tempdir'
+PATH = 'tempdir'
 
 #---------------------------------------
 # SCRIPT
 #---------------------------------------
 
-create_dir(DIRNAME)
-assert_true(path.exists(DIRNAME) and path.isdir(DIRNAME), "temp dir not found")
+create_dir(PATH)
 
-test_pass()
+test.true(path.exists(PATH) and path.isdir(PATH), "temp dir not found")
+
+test.success()

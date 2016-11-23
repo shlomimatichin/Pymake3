@@ -4,22 +4,25 @@
 
 import os
 
-from test   import *
+import test
+
 from pymake import *
 
 #---------------------------------------
 # CONSTANTS
 #---------------------------------------
 
-DESTDIR = 'files2'
 SRCDIR  = 'files'
+DESTDIR = 'files2'
 
 #---------------------------------------
 # SCRIPT
 #---------------------------------------
 
-assert_true(os.path.exists(SRCDIR), "test files missing")
-assert_false(os.path.exists(DESTDIR), "temp dir should not exist yet")
-assert_equal(copy(SRCDIR , DESTDIR, '*.txt'), 3, "wrong number of files copied")
+test.true(os.path.exists(SRCDIR), "test files missing")
+test.false(os.path.exists(DESTDIR), "temp dir should not exist yet")
 
-test_pass()
+# The directory will be removed by the fs_find_files test.
+test.equal(copy(SRCDIR, DESTDIR, '*.txt'), 3, "wrong number of files copied")
+
+test.success()

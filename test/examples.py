@@ -5,13 +5,9 @@
 import os
 import subprocess
 
-from test    import *
+import test
+
 from pymake import *
-
-#---------------------------------------
-# FUNCTIONS
-#---------------------------------------
-
 
 #---------------------------------------
 # SCRIPT
@@ -25,4 +21,6 @@ for s in find_files(os.path.join('..', 'examples'), '*make.py'):
     r = subprocess.call(['python', filename])
 
     if r != 0:
-        test_fail('example is broken: ' + s)
+        test.fail('example is broken: ' + s)
+
+test.success()

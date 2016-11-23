@@ -2,70 +2,62 @@
 # IMPORTS
 #---------------------------------------
 
+import os
 import sys
-sys.path.insert(0, '../src/')
+
+#---------------------------------------
+# CONSTANTS
+#---------------------------------------
+
+# Exit code when a test has failed.
+EXIT_FAIL = -1
+
+# Exit code when a test has passed.
+EXIT_SUCCESS = 0
 
 #---------------------------------------
 # GLOBALS
 #---------------------------------------
 
-_should_fail = False
+name = os.path.split(sys.argv[0])[1][:-3]
 
 #---------------------------------------
 # FUNCTIONS
 #---------------------------------------
 
-def assert_equal(actual, expected, s):
-    if actual <> expected:
-        print
-        print "-----"
-        print "TEST FAILED"
-        print s
-        print "expected:", expected
-        print "actual:  ", actual
-        print "-----"
-        test_fail()
+def equal(value, expected_value, s):
+    if value == expected_value:
+        return
 
-def assert_false(a, s):
-    if a:
-        print "-----"
-        print "TEST FAILED"
-        print s
-        print "value should be false"
-        print "-----"
-        test_fail()
+    s += '\n{}: expected {} but got {}'.format(name, expected_value, value)
 
-def assert_not_equal(a, b, s):
-    if a == b:
-        print "-----"
-        print "TEST FAILED"
-        print s
-        print "values should not be equal"
-        print "-----"
-        test_fail()
+    fail(s)
 
-def assert_true(a, s):
-    if not a:
-        print "-----"
-        print "TEST FAILED"
-        print s
-        print "value should be true"
-        print "-----"
-        test_fail()
+def false(value, s):
+    if value == False:
+        return
 
-def test_fail(reason=None):
+    fail(s)
+
+def true(value, s):
+    if value == True:
+        return
+
+    fail(s)
+
+def fail(reason, *args):
     if reason:
-        print "-----"
-        print "TEST FAILED"
-        print reason
-        print "-----"
+        print '{}: test failed: '.format(name) + reason.format(*args)
+    else:
+        print '{}: test failed'.format(name)
 
-    sys.exit(0 if _should_fail else -1)
+    sys.exit(EXIT_FAIL)
 
+def success():
+    sys.exit(EXIT_SUCCESS)
 
-def test_pass():
-    sys.exit(-1 if _should_fail else 0)
+#---------------------------------------
+# SCRIPT
+#---------------------------------------
 
-def test_should_fail():
-    global _should_fail
-    _should_fail = True
+sys.path.insert(0, os.path.join('..', 'src'))

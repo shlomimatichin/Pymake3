@@ -29,7 +29,7 @@ def libs(conf):
 
 # The configuration below depends on the backend used for the make process.  In
 # this case, we're using csc, which uses the options set below.
-pymake(csc.defaultConf(), {
+pymake(csc.default_conf(), {
     'name': 'Pong.exe',
 
     'flags': ['/target:winexe',

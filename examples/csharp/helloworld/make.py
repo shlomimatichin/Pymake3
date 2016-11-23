@@ -3,15 +3,19 @@
 # We need to insert the path to pymake.py so we can import it first.
 
 import os, sys
+
+# Remove these weird paths - they are only here so the examples can be run
+# directly in the source tree.
 sys.path.insert(0, os.path.join('..', '..', '..', 'src'))
-sys.path.insert(0, os.path.join('..', '..', '..', 'src', 'templates', 'csharp'))
+sys.path.insert(0, os.path.join('..', '..', '..', 'templates', 'csharp'))
+
 from pymake import *
 
 import csc
 
 # The configuration below depends on the backend used for the make process.  In
 # this case, we're using csc, which uses the options set below, among others.
-pymake(csc.default_conf(), {
+pymake({
     'name': 'HelloWorld.exe',
 
     'flags': ['/target:exe',

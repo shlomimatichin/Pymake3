@@ -4,7 +4,8 @@
 
 from os import path
 
-from test   import *
+import test
+
 from pymake import *
 
 #---------------------------------------
@@ -12,13 +13,13 @@ from pymake import *
 #---------------------------------------
 
 # Directory is created by the func_create_dir test.
-DIRNAME = 'tempdir'
+PATH = 'tempdir'
 
 #---------------------------------------
 # SCRIPT
 #---------------------------------------
 
-assert_true(delete_dir(DIRNAME), "could not delete dir")
-assert_false(path.exists(DIRNAME) and path.isdir(DIRNAME), "temp dir found")
+test.true(delete_dir(PATH), "could not delete dir")
+test.false(path.exists(PATH) and path.isdir(PATH), "temp dir found")
 
-test_pass()
+test.success()
