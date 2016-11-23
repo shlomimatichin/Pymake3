@@ -26,6 +26,7 @@ try:
 except:
     test.fail("could not write to file")
 
+test.true(path.exists(FILENAME) and path.isfile(FILENAME), "temp should exist")
 test.true(delete_file(FILENAME), "could not delete file")
 test.false(path.exists(FILENAME) and path.isfile(FILENAME), "temp file found")
 

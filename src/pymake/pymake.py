@@ -91,6 +91,16 @@ def fatal(s, *args):
     println(s)
     sys.exit(EXIT_FATAL)
 
+def print_problems():
+    # Notify the user of all problems.
+    for s, t in inst.problems:
+        if not options.no_color:
+            if t == 'error': s = color.red   (s)
+            else           : s = color.yellow(s)
+
+        if t != 'warning' or not options.no_warn:
+            println(s)
+
 def print_targets():
     if len(inst.targets) == 0:
         return
@@ -145,6 +155,11 @@ def pymake(conf=None, args=None):
     # Keep arguments beginning with two hyphens.
     opts = [arg for arg in args if arg.startswith('-')]
 
+    # Keep arguments *not* beginning with two hyphens.
+    args = [arg for arg in args if arg not in opts]
+    name = args[1] if len(args) > 1 else None
+    conf = conf    if conf          else {}
+
     # Parse command line options.
     for opt in opts:
         if opt == '--help':
@@ -160,21 +175,13 @@ def pymake(conf=None, args=None):
         if not options.parse(opt):
             warn("unknown option: {}", opt)
 
-    # Keep arguments *not* beginning with two hyphens.
-    args = [arg for arg in args if arg not in opts]
-    name = args[1] if len(args) > 1 else None
-    conf = conf    if conf          else {}
-
     if not name and not inst.def_target:
         fatal("no target specified and there is no default target")
 
-    for s, t in inst.problems:
-        if not options.no_color:
-            if t == 'error': s = color.red   (s)
-            else           : s = color.yellow(s)
+    print_problems()
 
-        if t != 'warning' or not options.no_warn:
-            println(s)
+    # Make sure we only show all problems once.
+    inst.problems = []
 
     inst.make(name, conf)
 

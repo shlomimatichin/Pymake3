@@ -10,7 +10,7 @@ from pymake import *
 
 import csc
 
-@target
+@default_target
 @depends_on('compile', 'content', 'libs')
 def all(conf):
     # The 'all' target doesn't need to do anything - it just depends on other
@@ -29,26 +29,23 @@ def libs(conf):
 
 # The configuration below depends on the backend used for the make process.  In
 # this case, we're using csc, which uses the options set below.
-pymake({
-    'name': 'Pong.exe',
+pymake({ 'name'   : 'Pong.exe',
 
-    'flags': ['/target:winexe',
-              #'/debug',
-              #'/define:DEBUG',
-              '/o',
-              '/platform:x64'],
+         'flags'  : ['/target:winexe',
+                     #'/debug',
+                     #'/define:DEBUG',
+                     '/o',
+                     '/platform:x64'],
+         'libdirs': [r'lib\SharpDX'],
 
-    'libs': ['PresentationCore.dll',
-             'System.IO.dll',
-             'System.Runtime.dll',
-             'WindowsBase.dll',
+         'libs'   : ['PresentationCore.dll',
+                     'System.IO.dll',
+                     'System.Runtime.dll',
+                     'WindowsBase.dll',
 
-             'SharpDX.D3DCompiler.dll',
-             'SharpDX.DXGI.dll',
-             'SharpDX.Direct3D11.dll',
-             'SharpDX.Mathematics.dll',
-             'SharpDX.XAudio2.dll',
-             'SharpDX.dll'],
-
-    'libdirs': [r'lib\SharpDX'],
-})
+                     'SharpDX.D3DCompiler.dll',
+                     'SharpDX.DXGI.dll',
+                     'SharpDX.Direct3D11.dll',
+                     'SharpDX.Mathematics.dll',
+                     'SharpDX.XAudio2.dll',
+                     'SharpDX.dll'] })
