@@ -66,6 +66,10 @@ def run_all_tests():
         print "failing ({}):".format(len(failing))
         print " ".join(failing)
 
+        sys.exit(-1)
+    else:
+        sys.exit(0)
+
 #---------------------------------------
 # SCRIPT
 #---------------------------------------
