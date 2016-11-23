@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/philiparvidsson/pymake.svg?branch=master)](https://travis-ci.org/philiparvidsson/pymake)
+
 # What is pymake? <img align="right" src="assets/images/pymake-logo.png">
 
 **Pymake** is a tool for automating build tasks. It comes with ready-made templates for several different kinds of projects, allowing you to quickly set up portable build tasks. **With pymake, it becomes trivial to set up complex build tasks, doing everything from library and executable compilation to asset building and even deployment.**
