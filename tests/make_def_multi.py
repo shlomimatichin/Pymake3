@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+
 #---------------------------------------
 # IMPORTS
 #---------------------------------------
@@ -22,6 +24,6 @@ def my_target_2(conf):
 # SCRIPT
 #---------------------------------------
 
-pymake({}, ['--no-warn'])
+pymake({}, [ '--no-warn' ])
 
 test.fail("'my_target_2' was not made")

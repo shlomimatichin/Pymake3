@@ -2,10 +2,11 @@
 # CLASSES
 #---------------------------------------
 
-class Settings(object):
+class Options(object):
     def __init__(self):
-        self.disable_colors   = False
-        self.disable_warnings = False
+        self.no_color = False
+        self.no_exit  = False
+        self.no_warn  = False
 
     def parse(self, opt):
         if opt.find('=') > 0:
@@ -14,11 +15,15 @@ class Settings(object):
             value = s[1]
 
         if opt == '--no-color':
-            self.disable_colors = True
+            self.no_color = True
+            return True
+
+        if opt == '--no-exit':
+            self.no_exit = True
             return True
 
         if opt == '--no-warn':
-            self.disable_warnings = True
+            self.no_warn = True
             return True
 
         return False

@@ -33,18 +33,6 @@ def equal(value, expected_value, s):
 
     fail(s)
 
-def false(value, s):
-    if value == False:
-        return
-
-    fail(s)
-
-def true(value, s):
-    if value == True:
-        return
-
-    fail(s)
-
 def fail(reason, *args):
     if reason:
         print '{}: test failed: '.format(name) + reason.format(*args)
@@ -53,8 +41,25 @@ def fail(reason, *args):
 
     sys.exit(EXIT_FAIL)
 
+def false(value, s):
+    if value == False:
+        return
+
+    fail(s)
+
+def should_fail():
+    # This method doesn't do anything. It's looked up by the runtests script,
+    # to see which tests are expected to fail (i.e. a failure means success).
+    pass
+
 def success():
     sys.exit(EXIT_SUCCESS)
+
+def true(value, s):
+    if value == True:
+        return
+
+    fail(s)
 
 #---------------------------------------
 # SCRIPT

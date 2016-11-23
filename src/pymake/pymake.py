@@ -2,11 +2,13 @@
 # IMPORTS
 #---------------------------------------
 
+import os
 import sys
 
-from core          import color
-from core.settings import Settings
+from core.options  import Options
 from core.target   import Target
+
+import color
 
 #---------------------------------------
 # CONSTANTS
@@ -27,10 +29,9 @@ VERSION = '0.42b'
 
 class Pymake(object):
     def __init__(self):
-        self.def_target = None       # Default target.
-        self.problems   = []         # List with errors and warnings.
-        self.settings   = Settings() # Pymake settings.
-        self.targets    = []         # List with known targets.
+        self.def_target = None # Default target.
+        self.problems   = []   # List with errors and warnings.
+        self.targets    = []   # List with known targets.
 
     def get_target(self, name):
         for target in self.targets:
@@ -65,6 +66,13 @@ class Pymake(object):
 # GLOBALS
 #---------------------------------------
 
+# Pymake exit code.
+exit_code = 0
+
+# Pymake options.
+options = Options()
+
+# Pymake instance where most data is stored.
 inst = Pymake()
 
 #---------------------------------------
@@ -75,19 +83,54 @@ def error(s, *args):
     inst.problems.add(("error: " + s.format(*args), 'error'))
 
 def fatal(s, *args):
-    println(color.red('fatal: ' + s), *args)
+    s = 'fatal: ' + s.format(*args)
+
+    if not options.no_color:
+        s = color.red(s)
+
+    println(s)
     sys.exit(EXIT_FATAL)
 
+def print_targets():
+    if len(inst.targets) == 0:
+        return
+
+    println("Targets:")
+
+    max_len = 0
+
+    for target in inst.targets:
+        # Add one since we also add a space or an asterisk to the target name
+        # when printing it.
+        max_len = max(len(target.name)  + 1, max_len)
+
+    s1 = " {: <" + str(max_len) + "}"
+    s2 = s1 + " - {}"
+    for target in inst.targets:
+        default = target is inst.def_target
+        desc    = target.desc
+        name    = " " + target.name if not default else "*" + target.name
+
+        println(s2 if desc else s1, name, desc)
+
 def print_usage():
+    name = os.path.split(sys.argv[0])[1]
+    s    = "[target]" if inst.def_target else "<target>"
+
     println(
 """
-Usage: [options] [target]
+Usage: python {} [options] {}
 
 Options:
-  --no-color - disable color
+  --help     - display information about pymake
+  --no-color - disable text color
+  --no-exit  - do not exit automatically after making
+  --no-warn  - do not display warnings
   --version  - show pymake version
-"""
-    )
+""", name, s)
+
+def print_version():
+    println("pymake v{}", VERSION)
 
 def println(s, *args):
     if s:
@@ -100,15 +143,21 @@ def pymake(conf=None, args=None):
     args = sys.argv if args is None else [sys.argv[0]] + args
 
     # Keep arguments beginning with two hyphens.
-    opts = [arg for arg in args if arg.startswith('--')]
+    opts = [arg for arg in args if arg.startswith('-')]
 
     # Parse command line options.
     for opt in opts:
-        if opt == '--version':
-            println('pymake v{}', VERSION)
+        if opt == '--help':
+            print_version()
+            print_usage()
+            print_targets()
             return
 
-        if not inst.settings.parse(opt):
+        if opt == '--version':
+            print_version()
+            return
+
+        if not options.parse(opt):
             warn("unknown option: {}", opt)
 
     # Keep arguments *not* beginning with two hyphens.
@@ -120,14 +169,17 @@ def pymake(conf=None, args=None):
         fatal("no target specified and there is no default target")
 
     for s, t in inst.problems:
-        if not inst.settings.disable_colors:
+        if not options.no_color:
             if t == 'error': s = color.red   (s)
             else           : s = color.yellow(s)
 
-        if t != 'warning' or not inst.settings.disable_warnings:
+        if t != 'warning' or not options.no_warn:
             println(s)
 
     inst.make(name, conf)
+
+    if not options.no_exit:
+        sys.exit(exit_code)
 
 def warn(s, *args):
     inst.problems.append(("warning: " + s.format(*args), 'warning'))

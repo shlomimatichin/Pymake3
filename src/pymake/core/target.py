@@ -12,6 +12,7 @@ class Target(object):
     def __init__(self, name, func=None):
         self.def_conf   = {}
         self.depends    = []
+        self.desc       = None
         self.func       = func
         self.name       = name
         self.post_funcs = []

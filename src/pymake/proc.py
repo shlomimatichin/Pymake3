@@ -11,6 +11,8 @@ include this functionality here.
 
 import subprocess
 
+import pymake
+
 #---------------------------------------
 # FUNCTIONS
 #---------------------------------------
@@ -28,7 +30,8 @@ def run_program(s, args=None):
     if not args:
         args = []
 
-    global _exit_code
-    _exit_code = subprocess.call([s] + args)
+    r = subprocess.call([s] + args)
 
-    return _exit_code
+    pymake.exit_code = r
+
+    return r

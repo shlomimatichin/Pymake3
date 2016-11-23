@@ -9,17 +9,9 @@ import test
 from pymake import *
 
 #---------------------------------------
-# FUNCTIONS
-#---------------------------------------
-
-@default_target
-def my_target(conf):
-    test.success()
-
-#---------------------------------------
 # SCRIPT
 #---------------------------------------
 
-pymake({}, [])
+test.should_fail()
 
-test.fail("'my_target' was not made")
+pymake({}, [ '--no-color', 'my_target' ])

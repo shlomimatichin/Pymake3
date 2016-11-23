@@ -64,6 +64,7 @@ def target(*args, **kwargs):
         conf    = kwargs.get('conf'   , None )
         default = kwargs.get('default', False)
         depends = kwargs.get('depends', None )
+        desc    = kwargs.get('desc'   , None )
         name    = kwargs.get('name'   , None ) or func.__name__
         target  = pymake.inst.get_target(name)
 
@@ -82,6 +83,9 @@ def target(*args, **kwargs):
             # Add dependencies that are not already in the target's dependency
             # list.
             target.depends.extend(x for x in depends if x not in target.depends)
+
+        if desc:
+            target.desc = desc
 
         return func
 
