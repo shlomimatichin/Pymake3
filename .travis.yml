@@ -1,5 +1,4 @@
 language: python
 python:
   - "2.7"
-script:
-  - cd $TRAVIS_BUILD_DIR
+script: python ./tests/runtests.py
