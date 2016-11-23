@@ -3,4 +3,4 @@ python:
   - "2.7"
 script:
   - cd tests
-  - ./runtests.py
+  - python runtests.py
