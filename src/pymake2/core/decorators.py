@@ -69,6 +69,10 @@ def target(*args, **kwargs):
         name    = kwargs.get('name'   , None ) or func.__name__
         target  = Maker.inst().get_target(name)
 
+        if target.func:
+            report.error("target already bound: {}", name)
+            return
+
         target.func = func
 
         if conf:

@@ -15,25 +15,15 @@ from pymake2 import *
 # CONSTANTS
 #---------------------------------------
 
+# Default configuration.
 CONF={ 'bindir' : 'bin',
-       'flags'   : [ '-file-lin-errors', '-halt-on-error' ],
+       'flags'   : [ '-file-line-error', '-halt-on-error' ],
        'srcdir'  : 'src',
        'srcfile' : 'main.tex' }
 
 #---------------------------------------
 # FUNCTIONS
 #---------------------------------------
-
-@target(conf=CONF, default=True, depends=[ 'compile' ])
-def all(conf):
-    """
-    The 'all' target does not do anything on its own.  Instead, it depends on
-    other targets that are needed to complete make process.
-
-    :param conf: Make configuration.
-    """
-
-    pass
 
 @target(conf=CONF)
 def clean(conf):
@@ -45,7 +35,7 @@ def clean(conf):
 
     delete_dir(conf.bindir)
 
-@target(conf=CONF)
+@default_target(conf=CONF)
 def compile(conf):
     """
     This target compiles the executable program from its sources in the source
@@ -60,16 +50,14 @@ def compile(conf):
     srcdir = os.path.abspath(conf.srcdir)
 
     flags      = conf.flags
-    job_name   = '-jobname ' + conf.name
-    output_dir = '-output-directory ' + os.path.relpath(bindir, srcdir)
+    jobname    = [ '-jobname'         , conf.name                       ]
+    output_dir = [ '-output-directory', os.path.relpath(bindir, srcdir) ]
     srcfile    = conf.srcfile
 
     cwd = os.getcwd()
 
     os.chdir(srcdir)
-
-    run_program('pdflatex', flags + [job_name] + [output_dir] + [srcfile])
-
+    run_program('pdflatex', flags + jobname + output_dir + [srcfile])
     os.chdir(cwd)
 
 @target(conf=CONF)

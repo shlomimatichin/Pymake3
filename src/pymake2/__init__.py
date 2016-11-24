@@ -10,6 +10,8 @@ __version__ = "0.4.2"
 # IMPORTS
 #---------------------------------------
 
+from pymake2 import template
+
 from pymake2.core.decorators import (after_target, before_target, default_conf,
                                      default_target, depends_on, target)
 

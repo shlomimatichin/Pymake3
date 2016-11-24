@@ -1,8 +1,4 @@
 #---------------------------------------
-# IMPORTS
-#---------------------------------------
-
-#---------------------------------------
 # CLASSES
 #---------------------------------------
 
@@ -11,6 +7,3 @@ class NoSuchTargetError(Exception):
         super(NoSuchTargetError, self).__init__("no such target")
 
         self.target_name = target_name
-
-class NoTargetToMakeError(Exception):
-    pass

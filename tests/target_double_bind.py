@@ -13,18 +13,8 @@ from pymake2 import *
 #---------------------------------------
 
 @target
-@depends_on('my_target_3')
-def my_target_1(conf):
-    pass
-
 @target
-@depends_on('my_target_1')
-def my_target_2(conf):
-    pass
-
-@target
-@depends_on('my_target_2')
-def my_target_3(conf):
+def my_target(conf):
     pass
 
 #---------------------------------------
@@ -33,6 +23,6 @@ def my_target_3(conf):
 
 test.should_fail()
 
-pymake2({}, [ '--no-color', 'my_target_3' ])
+pymake2({}, [ '--no-color' ])
 
 test.success()

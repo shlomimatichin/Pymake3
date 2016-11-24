@@ -13,8 +13,6 @@ sys.path.insert(0, 'src')
 
 from pymake2 import *
 
-#import pymake2.templates.latex.pdflatex
-
 #---------------------------------------
 # CONSTANTS
 #---------------------------------------
@@ -28,7 +26,8 @@ CONF={ 'bindir': 'bin',
 # FUNCTIONS
 #---------------------------------------
 
-@target(conf=CONF)
+@target(conf=CONF, desc="cleans pymake2 by deleting the bin and obj "
+                        "directories, as well as removing all .pyc-files")
 def clean(conf):
     delete_dir(conf.bindir)
     delete_dir(conf.objdir)
@@ -36,13 +35,16 @@ def clean(conf):
     for s in find_files(conf.srcdir, '*.pyc'):
         delete_file(s)
 
-@default_target(conf=CONF)
-def build(conf):
+@target(conf=CONF, desc="compiles pymake2 into the obj directory")
+def compile(conf):
     args = find_files(conf.srcdir, '*.py')
     py_compile.main(args)
 
     copy(conf.srcdir, conf.objdir, '*.pyc')
 
+@default_target(conf=CONF, desc="builds the pymake2 zip package")
+@depends_on('compile')
+def build(conf):
     create_dir(conf.bindir)
 
     path = os.path.join(conf.bindir, conf.target)

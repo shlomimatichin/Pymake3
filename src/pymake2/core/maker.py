@@ -29,38 +29,30 @@ class Maker(object):
     # METHODS
     #---------------------------------------
 
-    def check_target(self, name, checked=None, depends=()):
-        if checked is None:
-            checked = []
-
+    def check_target(self, name, depends=()):
         if name in depends:
             report.error("circular dependency found in target: {}", name)
             return
-
-        if name in checked:
-            return
-
-        checked.append(name)
 
         depends += name,
 
         target = self.get_target(name, False)
 
         if not target:
-            report.error("target does not exist: {}", name)
+            report.error("no such target: {}", name)
             return
 
         if not target.func:
             report.warn("unbound target: {}", name)
 
+        target.checked = True
+
         for depend in target.depends:
-            self.check_target(depend, checked, depends)
+            self.check_target(depend, depends)
 
     def check_targets(self):
-        checked = []
-
         for target in self.targets:
-            self.check_target(target.name, checked)
+            self.check_target(target.name)
 
     def get_target(self, name, create=True):
         for target in self.targets:
