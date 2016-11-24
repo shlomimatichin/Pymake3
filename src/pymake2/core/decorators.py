@@ -65,7 +65,7 @@ def target(*args, **kwargs):
         conf    = kwargs.get('conf'   , None )
         default = kwargs.get('default', False)
         depends = kwargs.get('depends', None )
-        desc    = kwargs.get('desc'   , None )
+        desc    = kwargs.get('desc'   , None ) or func.__doc__
         name    = kwargs.get('name'   , None ) or func.__name__
         target  = Maker.inst().get_target(name)
 
@@ -90,6 +90,17 @@ def target(*args, **kwargs):
             target.depends.extend(x for x in depends if x not in target.depends)
 
         if desc:
+            desc = desc.replace('\n', '').replace('\r', '').strip()
+
+            i = len(desc)
+            while True:
+                desc = desc.replace('  ', ' ')
+                j = len(desc)
+                if i == j:
+                    break
+
+                i = j
+
             target.desc = desc
 
         return func

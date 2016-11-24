@@ -16,7 +16,7 @@ from pymake2 import *
 #---------------------------------------
 
 # Default configuration.
-CONF={ 'bindir' : 'bin',
+CONF={ 'bindir'  : 'bin',
        'flags'   : [ '-file-line-error', '-halt-on-error' ],
        'srcdir'  : 'src',
        'srcfile' : 'main.tex' }
@@ -29,8 +29,6 @@ CONF={ 'bindir' : 'bin',
 def clean(conf):
     """
     Cleans the build by deleting the bin directory and all its contents.
-
-    :param conf: Make configuration.
     """
 
     delete_dir(conf.bindir)
@@ -38,10 +36,7 @@ def clean(conf):
 @default_target(conf=CONF)
 def compile(conf):
     """
-    This target compiles the executable program from its sources in the source
-    directory.
-
-    :param conf: Make configuration.
+    Compiles the executable program from its sources in the source directory.
     """
 
     create_dir(conf.bindir)
@@ -63,13 +58,13 @@ def compile(conf):
 @target(conf=CONF)
 def watch(conf):
     """
-    This target automatically invokes the 'compile' target after changes have
-    been detected in the source file.
-
-    :param conf: Make configuration.
+    Watches .bib and .tex files in the source directory for changes, making the
+    'compile' target as soon as a change is detected. Use this target to
+    live-preview your document.
     """
 
-    filenames = find_files(conf.srcdir, '*.tex') + find_files(conf.srcdir, '*.bib')
+    filenames = (find_files(conf.srcdir, '*.tex')
+              +  find_files(conf.srcdir, '*.bib'))
 
     mtimes = {}
 

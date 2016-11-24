@@ -98,6 +98,7 @@ def print_usage():
 Usage: python {} [options] {}
 
 Options:
+  --conf=<s> - set the configuration to use
   --help     - display information about pymake2
   --no-color - disable text color
   --no-exit  - do not exit automatically after making
@@ -126,7 +127,6 @@ def pymake2(conf=None, args=None):
     # Keep arguments *not* beginning with two hyphens.
     args = [arg for arg in args if arg not in opts]
     name = args[1] if len(args) > 1 else None
-    conf = conf    if conf          else {}
 
     do_not_make = False
 
@@ -143,6 +143,8 @@ def pymake2(conf=None, args=None):
             do_not_make = True
         elif not options.parse(opt):
             report.warn("unknown option: {}", opt)
+
+    conf = conf or options.conf or {}
 
     Maker.inst().check_targets()
 

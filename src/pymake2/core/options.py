@@ -1,18 +1,28 @@
 #---------------------------------------
+# IMPORTS
+#---------------------------------------
+
+#---------------------------------------
 # CLASSES
 #---------------------------------------
 
 class Options(object):
     def __init__(self):
+        self.conf     = None
         self.no_color = False
         self.no_exit  = False
         self.no_warn  = False
 
     def parse(self, opt):
+        value = None
+
         if opt.find('=') > 0:
             s     = opt.split('=', 1)
             opt   = s[0]
             value = s[1]
+
+        if opt == '--conf' and value and not self.conf:
+            self.conf = ast.literal_eval(value)
 
         if opt == '--no-color':
             self.no_color = True
