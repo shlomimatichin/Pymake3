@@ -1,4 +1,5 @@
-[![Build Status](https://travis-ci.org/philiparvidsson/pymake.svg?branch=master)](https://travis-ci.org/philiparvidsson/pymake)
+[![Travis](https://img.shields.io/travis/philiparvidsson/pymake.svg?style=flat-square)]() [![license](https://img.shields.io/github/license/philiparvidsson/pymake.svg?style=flat-square)]()
+
 
 # What is pymake? <img align="right" src="assets/images/pymake-logo.png">
 
