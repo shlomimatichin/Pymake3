@@ -9,14 +9,22 @@ Template make script for pdflatex.
 import os
 import time
 
-from pymake import *
+from pymake2 import *
+
+#---------------------------------------
+# CONSTANTS
+#---------------------------------------
+
+CONF={ 'bindir' : 'bin',
+       'flags'   : [ '-file-lin-errors', '-halt-on-error' ],
+       'srcdir'  : 'src',
+       'srcfile' : 'main.tex' }
 
 #---------------------------------------
 # FUNCTIONS
 #---------------------------------------
 
-@target
-@depends_on('compile')
+@target(conf=CONF, default=True, depends=[ 'compile' ])
 def all(conf):
     """
     The 'all' target does not do anything on its own.  Instead, it depends on
@@ -27,7 +35,7 @@ def all(conf):
 
     pass
 
-@target
+@target(conf=CONF)
 def clean(conf):
     """
     Cleans the build by deleting the bin directory and all its contents.
@@ -37,7 +45,7 @@ def clean(conf):
 
     delete_dir(conf.bindir)
 
-@target
+@target(conf=CONF)
 def compile(conf):
     """
     This target compiles the executable program from its sources in the source
@@ -48,25 +56,23 @@ def compile(conf):
 
     create_dir(conf.bindir)
 
+    bindir = os.path.abspath(conf.bindir)
+    srcdir = os.path.abspath(conf.srcdir)
+
     flags      = conf.flags
-    job_name   = '-job-name=' + conf.name
-    output_dir = '-output-directory=' + conf.bindir
+    job_name   = '-jobname ' + conf.name
+    output_dir = '-output-directory ' + os.path.relpath(bindir, srcdir)
     srcfile    = conf.srcfile
+
+    cwd = os.getcwd()
+
+    os.chdir(srcdir)
 
     run_program('pdflatex', flags + [job_name] + [output_dir] + [srcfile])
 
-def default_conf():
-    """
-    Gets the default configuration.
+    os.chdir(cwd)
 
-    :return: Default configuration settings.
-    """
-    return {
-        'bindir' : 'bin',
-        'flags'  : ['-c-style-errors', '-quiet']
-    }
-
-@target
+@target(conf=CONF)
 def watch(conf):
     """
     This target automatically invokes the 'compile' target after changes have
@@ -75,18 +81,28 @@ def watch(conf):
     :param conf: Make configuration.
     """
 
-    last_mtime = None
-    srcfile    = conf.srcfile
+    filenames = find_files(conf.srcdir, '*.tex') + find_files(conf.srcdir, '*.bib')
+
+    mtimes = {}
 
     while True:
-        if not os.path.isfile(srcfile):
-            warn('source file deleted; aborting')
-            break
+        files_changed = False
 
-        mtime = os.path.getmtime(srcfile)
-        if mtime <> last_mtime:
+        for filename in filenames:
+            if not os.path.isfile(filename):
+                continue
+
+            mtime = os.path.getmtime(filename)
+
+            if not filename in mtimes:
+                mtimes[filename] = 0
+
+            if mtime > mtimes[filename]:
+                mtimes[filename] = mtime
+                files_changed = True
+
+        if files_changed:
             make('compile', conf)
-            last_mtime = mtime
 
         time.sleep(0.5)
 
@@ -95,6 +111,4 @@ def watch(conf):
 #---------------------------------------
 
 if __name__ == '__main__':
-    # If this script is executed directly, run pymake with the default
-    # configuration.
-    pymake(default_conf())
+    pymake2()

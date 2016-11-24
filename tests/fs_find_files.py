@@ -8,7 +8,7 @@ from os.path import join
 
 import test
 
-from pymake import *
+from pymake2 import *
 
 #---------------------------------------
 # CONSTANTS

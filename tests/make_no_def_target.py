@@ -6,7 +6,7 @@
 
 import test
 
-from pymake import *
+from pymake2 import *
 
 #---------------------------------------
 # FUNCTIONS
@@ -23,4 +23,6 @@ def my_target(conf):
 
 test.should_fail()
 
-pymake({}, [ '--no-color' ])
+pymake2({}, [ '--no-color' ])
+
+test.success()

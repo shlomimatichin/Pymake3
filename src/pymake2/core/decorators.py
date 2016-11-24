@@ -2,7 +2,8 @@
 # IMPORTS
 #---------------------------------------
 
-import pymake
+from pymake2            import report
+from pymake2.core.maker import Maker
 
 #---------------------------------------
 # FUNCTIONS
@@ -10,7 +11,7 @@ import pymake
 
 def after_target(name):
     def decorator(func):
-        target = pymake.inst.get_target(name)
+        target = Maker.inst().get_target(name)
 
         target.post_funcs.append(func)
 
@@ -20,7 +21,7 @@ def after_target(name):
 
 def before_target(name):
     def decorator(func):
-        target = pymake.inst.get_target(name)
+        target = Maker.inst().get_target(name)
 
         target.pre_funcs.append(func)
 
@@ -31,7 +32,7 @@ def before_target(name):
 def default_conf(conf):
     def decorator(func):
         name   = func.__name__
-        target = pymake.inst.get_target(name)
+        target = Maker.inst().get_target(name)
 
         target.def_conf = conf
 
@@ -48,7 +49,7 @@ def depends_on(*args):
     def decorator(func):
         depends = args
         name    = func.__name__
-        target  = pymake.inst.get_target(name)
+        target  = Maker.inst().get_target(name)
 
         if depends:
             # Add dependencies that are not already in the target's dependency
@@ -66,7 +67,7 @@ def target(*args, **kwargs):
         depends = kwargs.get('depends', None )
         desc    = kwargs.get('desc'   , None )
         name    = kwargs.get('name'   , None ) or func.__name__
-        target  = pymake.inst.get_target(name)
+        target  = Maker.inst().get_target(name)
 
         target.func = func
 
@@ -74,10 +75,10 @@ def target(*args, **kwargs):
             target.def_conf = conf
 
         if default:
-            if pymake.inst.def_target:
-                pymake.warn('default target set more than once')
+            if Maker.inst().def_target:
+                report.warn('default target set more than once')
 
-            pymake.inst.def_target = target
+            Maker.inst().def_target = target
 
         if depends:
             # Add dependencies that are not already in the target's dependency

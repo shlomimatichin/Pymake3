@@ -6,7 +6,7 @@
 
 import test
 
-from pymake import *
+from pymake2 import *
 
 #---------------------------------------
 # FUNCTIONS
@@ -20,6 +20,6 @@ def my_target(conf):
 # SCRIPT
 #---------------------------------------
 
-pymake({}, ['my_target'])
+pymake2({}, ['my_target'])
 
 test.fail("'my_target' was not made")

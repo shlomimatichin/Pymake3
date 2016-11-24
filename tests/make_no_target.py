@@ -6,7 +6,7 @@
 
 import test
 
-from pymake import *
+from pymake2 import *
 
 #---------------------------------------
 # SCRIPT
@@ -14,4 +14,4 @@ from pymake import *
 
 test.should_fail()
 
-pymake({}, [ '--no-color', 'my_target' ])
+pymake2({}, [ '--no-color', 'my_target' ])

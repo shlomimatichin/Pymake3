@@ -5,8 +5,8 @@
 # information.
 
 import os, sys
-sys.path.insert(0, os.path.join('build', 'pymake'))
-from pymake import *
+sys.path.insert(0, os.path.join('build', 'pymake2'))
+from pymake2 import *
 
 import csc
 
@@ -29,7 +29,7 @@ def libs(conf):
 
 # The configuration below depends on the backend used for the make process.  In
 # this case, we're using csc, which uses the options set below.
-pymake({ 'name'   : 'Pong.exe',
+pymake2({ 'name'   : 'Pong.exe',
 
          'flags'  : ['/target:winexe',
                      #'/debug',

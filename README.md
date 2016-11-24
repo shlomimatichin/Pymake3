@@ -1,11 +1,11 @@
-[![Travis](https://img.shields.io/travis/philiparvidsson/pymake.svg)](https://travis-ci.org/philiparvidsson/pymake) [![license](https://img.shields.io/github/license/philiparvidsson/pymake.svg)](https://en.wikipedia.org/wiki/MIT_License)
+[![Travis](https://img.shields.io/travis/philiparvidsson/pymake2.svg)](https://travis-ci.org/philiparvidsson/pymake2) [![license](https://img.shields.io/github/license/philiparvidsson/pymake2.svg)](https://en.wikipedia.org/wiki/MIT_License)
 
 
-# What is pymake? <img align="right" src="assets/images/pymake-logo.png">
+# What is pymake? <img align="right" src="assets/images/pymake2-logo.png">
 
-**Pymake** is a tool for automating build tasks. It comes with ready-made templates for several different kinds of projects, allowing you to quickly set up portable build tasks. **With pymake, it becomes trivial to set up complex build tasks, doing everything from library and executable compilation to asset building and even deployment.**
+**Pymake2** is a tool for automating build tasks. It comes with ready-made templates for several different kinds of projects, allowing you to quickly set up portable build tasks. **With pymake2, it becomes trivial to set up complex build tasks, doing everything from library and executable compilation to asset building and even deployment.**
 
-* [Download](https://github.com/philiparvidsson/pymake/releases/)
+* [Download](https://github.com/philiparvidsson/pymake2/releases/)
 * [Manual](docs/manual.md)
 
 ## Getting Started
@@ -22,21 +22,21 @@
 ### Installation
 
 #### Begin by downloading and installing [Python 2.7](https://www.python.org/downloads/).
-On Linux, depending on your distribution, Python comes pre-installed. This means that you do not need to install anything for pymake to work. If you don't have Python (you can check by typing python in a terminal), you might be able to install it by typing `sudo apt-get install python`.
+On Linux, depending on your distribution, Python comes pre-installed. This means that you do not need to install anything for pymake2 to work. If you don't have Python (you can check by typing python in a terminal), you might be able to install it by typing `sudo apt-get install python`.
 
 On Windows, you need to install Python manually. See [this link](https://wiki.python.org/moin/BeginnersGuide/Download) for more information.
 
-#### Download the latest pymake release.
-The latest pymake scripts are always available [here](https://github.com/philiparvidsson/pymake/releases/). Download and save `pymake.py` along with any make script you need for your project.
+#### Download the latest pymake2 release.
+The latest pymake2 scripts are always available [here](https://github.com/philiparvidsson/pymake2/releases/). Download and save `pymake2.py` along with any make script you need for your project.
 
 ### Usage
 
 #### Begin by creating a simple make script.
-To familiarize yourself with pymake, you can begin by writing a simple make script. You could also use one of the [example programs](examples), or the one below if you just want to try out pymake quickly. In case you use the script below, make sure to put `pymake.py` in the same directory.
+To familiarize yourself with pymake2, you can begin by writing a simple make script. You could also use one of the [example programs](examples), or the one below if you just want to try out pymake2 quickly. In case you use the script below, make sure to put `pymake2.py` in the same directory.
 
 ```python
 #!/usr/bin/env python
-from pymake import *
+from pymake2 import *
 
 @target
 @depends_on('build', 'compile')
@@ -51,13 +51,13 @@ def build(conf):
 def compile(conf):
     print 'compiling...'
 
-pymake({ 'name': 'some_program.bin' })
+pymake2({ 'name': 'some_program.bin' })
 ```
 
-Since pymake scripts are written in Python, there is really no limit to what can be done. This allows you to easily create very complex and secure build and deployment scripts for your projects.
+Since pymake2 scripts are written in Python, there is really no limit to what can be done. This allows you to easily create very complex and secure build and deployment scripts for your projects.
 
 #### Build your project.
-Save your script in a file named `make.py` in your project directory. Make sure you have installed pymake into the `build/pymake` directory (this is the standard directory, but can always be changed if needed). Invoke your make script by running it with the following command: `python make.py`
+Save your script in a file named `make.py` in your project directory. Make sure you have installed pymake2 into the `build/pymake2` directory (this is the standard directory, but can always be changed if needed). Invoke your make script by running it with the following command: `python make.py`
 
 Make sure you are in your project directory, where your `make.py` file is.
 
@@ -69,7 +69,7 @@ n/a
 
 ### Deploying make scripts
 
-Along with your `make.py` file, you need to store the `pymake.py` file in your project. You also need to store any template files that your make script depends on (for example, `csc.py`) in your project.
+Along with your `make.py` file, you need to store the `pymake2.py` file in your project. You also need to store any template files that your make script depends on (for example, `csc.py`) in your project.
 
 ## Built With
 
@@ -82,13 +82,13 @@ Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code of conduc
 
 ## Versioning
 
-We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/philiparvidsson/pymake/tags).
+We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/philiparvidsson/pymake2/tags).
 
 ## Authors
 
 * **Philip Arvidsson** - *Initial work* - [philiparvidsson](https://github.com/philiparvidsson)
 
-See also the list of [contributors](https://github.com/philiparvidsson/pymake/contributors) who participated in this project.
+See also the list of [contributors](https://github.com/philiparvidsson/pymake2/contributors) who participated in this project.
 
 ## License
 

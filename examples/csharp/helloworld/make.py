@@ -4,14 +4,14 @@
 # IMPORTS
 #---------------------------------------
 
-# We need to insert the path to pymake so we can import it first.
+# We need to insert the path to pymake2 so we can import it first.
 import os, sys
 
 # This weird path can be removed if using this make script. It's only needed to
 # be able to run the script directly in the source tree.
 sys.path.insert(0, os.path.join('..', '..', '..', 'src'))
 
-from pymake import *
+from pymake2 import *
 
 #---------------------------------------
 # FUNCTIONS
@@ -40,7 +40,7 @@ def compile(conf):
 
 # The configuration below depends on the backend used for the make process.  In
 # this case, we're using csc, which uses the options set below, among others.
-pymake({ 'name': 'HelloWorld.exe',
+pymake2({ 'name': 'HelloWorld.exe',
 
          # Flags to pass to the compiler.
          'flags': ['/nologo',
@@ -62,5 +62,5 @@ pymake({ 'name': 'HelloWorld.exe',
 
          # We have our source files in the current directory in this example.
          # More source could be added in the source directory, and they would
-         # all beautomatically compiled by pymake.
+         # all beautomatically compiled by pymake2.
          'srcdir': '.' })

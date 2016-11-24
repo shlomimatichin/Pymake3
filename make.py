@@ -11,7 +11,9 @@ import zipfile
 
 sys.path.insert(0, 'src')
 
-from pymake import *
+from pymake2 import *
+
+#import pymake2.templates.latex.pdflatex
 
 #---------------------------------------
 # CONSTANTS
@@ -20,7 +22,7 @@ from pymake import *
 CONF={ 'bindir': 'bin',
        'objdir': 'obj',
        'srcdir': 'src',
-       'target': 'pymake' }
+       'target': 'pymake2' }
 
 #---------------------------------------
 # FUNCTIONS
@@ -56,4 +58,4 @@ def build(conf):
 # SCRIPT
 #---------------------------------------
 
-pymake()
+pymake2()

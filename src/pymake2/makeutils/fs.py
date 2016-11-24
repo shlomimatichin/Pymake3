@@ -1,10 +1,10 @@
 """
-Provides functionality for access the file system through pymake - finding
+Provides functionality for access the file system through pymake2 - finding
 files, creating, deleting and copying files and directories etc.
 
-Although all these operations can be performed without pymake, this module aims
+Although all these operations can be performed without pymake2, this module aims
 to provide a simple interface for performing them. The goal is to provide a
-natural syntax, allowing less experienced users to make use of pymake in their
+natural syntax, allowing less experienced users to make use of pymake2 in their
 projects.
 """
 

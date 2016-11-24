@@ -4,27 +4,35 @@
 # IMPORTS
 #---------------------------------------
 
-import os
-
 import test
 
 from pymake2 import *
 
 #---------------------------------------
-# CONSTANTS
+# FUNCTIONS
 #---------------------------------------
 
-SRCDIR  = 'files'
-DESTDIR = 'files2'
+@target
+@depends_on('my_target_3')
+def my_target_1(conf):
+    pass
+
+@target
+@depends_on('my_target_1')
+def my_target_2(conf):
+    pass
+
+@target
+@depends_on('my_target_2')
+def my_target_3(conf):
+    pass
 
 #---------------------------------------
 # SCRIPT
 #---------------------------------------
 
-test.true(os.path.exists(SRCDIR), "test files missing")
-test.false(os.path.exists(DESTDIR), "temp dir should not exist yet")
+test.should_fail()
 
-# The directory will be removed by the fs_find_files test.
-test.equal(copy(SRCDIR, DESTDIR, '*.txt'), 3, "wrong number of files copied")
+pymake2({}, [ 'my_target_3' ])
 
 test.success()

@@ -1,4 +1,4 @@
-# Pymake Manual
+# Pymake2 Manual
 
 ### Table of Contents
 
@@ -21,23 +21,23 @@
 
 ### Configuring your project
 
-To use pymake in your projects, at the very least, you need to download and store a copy of `pymake.py` in your project somewhere. pymake should normally be stored in `build/pymake`, but this can be configured if needed. If you intend to use one of the templates for your project, you need to make a decision:
+To use pymake2 in your projects, at the very least, you need to download and store a copy of `pymake2.py` in your project somewhere. pymake2 should normally be stored in `build/pymake2`, but this can be configured if needed. If you intend to use one of the templates for your project, you need to make a decision:
 
 1. Modify the template script as needed for your project and store it in your project root, for example `make.py`.
-2. Write your own, separate make script and import the template script from it. In this case, you should store the template file together with `pymake.py` for easy access from your own make script.
+2. Write your own, separate make script and import the template script from it. In this case, you should store the template file together with `pymake2.py` for easy access from your own make script.
 
-When you have saved the needed files into your project, you can run pymake on it by invoking your make script in the project root. If, for example, you saved your script to `make.py`, begin making your project by typing `python make.py` in your project root. Alternatively, you can just type `./make.py` if you're using Linux.
+When you have saved the needed files into your project, you can run pymake2 on it by invoking your make script in the project root. If, for example, you saved your script to `make.py`, begin making your project by typing `python make.py` in your project root. Alternatively, you can just type `./make.py` if you're using Linux.
 
 ### Writing make scripts
 
-Make scripts for pymake are written in the Python language. For the sake of clarity, we discuss a few aspects of pymake individually before presenting a complete make script.
+Make scripts for pymake2 are written in the Python language. For the sake of clarity, we discuss a few aspects of pymake2 individually before presenting a complete make script.
 
-Firstly, you should place `pymake.py` in build/pymake/ in your project folder. Then, pymake can be imported in the following way:
+Firstly, you should place `pymake2.py` in build/pymake2/ in your project folder. Then, pymake2 can be imported in the following way:
 
 ```python
 import sys
-sys.path.insert(0, 'build/pymake')
-from pymake import *
+sys.path.insert(0, 'build/pymake2')
+from pymake2 import *
 ```
 
 After this, we can start building the make script by defining our targets. Defining a target is trivial:
@@ -48,7 +48,7 @@ def my_target(conf):
     print 'hello from my_target!'
 ```
 
-That's it! That is all that is needed for pymake to register your target and be able to invoke it. Some targets need to be sure that other targets have been completed first. For example, before linking an executable, we need to compile it. This can be achieved easily by specifying dependencies on your targets:
+That's it! That is all that is needed for pymake2 to register your target and be able to invoke it. Some targets need to be sure that other targets have been completed first. For example, before linking an executable, we need to compile it. This can be achieved easily by specifying dependencies on your targets:
 
 ```python
 @target
@@ -63,26 +63,26 @@ def link(conf):
 
 By specifying dependencies, you ensure that they will always be completed before your target is invoked. In the case above, the compile target will always be invoked before the link target.
 
-At the end of your make script, you need to begin the make process by calling the `pymake()` function. Normally, you want to pass a configuration object to the function and use it in your targets. In this example, we pass in a name since we used it in the target examples above:
+At the end of your make script, you need to begin the make process by calling the `pymake2()` function. Normally, you want to pass a configuration object to the function and use it in your targets. In this example, we pass in a name since we used it in the target examples above:
 
 ```python
-pymake({ 'name': 'my_program' })
+pymake2({ 'name': 'my_program' })
 ```
 
-As we now have a basic understanding of how pymake operates, let's look at a more complex make script. Read the comments carefully.
+As we now have a basic understanding of how pymake2 operates, let's look at a more complex make script. Read the comments carefully.
 
 ```python
 #!/usr/bin/env python
 
 import os, sys
 
-# We need to insert the path to pymake.py below to be able to import it.  In
-# this script, pymake.py is expected to be located in build/pymake/.
-sys.path.insert(0, os.path.join('build', 'pymake'))
-from pymake import *
+# We need to insert the path to pymake2.py below to be able to import it.  In
+# this script, pymake2.py is expected to be located in build/pymake2/.
+sys.path.insert(0, os.path.join('build', 'pymake2'))
+from pymake2 import *
 
 # Here, we import the C# template for csc.exe.  Python is going to look for it
-# in the same directory as pymake.py, so csc.py needs to be there as well.
+# in the same directory as pymake2.py, so csc.py needs to be there as well.
 # Without this line, we would have no template base. That's ok, but then we
 # would have to write all our targets in this file.
 import csc
@@ -90,13 +90,13 @@ import csc
 # We can also specify targets by using the @target decorator.
 @target
 def my_first_target(conf):
-    # Pymake passes the configuration in the conf parameter, where each setting
+    # Pymake2 passes the configuration in the conf parameter, where each setting
     # is an attribute.  For example, we can print the name setting in the
     # following way:
     print 'name is', conf.name
 
-    # Note that the attributes depend on the configuration passed to pymake.
-    # pymake does not care about your configuration and will only pass it on to
+    # Note that the attributes depend on the configuration passed to pymake2.
+    # pymake2 does not care about your configuration and will only pass it on to
     # your targets as you provided it.
     pass
 
@@ -120,7 +120,7 @@ def compile(conf):
 
 # The configuration below depends on the backend used for the make process.  In
 # this case, we're using csc, which uses the settings below, among others.
-pymake(csc.default_conf(), {
+pymake2(csc.default_conf(), {
     'name': 'HelloWorld.exe',
 
     'flags': ['/target:exe',
@@ -139,16 +139,16 @@ pymake(csc.default_conf(), {
 
     # We have our source files in the current directory in this example.  More
     # source could be added in the source directory, and they would all be
-    # automatically compiled by pymake.
+    # automatically compiled by pymake2.
     'srcdir': '.'
 })
 ```
 
-As you can tell by now, pymake is almost infinitely flexible and can be used for any kind of project.
+As you can tell by now, pymake2 is almost infinitely flexible and can be used for any kind of project.
 
 ### Making your projects
 
-When you have written your make script and saved `pymake.py` in your project folder, you can make your project easily by invoking your make script.
+When you have written your make script and saved `pymake2.py` in your project folder, you can make your project easily by invoking your make script.
 
 If, for example, you saved your script to `make.py` in your project root, you can run it by typing `python make.py` to make the `all` target. If you want to specify what target to make, you can type `python make.py my_target_name`. Dependencies will automatically be resolved, so even if you attempt to invoke the `link` target from the examples above, the `compile` target will be invoked before it.
 
@@ -182,7 +182,7 @@ The directory will be created if it does not already exist.
 
 ### Defining a target
 
-A pymake target is defined by applying the `@target` decorator to a function:
+A pymake2 target is defined by applying the `@target` decorator to a function:
 
 ```python
 @target
@@ -190,7 +190,7 @@ def my_target(conf):
     # ...
 ```
 
-A target function always takes in a `conf` argument containing the pymake configuration. The target's name is the name of the function.
+A target function always takes in a `conf` argument containing the pymake2 configuration. The target's name is the name of the function.
 
 ### Deleting directories
 
@@ -236,7 +236,7 @@ def compile(conf):
 
 ### Specifying dependencies
 
-Pymake targets can depend on other targets. Dependencies are specified with the `@depends_on` decorator:
+Pymake2 targets can depend on other targets. Dependencies are specified with the `@depends_on` decorator:
 
 ```python
 @target

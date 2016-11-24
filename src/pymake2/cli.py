@@ -5,10 +5,12 @@
 import os
 import sys
 
-from core.options  import Options
-from core.target   import Target
-
-import color
+from pymake2                 import report
+from pymake2.core.exceptions import NoSuchTargetError, NoTargetToMakeError
+from pymake2.core.maker      import Maker
+from pymake2.core.options    import Options
+from pymake2.core.target     import Target
+from pymake2.utils           import color
 
 #---------------------------------------
 # CONSTANTS
@@ -21,45 +23,6 @@ EXIT_FATAL = -1
 EXIT_SUCCESS = 0
 
 #---------------------------------------
-# CLASSES
-#---------------------------------------
-
-class Pymake(object):
-    def __init__(self):
-        self.def_target = None # Default target.
-        self.problems   = []   # List with errors and warnings.
-        self.targets    = []   # List with known targets.
-
-    def get_target(self, name):
-        for target in self.targets:
-            if target.name == name:
-                return target
-
-        target = Target(name)
-
-        self.targets.append(target)
-
-        return target
-
-    def make(self, name, conf, completed=None):
-        if completed is None:
-            completed = []
-
-        if name in completed:
-            return
-
-        target = self.get_target(name) if name else self.def_target
-
-        if not target.func:
-            fatal("no such target: '{}'", name)
-
-        for depend in target.depends:
-            self.make(depend, conf, completed)
-
-        target.make(conf)
-        completed.append(name)
-
-#---------------------------------------
 # GLOBALS
 #---------------------------------------
 
@@ -69,18 +32,12 @@ exit_code = 0
 # Pymake options.
 options = Options()
 
-# Pymake instance where most data is stored.
-inst = Pymake()
-
 #---------------------------------------
 # FUNCTIONS
 #---------------------------------------
 
-def error(s, *args):
-    inst.problems.add(("error: " + s.format(*args), 'error'))
-
 def fatal(s, *args):
-    s = 'fatal: ' + s.format(*args)
+    s = "fatal: " + s.format(*args)
 
     if not options.no_color:
         s = color.red(s)
@@ -88,33 +45,23 @@ def fatal(s, *args):
     println(s)
     sys.exit(EXIT_FATAL)
 
-def print_problems():
-    # Notify the user of all problems.
-    for s, t in inst.problems:
-        if not options.no_color:
-            if t == 'error': s = color.red   (s)
-            else           : s = color.yellow(s)
-
-        if t != 'warning' or not options.no_warn:
-            println(s)
-
 def print_targets():
-    if len(inst.targets) == 0:
+    if len(Maker.inst().targets) == 0:
         return
 
     println("Targets:")
 
     max_len = 0
 
-    for target in inst.targets:
+    for target in Maker.inst().targets:
         # Add one since we also add a space or an asterisk to the target name
         # when printing it.
         max_len = max(len(target.name)  + 1, max_len)
 
     s1 = " {: <" + str(max_len) + "}"
     s2 = s1 + " - {}"
-    for target in inst.targets:
-        default = target is inst.def_target
+    for target in Maker.inst().targets:
+        default = target is Maker.inst().def_target
         desc    = target.desc
         name    = " " + target.name if not default else "*" + target.name
 
@@ -122,23 +69,23 @@ def print_targets():
 
 def print_usage():
     name = os.path.split(sys.argv[0])[1]
-    s    = "[target]" if inst.def_target else "<target>"
+    s    = "[target]" if Maker.inst().def_target else "<target>"
 
     println(
 """
 Usage: python {} [options] {}
 
 Options:
-  --help     - display information about pymake
+  --help     - display information about pymake2
   --no-color - disable text color
   --no-exit  - do not exit automatically after making
   --no-warn  - do not display warnings
-  --version  - show pymake version
+  --version  - show pymake2 version
 """, name, s)
 
 def print_version():
     from . import __version__
-    println("pymake v{}", __version__)
+    println("pymake2 v{}", __version__)
 
 def println(s, *args):
     if s:
@@ -147,7 +94,17 @@ def println(s, *args):
     else:
         print
 
-def pymake(conf=None, args=None):
+def pymake2(conf=None, args=None):
+    try:
+        pymake2_(conf, args)
+
+    except NoSuchTargetError as e:
+        fatal("no such target: {}", e.target_name)
+
+    except NoTargetToMakeError:
+        fatal("no target set and there is no default target")
+
+def pymake2_(conf=None, args=None):
     args = sys.argv if args is None else [sys.argv[0]] + args
 
     # Keep arguments beginning with two hyphens.
@@ -173,18 +130,34 @@ def pymake(conf=None, args=None):
         if not options.parse(opt):
             warn("unknown option: {}", opt)
 
-    if not name and not inst.def_target:
-        fatal("no target specified and there is no default target")
+    Maker.inst().check_targets()
 
-    print_problems()
+    report_problems()
 
-    # Make sure we only show all problems once.
-    inst.problems = []
+    if not name and not Maker.inst().def_target:
+        raise NoTargetToMakeError()
 
-    inst.make(name, conf)
+    Maker.inst().make(name, conf)
 
     if not options.no_exit:
         sys.exit(exit_code)
 
-def warn(s, *args):
-    inst.problems.append(("warning: " + s.format(*args), 'warning'))
+def report_problems():
+    any_errors = False
+
+    # Report all problems
+    for problem in report.problems():
+        if problem.is_error:
+            any_errors = True
+
+        s = problem.text
+
+        if not options.no_color:
+            if problem.is_error: s = color.red   (s)
+            else               : s = color.yellow(s)
+
+        if problem.is_error or not options.no_warn:
+            println(s)
+
+    if any_errors:
+        fatal("there were errors - aborting")

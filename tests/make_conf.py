@@ -6,7 +6,7 @@
 
 import test
 
-from pymake import *
+from pymake2 import *
 
 #---------------------------------------
 # FUNCTIONS
@@ -27,6 +27,6 @@ def my_target_2(conf):
 # SCRIPT
 #---------------------------------------
 
-pymake({ 'value': '123abc' }, [ 'my_target_2' ])
+pymake2({ 'value': '123abc' }, [ 'my_target_2' ])
 
 test.success()

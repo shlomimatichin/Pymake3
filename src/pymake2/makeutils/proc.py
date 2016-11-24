@@ -1,7 +1,7 @@
 """
 Provides functionality for starting process on the host operating system.
 
-Easily done without pymake, but we want pymake to be dead simple to use, so we
+Easily done without pymake2, but we want pymake2 to be dead simple to use, so we
 include this functionality here.
 """
 
@@ -11,7 +11,7 @@ include this functionality here.
 
 import subprocess
 
-import pymake
+from pymake2 import cli
 
 #---------------------------------------
 # FUNCTIONS
@@ -32,6 +32,6 @@ def run_program(s, args=None):
 
     r = subprocess.call([s] + args)
 
-    pymake.exit_code = r
+    cli.exit_code = r
 
     return r

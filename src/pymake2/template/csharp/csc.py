@@ -8,7 +8,7 @@ Template make script for Microsoft's C# compiler csc.
 
 import os
 
-from pymake import *
+from .. import *
 
 #---------------------------------------
 # CONSTANTS
@@ -101,6 +101,6 @@ def run(conf):
 #---------------------------------------
 
 if __name__ == '__main__':
-    # If this script is executed directly, run pymake with the default
+    # If this script is executed directly, run pymake2 with the default
     # configuration.
-    pymake()
+    pymake2()

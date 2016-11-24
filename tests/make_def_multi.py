@@ -6,7 +6,7 @@
 
 import test
 
-from pymake import *
+from pymake2 import *
 
 #---------------------------------------
 # FUNCTIONS
@@ -24,6 +24,6 @@ def my_target_2(conf):
 # SCRIPT
 #---------------------------------------
 
-pymake({}, [ '--no-warn' ])
+pymake2({}, [ '--no-warn' ])
 
 test.fail("'my_target_2' was not made")

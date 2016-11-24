@@ -6,7 +6,7 @@
 
 import test
 
-from pymake import *
+from pymake2 import *
 
 #---------------------------------------
 # GLOBALS
@@ -27,9 +27,9 @@ def my_target(conf):
 # SCRIPT
 #---------------------------------------
 
-pymake({}, [ 'my_target' ])
-pymake({}, [ 'my_target' ])
-pymake({}, [ 'my_target' ])
+pymake2({}, [ 'my_target' ])
+pymake2({}, [ 'my_target' ])
+pymake2({}, [ 'my_target' ])
 
 test.equal(var, 3, "my_target was not made three times")
 test.success()

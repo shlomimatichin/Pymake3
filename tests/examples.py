@@ -9,7 +9,7 @@ import subprocess
 
 import test
 
-from pymake import *
+from pymake2 import *
 
 #---------------------------------------
 # SCRIPT

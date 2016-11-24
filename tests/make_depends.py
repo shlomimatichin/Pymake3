@@ -6,7 +6,7 @@
 
 import test
 
-from pymake import *
+from pymake2 import *
 
 #---------------------------------------
 # FUNCTIONS
@@ -69,6 +69,6 @@ def my_target_5(conf):
 # SCRIPT
 #---------------------------------------
 
-pymake({}, [ 'my_target_5' ])
+pymake2({}, [ 'my_target_5' ])
 
 test.success()
