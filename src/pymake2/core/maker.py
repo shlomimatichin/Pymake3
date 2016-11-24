@@ -99,6 +99,6 @@ class Maker(object):
 
 def make(target, conf):
     if not isinstance(conf, dict):
-        conf = vars(conf)
+        conf = conf.__dict__
 
     Maker.inst().make(target, conf)
