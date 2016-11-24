@@ -54,7 +54,7 @@ def print_targets():
     if len(targets) == 0:
         return
 
-    println("Targets:")
+    println("\nTargets:")
 
     n = 0
 
@@ -89,6 +89,8 @@ def print_targets():
         else:
             print
 
+    println()
+
 def print_usage():
     name = os.path.split(sys.argv[0])[1]
     s    = "[target]" if Maker.inst().def_target else "<target>"
@@ -111,7 +113,7 @@ def print_version():
     from . import __version__
     println("pymake2 v{}", __version__)
 
-def println(s, *args):
+def println(s=None, *args):
     if s:
         s = s.format(*args)
         print s
@@ -154,7 +156,7 @@ def pymake2(conf=None, args=None):
         return
 
     if not name and not Maker.inst().def_target:
-        println("\nNo target specified and there is no default target.\n")
+        println("\nNo target specified and there is no default target.")
         print_targets()
 
         if not options.no_exit:
@@ -165,7 +167,7 @@ def pymake2(conf=None, args=None):
     try:
         Maker.inst().make(name, conf)
     except NoSuchTargetError as e:
-        fatal("no such target: {}", e.target_name)
+        fatal("no such target: '{}'", e.target_name)
 
     if not options.no_exit:
         sys.exit(exit_code)
@@ -188,4 +190,4 @@ def report_problems():
             println(s)
 
     if any_errors:
-        fatal("there were errors - aborting")
+        fatal("there were errors; aborting.")

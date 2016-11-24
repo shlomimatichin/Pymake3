@@ -23,6 +23,6 @@ def my_target(conf):
 
 test.should_fail()
 
-pymake2({}, [ '--no-color' ])
+pymake2({}, [])
 
 test.success()

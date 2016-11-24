@@ -14,7 +14,9 @@ import time
 #---------------------------------------
 
 def run_all_tests():
-    print 'running tests...'
+    print "running tests..."
+    print
+    print "NOTE: some tests are supposed to cause errors!"
     print
 
     failing = []

@@ -80,7 +80,7 @@ def target(*args, **kwargs):
 
         if default:
             if Maker.inst().def_target:
-                report.warn('default target set more than once')
+                report.warn("default target set more than once.")
 
             Maker.inst().def_target = target
 

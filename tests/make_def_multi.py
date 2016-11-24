@@ -24,6 +24,6 @@ def my_target_2(conf):
 # SCRIPT
 #---------------------------------------
 
-pymake2({}, [ '--no-warn' ])
+pymake2({}, [])
 
 test.fail("'my_target_2' was not made")

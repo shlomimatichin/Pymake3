@@ -31,7 +31,7 @@ class Maker(object):
 
     def check_target(self, name, depends=()):
         if name in depends:
-            report.error("circular dependency found in target: {}", name)
+            report.error("target has circular dependency: '{}'", name)
             return
 
         depends += name,
@@ -39,11 +39,11 @@ class Maker(object):
         target = self.get_target(name, False)
 
         if not target:
-            report.error("no such target: {}", name)
+            report.error("no such target: '{}'", name)
             return
 
         if not target.func:
-            report.warn("unbound target: {}", name)
+            report.warn("unbound target: '{}'", name)
 
         target.checked = True
 
@@ -77,7 +77,7 @@ class Maker(object):
 
         target = self.get_target(name, False) if name else self.def_target
 
-        if not target:
+        if not target or not target.func:
             raise NoSuchTargetError(name)
 
         for depend in target.depends:

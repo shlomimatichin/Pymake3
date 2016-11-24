@@ -14,4 +14,6 @@ from pymake2 import *
 
 test.should_fail()
 
-pymake2({}, [ '--no-color', 'my_target' ])
+pymake2({}, [ 'my_target' ])
+
+test.success()
