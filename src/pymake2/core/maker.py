@@ -92,3 +92,10 @@ class Maker(object):
             Maker._inst = Maker()
 
         return Maker._inst
+
+#---------------------------------------
+# FUNCTIONS
+#---------------------------------------
+
+def make(target, conf):
+    Maker.inst().make(target, conf)
