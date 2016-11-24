@@ -1,7 +1,7 @@
 [![Travis](https://img.shields.io/travis/philiparvidsson/pymake2.svg)](https://travis-ci.org/philiparvidsson/pymake2) [![license](https://img.shields.io/github/license/philiparvidsson/pymake2.svg)](https://en.wikipedia.org/wiki/MIT_License)
 
 
-# What is pymake? <img align="right" src="assets/images/pymake2-logo.png">
+# What is pymake2? <img align="right" src="assets/images/pymake2-logo.png">
 
 **Pymake2** is a tool for automating build tasks. It comes with ready-made templates for several different kinds of projects, allowing you to quickly set up portable build tasks. **With pymake2, it becomes trivial to set up complex build tasks, doing everything from library and executable compilation to asset building and even deployment.**
 
