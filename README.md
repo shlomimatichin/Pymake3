@@ -63,7 +63,7 @@ Make sure you are in your project directory, where your `make.py` file is.
 
 ## Running the Tests
 
-n/a
+Run the tests by executing `python runtests.py` in the `src`directory. All tests in the `tests` directory will be built and run automatically, ending with a report of passing and failing tests, as well as how much time it took to run them.
 
 ## Deployment
 
