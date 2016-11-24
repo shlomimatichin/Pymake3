@@ -98,4 +98,7 @@ class Maker(object):
 #---------------------------------------
 
 def make(target, conf):
+    if not isinstance(conf, dict):
+        conf = vars(conf)
+
     Maker.inst().make(target, conf)
