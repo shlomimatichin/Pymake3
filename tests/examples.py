@@ -17,7 +17,7 @@ from pymake import *
 
 # Some examples require Windows and such, so don't run them on Travis CI.
 if 'TRAVIS' in os.environ:
-    pritln('skipping - not compatible with Travis CI')
+    println('skipping - not compatible with Travis CI')
     test.success()
 
 cwd = os.getcwd()
