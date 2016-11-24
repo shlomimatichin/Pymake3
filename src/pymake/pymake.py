@@ -20,9 +20,6 @@ EXIT_FATAL = -1
 # Exit code all went well.
 EXIT_SUCCESS = 0
 
-# Pymake version.
-VERSION = '0.42b'
-
 #---------------------------------------
 # CLASSES
 #---------------------------------------
@@ -140,7 +137,8 @@ Options:
 """, name, s)
 
 def print_version():
-    println("pymake v{}", VERSION)
+    from . import __version__
+    println("pymake v{}", __version__)
 
 def println(s, *args):
     if s:

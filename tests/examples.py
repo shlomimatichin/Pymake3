@@ -15,7 +15,7 @@ from pymake import *
 # SCRIPT
 #---------------------------------------
 
-# Some examples require Windows etc. so don't run them on Travis CI.
+# Some examples require Windows and such, so don't run them on Travis CI.
 if 'TRAVIS' in os.environ:
     test.success()
 
@@ -27,6 +27,6 @@ for s in find_files(os.path.join('..', 'examples'), '*make.py'):
     r = subprocess.call(['python', filename])
 
     if r != 0:
-        test.fail('example is broken: ' + s)
+        test.fail("example is broken: " + s)
 
 test.success()

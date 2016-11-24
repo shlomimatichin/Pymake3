@@ -18,6 +18,7 @@ class Target(object):
         self.post_funcs = []
         self.pre_funcs  = []
 
+
     def make(self, conf):
         conf = util.conf_merge(self.def_conf, conf)
         conf = util.conf_obj(conf)
