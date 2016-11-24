@@ -1,4 +1,4 @@
-[![Travis](https://img.shields.io/travis/philiparvidsson/pymake.svg)](https://travis-ci.org/philiparvidsson/pymake) [![license](https://img.shields.io/github/license/philiparvidsson/pymake.svg)]()
+[![Travis](https://img.shields.io/travis/philiparvidsson/pymake.svg)](https://travis-ci.org/philiparvidsson/pymake) [![license](https://img.shields.io/github/license/philiparvidsson/pymake.svg)](https://en.wikipedia.org/wiki/MIT_License)
 
 
 # What is pymake? <img align="right" src="assets/images/pymake-logo.png">
