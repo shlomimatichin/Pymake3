@@ -1,4 +1,4 @@
-[![Travis](https://img.shields.io/travis/philiparvidsson/pymake.svg)]() [![license](https://img.shields.io/github/license/philiparvidsson/pymake.svg)]()
+[![Travis](https://img.shields.io/travis/philiparvidsson/pymake.svg)]() [![LICENSE.md](https://img.shields.io/github/license/philiparvidsson/pymake.svg)]()
 
 
 # What is pymake? <img align="right" src="assets/images/pymake-logo.png">
