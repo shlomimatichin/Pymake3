@@ -70,7 +70,7 @@ def target(*args, **kwargs):
         target  = Maker.inst().get_target(name)
 
         if target.func:
-            report.error("target already bound: {}", name)
+            report.error("target already bound: '{}'", name)
             return
 
         target.func = func

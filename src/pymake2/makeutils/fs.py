@@ -15,6 +15,7 @@ projects.
 import fnmatch
 import os
 import shutil
+import time
 
 #---------------------------------------
 # FUNCTIONS
@@ -147,3 +148,28 @@ def find_files(path, pattern=None):
             sources.extend(find_files(s, pattern))
 
     return sources
+
+def watch_files(filenames, cb, arg=None, interval=0.5):
+    mtimes = {}
+
+    while True:
+        changed_files = []
+
+        for filename in filenames:
+            if not os.path.isfile(filename):
+                continue
+
+            mtime = os.path.getmtime(filename)
+
+            if not filename in mtimes:
+                mtimes[filename] = 0
+
+            if mtime > mtimes[filename]:
+                mtimes[filename] = mtime
+                changed_files.append(filename)
+
+        if changed_files:
+            if not cb(arg, changed_files):
+                break
+
+        time.sleep(interval)

@@ -20,6 +20,6 @@ from pymake2.core.decorators import (after_target, before_target, default_conf,
 from pymake2.core.maker import make
 
 from pymake2.makeutils.fs import (copy, create_dir, delete_dir, delete_file,
-                                  find_files)
+                                  find_files, watch_files)
 
 from pymake2.makeutils.proc import run_program

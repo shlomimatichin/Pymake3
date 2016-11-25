@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+
 """
 Template make script for Microsoft's C# compiler csc.
 """
@@ -21,12 +23,12 @@ CSC = r'C:\Program Files (x86)\MSBuild\14.0\Bin\csc.exe'
 DOTNET = r'C:\Windows\Microsoft.NET\Framework64\v4.0.30319'
 
 # Default configuration settings.
-CONF = { 'bindir'  : 'bin',
-         'flags'   : [ '/nologo' ],
-         'libs'    : [],
-         'libdirs' : [ DOTNET, os.path.join(DOTNET, 'WPF') ],
-         'name'    : 'Program.exe',
-         'srcdir'  : 'src' }
+DEFAULT_CONF = { 'bindir'  : 'bin',
+                 'flags'   : [ '/nologo' ],
+                 'libs'    : [],
+                 'libdirs' : [ DOTNET, os.path.join(DOTNET, 'WPF') ],
+                 'name'    : 'Program.exe',
+                 'srcdir'  : 'src' }
 
 # The default csc compiler specified is the one included with Visual Studio 15.
 # If it doesn't exist, fall back to the one included with the .NET framework
@@ -38,18 +40,7 @@ if not os.path.isfile(CSC):
 # FUNCTIONS
 #---------------------------------------
 
-@target(conf=CONF, default=True, depends=[ 'compile' ])
-def all(conf):
-    """
-    The 'all' target does not do anything on its own.  Instead, it depends on
-    other targets that are needed to complete make process.
-
-    :param conf: Make configuration.
-    """
-
-    pass
-
-@target(conf=CONF)
+@target(conf=DEFAULT_CONF)
 def clean(conf):
     """
     Cleans the build by deleting the bin directory and all its contents.
@@ -59,7 +50,7 @@ def clean(conf):
 
     delete_dir(conf.bindir)
 
-@target(conf=CONF)
+@target(conf=DEFAULT_CONF)
 def compile(conf):
     """
     This target compiles the executable program from its sources in the source
@@ -84,7 +75,7 @@ def compile(conf):
 
     run_program(CSC, flags + libdirs + libs + out + sources)
 
-@target
+@target(conf=DEFAULT_CONF)
 def run(conf):
     """
     Runs the target executable.  This target has no dependencies, so the program

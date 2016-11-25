@@ -37,6 +37,9 @@ class Target(object):
         x = lambda: None
 
         for key, value in conf.iteritems():
+            if isinstance(value, dict):
+                value = self.dict_to_obj(value)
+
             setattr(x, key, value)
 
         return x
