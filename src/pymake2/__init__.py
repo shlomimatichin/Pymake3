@@ -14,6 +14,8 @@ from pymake2 import template
 
 from pymake2.cli import pymake2
 
+from pymake2.core.conf import make_conf
+
 from pymake2.core.decorators import (after_target, before_target, default_conf,
                                      default_target, depends_on, target)
 

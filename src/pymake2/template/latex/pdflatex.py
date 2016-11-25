@@ -14,20 +14,20 @@ import time
 from pymake2 import *
 
 #---------------------------------------
-# CONSTANTS
+# GLOBALS
 #---------------------------------------
 
 # Default configuration.
-DEFAULT_CONF = { 'bindir'  : 'bin',
-                 'flags'   : [ '-file-line-error', '-halt-on-error' ],
-                 'srcdir'  : 'src',
-                 'srcfile' : 'main.tex' }
+conf = make_conf({ 'bindir'  : 'bin',
+                   'flags'   : [ '-file-line-error', '-halt-on-error' ],
+                   'srcdir'  : 'src',
+                   'srcfile' : 'main.tex' })
 
 #---------------------------------------
 # FUNCTIONS
 #---------------------------------------
 
-@target(conf=DEFAULT_CONF)
+@target(conf=conf)
 def clean(conf):
     """
     Cleans the build by deleting the bin directory and all its contents.
@@ -35,7 +35,7 @@ def clean(conf):
 
     delete_dir(conf.bindir)
 
-@target(conf=DEFAULT_CONF)
+@target(conf=conf)
 def compile(conf):
     """
     Compiles the executable program from its sources in the source directory.

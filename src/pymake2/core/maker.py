@@ -98,7 +98,4 @@ class Maker(object):
 #---------------------------------------
 
 def make(target, conf):
-    if conf and not isinstance(conf, dict):
-        conf = conf.__dict__
-
     Maker.inst().make(target, conf)

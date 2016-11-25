@@ -6,6 +6,7 @@ import os
 import sys
 
 from pymake2                 import report
+from pymake2.core.conf       import conf_merge, make_conf
 from pymake2.core.exceptions import NoSuchTargetError
 from pymake2.core.maker      import Maker
 from pymake2.core.options    import Options
@@ -146,7 +147,13 @@ def pymake2(conf=None, args=None):
         elif not options.parse(opt):
             report.warn("unknown option: {}", opt)
 
-    conf = conf or options.conf or {}
+    if conf and isinstance(conf, dict):
+        conf = make_conf(conf)
+
+    conf = conf or options.conf or make_conf({})
+
+    if options.conf:
+        conf = conf_merge(conf, options.conf)
 
     Maker.inst().check_targets()
 

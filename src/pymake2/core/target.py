@@ -1,4 +1,10 @@
 #---------------------------------------
+# IMPORTS
+#---------------------------------------
+
+from pymake2.core.conf import conf_merge, make_conf
+
+#---------------------------------------
 # CLASSES
 #---------------------------------------
 
@@ -22,8 +28,8 @@ class Target(object):
     #---------------------------------------
 
     def make(self, conf):
-        conf = self.merge_confs(self.def_conf, conf)
-        conf = self.dict_to_obj(conf)
+        conf = make_conf(conf)
+        conf = conf_merge(self.def_conf, conf)
 
         for f in self.pre_funcs:
             f(conf)
@@ -32,26 +38,3 @@ class Target(object):
 
         for f in self.post_funcs:
             f(conf)
-
-    def dict_to_obj(self, conf):
-        x = lambda: None
-
-        for key, value in conf.iteritems():
-            if isinstance(value, dict):
-                value = self.dict_to_obj(value)
-
-            setattr(x, key, value)
-
-        return x
-
-    def merge_confs(self, *args):
-        r = {}
-
-        for conf in args:
-            if not conf:
-                continue
-
-            for key, value in conf.iteritems():
-                r[key] = value
-
-        return r

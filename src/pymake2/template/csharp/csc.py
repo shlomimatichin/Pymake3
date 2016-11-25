@@ -22,13 +22,17 @@ CSC = r'C:\Program Files (x86)\MSBuild\14.0\Bin\csc.exe'
 # Path to the .NET framework.
 DOTNET = r'C:\Windows\Microsoft.NET\Framework64\v4.0.30319'
 
+#---------------------------------------
+# GLOBALS
+#---------------------------------------
+
 # Default configuration settings.
-DEFAULT_CONF = { 'bindir'  : 'bin',
-                 'flags'   : [ '/nologo' ],
-                 'libs'    : [],
-                 'libdirs' : [ DOTNET, os.path.join(DOTNET, 'WPF') ],
-                 'name'    : 'Program.exe',
-                 'srcdir'  : 'src' }
+conf = make_conf({ 'bindir'  : 'bin',
+                   'flags'   : [ '/nologo' ],
+                   'libs'    : [],
+                   'libdirs' : [ DOTNET, os.path.join(DOTNET, 'WPF') ],
+                   'name'    : 'Program.exe',
+                   'srcdir'  : 'src' })
 
 # The default csc compiler specified is the one included with Visual Studio 15.
 # If it doesn't exist, fall back to the one included with the .NET framework
@@ -40,23 +44,19 @@ if not os.path.isfile(CSC):
 # FUNCTIONS
 #---------------------------------------
 
-@target(conf=DEFAULT_CONF)
+@target(conf=conf)
 def clean(conf):
     """
     Cleans the build by deleting the bin directory and all its contents.
-
-    :param conf: Make configuration.
     """
 
     delete_dir(conf.bindir)
 
-@target(conf=DEFAULT_CONF)
+@target(conf=conf)
 def compile(conf):
     """
     This target compiles the executable program from its sources in the source
     directory.
-
-    :param conf: Make configuration.
     """
 
     create_dir(conf.bindir)
@@ -75,13 +75,11 @@ def compile(conf):
 
     run_program(CSC, flags + libdirs + libs + out + sources)
 
-@target(conf=DEFAULT_CONF)
+@target(conf=conf)
 def run(conf):
     """
     Runs the target executable.  This target has no dependencies, so the program
     needs to be built first.
-
-    :param conf: Make configuration.
     """
 
     os.chdir(conf.bindir)

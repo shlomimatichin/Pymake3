@@ -3,6 +3,7 @@
 #---------------------------------------
 
 from pymake2            import report
+from pymake2.core.conf  import make_conf
 from pymake2.core.maker import Maker
 
 #---------------------------------------
@@ -34,7 +35,7 @@ def default_conf(conf):
         name   = func.__name__
         target = Maker.inst().get_target(name)
 
-        target.def_conf = conf
+        target.def_conf = make_conf(conf)
 
         return func
 
@@ -76,7 +77,7 @@ def target(*args, **kwargs):
         target.func = func
 
         if conf:
-            target.def_conf = conf
+            target.def_conf = make_conf(conf)
 
         if default:
             if Maker.inst().def_target:

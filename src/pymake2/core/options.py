@@ -1,4 +1,12 @@
 #---------------------------------------
+# IMPORTS
+#---------------------------------------
+
+import ast
+
+from pymake2.core.conf import make_conf
+
+#---------------------------------------
 # CLASSES
 #---------------------------------------
 
@@ -22,11 +30,12 @@ class Options(object):
 
         if opt.find('=') > 0:
             s     = opt.split('=', 1)
-            opt   = s[0]
-            value = s[1]
+            opt   = s[0].strip()
+            value = s[1].strip()
 
         if opt == '--conf' and value and not self.conf:
-            self.conf = ast.literal_eval(value)
+            self.conf = make_conf(ast.literal_eval(value))
+            return True
 
         if opt == '--no-color':
             self.no_color = True
