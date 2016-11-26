@@ -2,18 +2,18 @@ Template: `csc </src/pymake2/template/csharp/csc.py>`_
 ######################################################
 
 What does the csc template do?
-------------------------------
+==============================
 The csc template provides an interface to the Microsoft C# compiler csc.exe and
 allows you to compile C# programs easily.
 
 Targets
--------
+=======
 * :code:`clean` - Cleans the build by deleting the bin directory and all its contents.
 * :code:`compile` - Compiles the executable program from its sources in the source directory.
 * :code:`run` - Runs the target executable. This target has no dependencies, so the program needs to be built first.
 
 Default configuration
----------------------
+=====================
 .. code-block:: python
 
    CSC    = r'C:\Program Files (x86)\MSBuild\14.0\Bin\csc.exe'
@@ -43,7 +43,7 @@ Default configuration
    }
 
 Example
--------
+=======
 .. code-block:: python
 
    import os, sys

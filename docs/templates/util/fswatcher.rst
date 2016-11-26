@@ -2,7 +2,7 @@ Template: `fswatcher </src/pymake2/template/util/fswatcher.py>`_
 ################################################################
 
 What does the fswatcher template do?
-------------------------------------
+====================================
 The fswatcher template provides the `watch` target, which watches files in a
 directory for changes. When a change has been detected, fswatcher makes a
 specified target.
@@ -12,11 +12,11 @@ document as soon as a change is detected in one of the source files. This way,
 you can live-preview your documents as you modify them.
 
 Targets
--------
+=======
 * :code:`watch` - Watches files in a directory for changes, making a specified target when a change has been detected in any of the files.
 
 Default configuration
----------------------
+=====================
 
 .. code-block:: python
 
@@ -37,7 +37,7 @@ Default configuration
      } }
 
 Example
--------
+=======
 .. code-block:: python
 
    import os, sys
