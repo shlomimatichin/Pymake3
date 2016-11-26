@@ -1,7 +1,8 @@
 Pymake2 Manual
 ##############
 
-.. contents::
+.. contents:: Table of Contents
+   :backlinks: top
 
 .. section-numbering::
 
