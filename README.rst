@@ -69,7 +69,8 @@ Run the tests by typing :code:`python runtests.py` in the src/tests directory. A
 
 Deployment
 ==========
-.
+test
+
 Deploying make scripts
 ----------------------
 Along with your make.py file, you need to store the pymake2 file in your project.
