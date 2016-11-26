@@ -1,6 +1,6 @@
 # Template: fswatcher
 
-## What does the fswatcher template do?
+### What does the fswatcher template do?
 
 The fswatcher template provides the `watch` target, which watches files in a
 directory for changes. When a change has been detected, fswatcher makes a
@@ -10,7 +10,7 @@ Use the fswatcher template to, for example, automatically compile a program or
 document as soon as a change is detected in one of the source files. This way,
 you can live-preview your documents as you modify them.
 
-## Configuration
+### Configuration
 
 ```python
 { 'fswatcher': {
@@ -30,9 +30,9 @@ you can live-preview your documents as you modify them.
   } }
 ```
 
-## Example
+### Example
 
-### Make script
+#### Make script
 
 ```python
 import os, sys
