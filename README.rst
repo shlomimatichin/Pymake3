@@ -83,7 +83,7 @@ Built With
 
 Contributing
 ============
-Please read CONTRIBUTING.md for details on our code of conduct, and the process for submitting pull requests to us.
+Please read CONTRIBUTING.rst for details on our code of conduct, and the process for submitting pull requests to us.
 
 Versioning
 ==========
@@ -97,7 +97,7 @@ See also the list of `contributors <https://github.com/philiparvidsson/pymake2/c
 
 License
 =======
-This project is licensed under the MIT License—see the `LICENSE.md <LICENSE.md>`_ file for details.
+This project is licensed under the MIT License—see the `LICENSE.rst <LICENSE.rst>`_ file for details.
 
 Acknowledgments
 ===============
