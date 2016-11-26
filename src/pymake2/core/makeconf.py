@@ -20,7 +20,7 @@ def from_dict(d):
 
     for k, v in d.iteritems():
         if isinstance(v, dict):
-            v = make_conf(v)
+            v = from_dict(v)
 
         setattr(o, k, v)
 
