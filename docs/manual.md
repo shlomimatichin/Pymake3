@@ -251,7 +251,7 @@ Pymake2 comes with several ready-made templates for making different kinds of pr
 ### C# #
 * [csc](templates/csharp/csc.md)
 
-## LaTeX
+### LaTeX
 * [pdflatex](templates/latex/pdflatex.md)
 
 ### Utility
