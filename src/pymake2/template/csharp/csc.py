@@ -54,8 +54,7 @@ def clean(conf):
 @target(conf=conf)
 def compile(conf):
     """
-    This target compiles the executable program from its sources in the source
-    directory.
+    Compiles the executable program from its sources in the source directory.
     """
     create_dir(conf.bindir)
 
