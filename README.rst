@@ -22,7 +22,7 @@ Prerequisites
 Installation
 ~~~~~~~~~~~~
 
-**Begin by downloading and installing `Python 2.7`_**
+**Begin by downloading and installing `Python 2.7`_ **
 
 
 .. _Python 2.7: https://www.python.org/downloads/
