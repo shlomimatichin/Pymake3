@@ -14,7 +14,7 @@ What is pymake2?
 Getting Started
 ===============
 1. Download and install `Python 2.7 <https://www.python.org/downloads/>`_.
-2. Start with one of the `examples <examples>`_ or `template <src/template>`_ scripts, picking one relevant to your type of project.
+2. Start with one of the `examples <examples>`_ or `template <src/pymake2/template>`_ scripts, picking one relevant to your type of project.
 3. Modify the script as needed for your project. See the `manual <docs/manual.rst>`_ for instructions on how to do so.
 4. Build your project by running your make script. You can either type :code:`python your_make_file.py` or :code:`./your_make_file.py` (only on Linux).
 
