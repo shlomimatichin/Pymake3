@@ -37,7 +37,7 @@ def clean(conf):
 @target(conf=conf)
 def compile(conf):
     """
-    Compiles the executable program from its sources in the source directory.
+    Compiles the LaTeX document from its sources in the source directory.
     """
     create_dir(conf.bindir)
 

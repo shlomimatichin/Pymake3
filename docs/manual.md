@@ -243,3 +243,16 @@ Pymake2 targets can depend on other targets. Dependencies are specified with the
 def my_other_target(conf):
     # my_target will always be invoked before we reach this point
 ```
+
+## 3. Templates
+
+Pymake2 comes with several ready-made templates for making different kinds of projects. The templates vary greatly depending on area of use, and therefore have their own documentation. Below is a list of the templates; click on one to read more about it.
+
+### C#
+* [csc](templates/csharp/csc)
+
+## LaTeX
+* [pdflatex](templates/latex/pdflatex)
+
+### Utility
+* [fswatcher](templates/util/fswatcher)
