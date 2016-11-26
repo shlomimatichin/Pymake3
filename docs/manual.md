@@ -1,6 +1,6 @@
 # Pymake2 Manual
 
-### Table of Contents
+## Table of Contents
 
 1. [Guide](#1-guide)
   * [Configuring your project](#configuring-your-project)
