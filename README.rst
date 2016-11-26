@@ -90,7 +90,7 @@ Authors
 =======
 * **Philip Arvidsson** - *Initial work* - `philiparvidsson <https://github.com/philiparvidsson>`_
 
-See also the list of `contributors <https://github.com/philiparvidsson/pymake2/contributors>` who participated in this project.
+See also the list of `contributors <https://github.com/philiparvidsson/pymake2/contributors>`_ who participated in this project.
 
 License
 =======
