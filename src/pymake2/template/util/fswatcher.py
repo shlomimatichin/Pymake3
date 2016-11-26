@@ -46,7 +46,6 @@ def watch(conf):
     Watches files in a directory for changes, making a specified target when a
     change has been detected in any of the files.
     """
-
     filenames = []
 
     for ext in conf.fswatcher.extensions:

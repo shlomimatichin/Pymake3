@@ -10,7 +10,11 @@ Use the fswatcher template to, for example, automatically compile a program or
 document as soon as a change is detected in one of the source files. This way,
 you can live-preview your documents as you modify them.
 
-### Configuration
+### Targets
+
+* `watch` - Watches files in a directory for changes, making a specified target when a change has been detected in any of the files.
+
+### Default configuration
 
 ```python
 { 'fswatcher': {
@@ -37,7 +41,6 @@ import os, sys
 sys.path.insert(0, os.path.join('build', 'pymake2'))
 
 from pymake2 import *
-
 from pymake2.template.util import fswatcher
 
 fswatcher.conf.fswatcher.target = 'my_target'
