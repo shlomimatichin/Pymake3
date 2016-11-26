@@ -26,6 +26,20 @@ CONF={ 'bindir': 'bin',
 # FUNCTIONS
 #---------------------------------------
 
+@default_target(conf=CONF, desc="builds the pymake2 zip package")
+@depends_on('compile')
+def build(conf):
+    create_dir(conf.bindir)
+
+    path = os.path.join(conf.bindir, conf.target)
+    zipf = zipfile.ZipFile(path, 'w', zipfile.ZIP_DEFLATED)
+
+    os.chdir(conf.objdir)
+    for s in find_files('.'):
+        zipf.write(s)
+
+    zipf.close()
+
 @target(conf=CONF, desc="cleans pymake2 by deleting the bin and obj "
                         "directories, as well as removing all .pyc-files")
 def clean(conf):
@@ -41,20 +55,6 @@ def compile(conf):
     py_compile.main(args)
 
     copy(conf.srcdir, conf.objdir, '*.pyc')
-
-@default_target(conf=CONF, desc="builds the pymake2 zip package")
-@depends_on('compile')
-def build(conf):
-    create_dir(conf.bindir)
-
-    path = os.path.join(conf.bindir, conf.target)
-    zipf = zipfile.ZipFile(path, 'w', zipfile.ZIP_DEFLATED)
-
-    os.chdir(conf.objdir)
-    for s in find_files('.'):
-        zipf.write(s)
-
-    zipf.close()
 
 #---------------------------------------
 # SCRIPT

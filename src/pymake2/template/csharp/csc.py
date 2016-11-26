@@ -56,13 +56,30 @@ def compile(conf):
     """
     Compiles the executable program from its sources in the source directory.
     """
+
+    exe_file = os.path.join(conf.bindir, conf.name)
+
+    if os.path.isfile(exe_file):
+        mtime = os.path.getmtime(exe_file)
+        skip  = True
+
+        for s in find_files(conf.srcdir, '*.cs'):
+            if os.path.getmtime(s) > mtime:
+                skip = False
+                break
+
+        if skip:
+            # No source files have changed since the last compile, so we don't
+            # need to recompile.
+            return
+
     create_dir(conf.bindir)
 
     flags   = conf.flags
-    libdirs = [ '/lib:'     + ','.join(conf.libdirs)               ]
-    libs    = [ '/r:'       + lib for lib in conf.libs             ]
-    out     = [ '/out:'     + os.path.join(conf.bindir, conf.name) ]
-    sources = [ '/recurse:' + os.path.join(conf.srcdir, '*.cs')    ]
+    libdirs = [ '/lib:'     + ','.join(conf.libdirs)            ]
+    libs    = [ '/r:'       + lib for lib in conf.libs          ]
+    out     = [ '/out:'     + exe_file                          ]
+    sources = [ '/recurse:' + os.path.join(conf.srcdir, '*.cs') ]
 
     if getattr(conf, 'debug', False):
         flags += [ '/debug', '/define:DEBUG' ]

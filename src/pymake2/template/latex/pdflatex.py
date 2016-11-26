@@ -39,6 +39,22 @@ def compile(conf):
     """
     Compiles the LaTeX document from its sources in the source directory.
     """
+    pdf_file = os.path.join(conf.bindir, conf.name)
+
+    if os.path.isfile(pdf_file):
+        mtime = os.path.getmtime(pdf_file)
+        skip  = True
+
+        for s in find_files(conf.srcdir, '*.*'):
+            if os.path.getmtime(s) > mtime:
+                skip = False
+                break
+
+        if skip:
+            # No source files have changed since the last compile, so we don't
+            # need to recompile.
+            return
+
     create_dir(conf.bindir)
 
     bindir = os.path.abspath(conf.bindir)
