@@ -249,10 +249,10 @@ def my_other_target(conf):
 Pymake2 comes with several ready-made templates for making different kinds of projects. The templates vary greatly depending on area of use, and therefore have their own documentation. Below is a list of the templates; click on one to read more about it.
 
 ### C# #
-* [csc](templates/csharp/csc)
+* [csc](templates/csharp/csc.md)
 
 ## LaTeX
-* [pdflatex](templates/latex/pdflatex)
+* [pdflatex](templates/latex/pdflatex.md)
 
 ### Utility
-* [fswatcher](templates/util/fswatcher)
+* [fswatcher](templates/util/fswatcher.md)
