@@ -32,8 +32,6 @@ you can live-preview your documents as you modify them.
 
 ### Example
 
-#### Make script
-
 ```python
 import os, sys
 sys.path.insert(0, os.path.join('build', 'pymake2'))
