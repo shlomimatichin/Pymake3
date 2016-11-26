@@ -1,4 +1,4 @@
-# Template: fswatcher
+# Template: [fswatcher](/src/pymake2/template/util/fswatcher.py)
 
 ### What does the fswatcher template do?
 
