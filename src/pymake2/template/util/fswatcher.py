@@ -15,12 +15,12 @@ from pymake2 import *
 #---------------------------------------
 
 # Default configuration.
-conf = make_conf({ 'fswatcher': {
-                       'extensions' : [ '*.*' ],
-                       'interval'   : 0.5,
-                       'path'       : 'src',
-                       'target'     : 'compile'
-                   } })
+conf = makeconf.from_dict({ 'fswatcher': {
+                                'extensions' : [ '*.*' ],
+                                'interval'   : 0.5,
+                                'path'       : 'src',
+                                'target'     : 'compile'
+                            } })
 
 #---------------------------------------
 # FUNCTIONS
@@ -34,7 +34,6 @@ def on_files_changed(conf, filenames):
     :param conf:      Make configuration.
     :param filenames: Names of the files that have changed.
     """
-
     if not filenames:
         return True
 

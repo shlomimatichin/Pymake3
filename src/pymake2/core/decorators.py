@@ -1,9 +1,13 @@
+"""
+Provides the core pymake2 decorators for marking functions as targets and more.
+"""
+
 #---------------------------------------
 # IMPORTS
 #---------------------------------------
 
 from pymake2            import report
-from pymake2.core.conf  import make_conf
+from pymake2.core       import makeconf
 from pymake2.core.maker import Maker
 
 #---------------------------------------
@@ -31,11 +35,14 @@ def before_target(name):
     return decorator
 
 def default_conf(conf):
+    if isinstance(conf, dict):
+        conf = makeconf.from_dict(conf)
+
     def decorator(func):
         name   = func.__name__
         target = Maker.inst().get_target(name)
 
-        target.def_conf = make_conf(conf)
+        target.def_conf = conf
 
         return func
 
@@ -77,7 +84,10 @@ def target(*args, **kwargs):
         target.func = func
 
         if conf:
-            target.def_conf = make_conf(conf)
+            if isinstance(conf, dict):
+                conf = makeconf.from_dict(conf)
+
+            target.def_conf = conf
 
         if default:
             if Maker.inst().def_target:

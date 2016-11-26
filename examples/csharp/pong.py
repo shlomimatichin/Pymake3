@@ -6,35 +6,35 @@
 
 import os, sys
 sys.path.insert(0, os.path.join('build', 'pymake2'))
+
 from pymake2 import *
 
 from pymake2.template.csharp import csc
-from pymake2.template.util   import fswatcher
 
 # The configuration below depends on the backend used for the make process.  In
 # this case, we're using csc, which uses the options set below.
-conf={ 'name': 'Pong.exe',
+conf = { 'name': 'Pong.exe',
 
-       'flags': ['/nologo',
-                 #'/debug',
-                 #'/define:DEBUG',
-                 '/optimize',
-                 '/target:winexe',
-                 '/platform:x64'],
+         'flags': ['/nologo',
+                   #'/debug',
+                   #'/define:DEBUG',
+                   '/optimize',
+                   '/target:winexe',
+                   '/platform:x64'],
 
-       'libdirs': csc.conf.libdirs + [ r'lib\SharpDX' ],
+         'libdirs': csc.conf.libdirs + [ r'lib\SharpDX' ],
 
-       'libs': [ 'PresentationCore.dll',
-                 'System.IO.dll',
-                 'System.Runtime.dll',
-                 'WindowsBase.dll',
+         'libs': [ 'PresentationCore.dll',
+                   'System.IO.dll',
+                   'System.Runtime.dll',
+                   'WindowsBase.dll',
 
-                 'SharpDX.D3DCompiler.dll',
-                 'SharpDX.DXGI.dll',
-                 'SharpDX.Direct3D11.dll',
-                 'SharpDX.Mathematics.dll',
-                 'SharpDX.XAudio2.dll',
-                 'SharpDX.dll' ] }
+                   'SharpDX.D3DCompiler.dll',
+                   'SharpDX.DXGI.dll',
+                   'SharpDX.Direct3D11.dll',
+                   'SharpDX.Mathematics.dll',
+                   'SharpDX.XAudio2.dll',
+                   'SharpDX.dll' ] }
 
 @default_target(conf=csc.conf)
 @depends_on('compile', 'content', 'libs')

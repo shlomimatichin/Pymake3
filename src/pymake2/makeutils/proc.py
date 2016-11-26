@@ -1,8 +1,7 @@
 """
 Provides functionality for starting process on the host operating system.
-
-Easily done without pymake2, but we want pymake2 to be dead simple to use, so we
-include this functionality here.
+    Easily done without pymake2, but we want pymake2 to be dead simple to use,
+so we include this functionality here.
 """
 
 #---------------------------------------
@@ -26,12 +25,9 @@ def run_program(s, args=None):
 
     :return: Exit code returned by the executed program.
     """
-
     if not args:
         args = []
 
-    r = subprocess.call([s] + args)
-
-    cli.exit_code = r
-
-    return r
+    result = subprocess.call([s] + args)
+    cli.exit_code = result
+    return result

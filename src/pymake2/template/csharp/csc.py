@@ -27,12 +27,12 @@ DOTNET = r'C:\Windows\Microsoft.NET\Framework64\v4.0.30319'
 #---------------------------------------
 
 # Default configuration settings.
-conf = make_conf({ 'bindir'  : 'bin',
-                   'flags'   : [ '/nologo' ],
-                   'libs'    : [],
-                   'libdirs' : [ DOTNET, os.path.join(DOTNET, 'WPF') ],
-                   'name'    : 'Program.exe',
-                   'srcdir'  : 'src' })
+conf = makeconf.from_dict({ 'bindir'  : 'bin',
+                            'flags'   : [ '/nologo' ],
+                            'libs'    : [],
+                            'libdirs' : [ DOTNET, os.path.join(DOTNET, 'WPF') ],
+                            'name'    : 'Program.exe',
+                            'srcdir'  : 'src' })
 
 # The default csc compiler specified is the one included with Visual Studio 15.
 # If it doesn't exist, fall back to the one included with the .NET framework
@@ -49,7 +49,6 @@ def clean(conf):
     """
     Cleans the build by deleting the bin directory and all its contents.
     """
-
     delete_dir(conf.bindir)
 
 @target(conf=conf)
@@ -58,7 +57,6 @@ def compile(conf):
     This target compiles the executable program from its sources in the source
     directory.
     """
-
     create_dir(conf.bindir)
 
     flags   = conf.flags
@@ -81,7 +79,6 @@ def run(conf):
     Runs the target executable.  This target has no dependencies, so the program
     needs to be built first.
     """
-
     os.chdir(conf.bindir)
     run_program(conf.name)
 
