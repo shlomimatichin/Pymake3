@@ -21,18 +21,17 @@
 
 ### Configuring your project
 
-To use pymake2 in your projects, at the very least, you need to download and store a copy of `pymake2.py` in your project somewhere. pymake2 should normally be stored in `build/pymake2`, but this can be configured if needed. If you intend to use one of the templates for your project, you need to make a decision:
+To use pymake2 in your projects, download the latest pymake2 release and store the binary file in your project. Normally, pymake2 should be stored in a `build` directory in your project root, but this can be configured.
 
-1. Modify the template script as needed for your project and store it in your project root, for example `make.py`.
-2. Write your own, separate make script and import the template script from it. In this case, you should store the template file together with `pymake2.py` for easy access from your own make script.
+You also need to write a make script. To get started quickly, you could take a look at one of the examples
 
-When you have saved the needed files into your project, you can run pymake2 on it by invoking your make script in the project root. If, for example, you saved your script to `make.py`, begin making your project by typing `python make.py` in your project root. Alternatively, you can just type `./make.py` if you're using Linux.
+When you have saved pymake2 and your make script into your project directory, you can run it by invoking your make script in the project root. If, for example, you saved your script to `make.py`, begin making your project by typing `python make.py` in your project root. Alternatively, you can just type `./make.py` if you're using Linux.
 
 ### Writing make scripts
 
-Make scripts for pymake2 are written in the Python language. For the sake of clarity, we discuss a few aspects of pymake2 individually before presenting a complete make script.
+Make scripts for pymake2 are written in the Python programming language. For the sake of clarity, we discuss a few aspects of pymake2 individually before presenting a complete make script.
 
-Firstly, you should place `pymake2.py` in build/pymake2/ in your project folder. Then, pymake2 can be imported in the following way:
+Firstly, you should place `pymake2` in the `build` directory in your project root. Then, pymake2 can be imported into your make script in the following way:
 
 ```python
 import sys
@@ -48,7 +47,7 @@ def my_target(conf):
     print 'hello from my_target!'
 ```
 
-That's it! That is all that is needed for pymake2 to register your target and be able to invoke it. Some targets need to be sure that other targets have been completed first. For example, before linking an executable, we need to compile it. This can be achieved easily by specifying dependencies on your targets:
+That's it! That is all that is needed for pymake2 to register your target and be able to make it. Some targets need to be sure that other targets have been completed first. For example, before linking an executable, we need to compile it. This can be achieved easily by specifying dependencies on your targets:
 
 ```python
 @target
@@ -61,7 +60,7 @@ def link(conf):
     print 'linking', conf.name
 ```
 
-By specifying dependencies, you ensure that they will always be completed before your target is invoked. In the case above, the compile target will always be invoked before the link target.
+By specifying dependencies, you ensure that they will always be completed before a target is made. In the case above, the compile target will always be made before the link target.
 
 At the end of your make script, you need to begin the make process by calling the `pymake2()` function. Normally, you want to pass a configuration object to the function and use it in your targets. In this example, we pass in a name since we used it in the target examples above:
 
@@ -77,17 +76,13 @@ As we now have a basic understanding of how pymake2 operates, let's look at a mo
 import os, sys
 
 # We need to insert the path to pymake2.py below to be able to import it.  In
-# this script, pymake2.py is expected to be located in build/pymake2/.
+# this script, pymake2 is expected to be located in build/pymake2/.
 sys.path.insert(0, os.path.join('build', 'pymake2'))
 from pymake2 import *
 
-# Here, we import the C# template for csc.exe.  Python is going to look for it
-# in the same directory as pymake2.py, so csc.py needs to be there as well.
-# Without this line, we would have no template base. That's ok, but then we
-# would have to write all our targets in this file.
-import csc
+# Import the C# template for csc.exe.
+from pymake2.template.csharp import csc
 
-# We can also specify targets by using the @target decorator.
 @target
 def my_first_target(conf):
     # Pymake2 passes the configuration in the conf parameter, where each setting
@@ -96,12 +91,14 @@ def my_first_target(conf):
     print 'name is', conf.name
 
     # Note that the attributes depend on the configuration passed to pymake2.
-    # pymake2 does not care about your configuration and will only pass it on to
+    # Pymake2 does not care about your configuration and will only pass it on to
     # your targets as you provided it.
     pass
 
 # We can specify targets that depend on other targets, as below.  The
 # dependencies will always be invoked before this target is invoked.
+#     Although we use the @depends_on decorator below, we could also have typed
+# @target(depends=[ 'my_first_target' ])
 @target
 @depends_on('my_first_target')
 def my_second_target(conf):
@@ -120,7 +117,7 @@ def compile(conf):
 
 # The configuration below depends on the backend used for the make process.  In
 # this case, we're using csc, which uses the settings below, among others.
-pymake2(csc.default_conf(), {
+pymake2({
     'name': 'HelloWorld.exe',
 
     'flags': ['/target:exe',
@@ -148,15 +145,17 @@ As you can tell by now, pymake2 is almost infinitely flexible and can be used fo
 
 ### Making your projects
 
-When you have written your make script and saved `pymake2.py` in your project folder, you can make your project easily by invoking your make script.
+When you have written your make script and saved `pymake2` in your project build directory, you can make your project easily by invoking your make script.
 
 If, for example, you saved your script to `make.py` in your project root, you can run it by typing `python make.py` to make the `all` target. If you want to specify what target to make, you can type `python make.py my_target_name`. Dependencies will automatically be resolved, so even if you attempt to invoke the `link` target from the examples above, the `compile` target will be invoked before it.
+
+If you are unsure what targets are available, just type `python make.py --targets` to see a list of them.
 
 ## 2. Quick Reference
 
 ### Copying files/directories
 
-Copying files (for example, copying resource files to the bin folder when building an executable) can easily be done with the `copy()` function:
+Copying files (for example, copying resource files to the bin directory when building an executable) can easily be done with the `copy()` function:
 
 ```python
 @target
