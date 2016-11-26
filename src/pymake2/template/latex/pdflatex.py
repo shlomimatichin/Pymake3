@@ -41,6 +41,9 @@ def compile(conf):
     """
     pdf_file = os.path.join(conf.bindir, conf.name)
 
+    if not pdf_file.endswith('.pdf'):
+        pdf_file += '.pdf'
+
     if os.path.isfile(pdf_file):
         mtime = os.path.getmtime(pdf_file)
         skip  = True
