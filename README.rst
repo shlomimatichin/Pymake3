@@ -1,3 +1,6 @@
+.. image:: https://img.shields.io/travis/philiparvidsson/pymake2.svg
+.. image:: https://img.shields.io/github/license/philiparvidsson/pymake2.svg
+
 ################
 What is pymake2?
 ################
