@@ -69,11 +69,11 @@ Run the tests by typing :code:`python runtests.py` in the src/tests directory. A
 
 Deployment
 ==========
-test
+Deploying pymake2 make scripts is easy! You only need to store a copy of pymake2 and your make script in the project directory.
 
 Deploying make scripts
 ----------------------
-Along with your make.py file, you need to store the pymake2 file in your project.
+Along with your make.py file containing your make logic, you need to store the pymake2 file in your project. Normally, pymake2 should be stored in a directory named build in your project's root.
 
 Built With
 ==========
