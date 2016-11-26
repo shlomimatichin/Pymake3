@@ -97,7 +97,7 @@ See also the list of `contributors <https://github.com/philiparvidsson/pymake2/c
 
 License
 =======
-This project is licensed under the MIT License—see the `LICENSE.rst <LICENSE.rst>`_ file for details.
+This project is licensed under the MIT License—see the `LICENSE <LICENSE>`_ file for details.
 
 Acknowledgments
 ===============
