@@ -186,7 +186,23 @@ A pymake2 target is defined by applying the `@target` decorator to a function:
    def my_target(conf):
        # ...
 
-A target function always takes in a :code:`conf` argument containing the pymake2 configuration. The target's name is the name of the function.
+A target function always takes in a :code:`conf` argument containing the pymake2 configuration. The target's name is the name of the function, unless another name is
+specified:
+
+.. code-block:: python
+
+   @target(name='a_target')
+   def my_target(conf):
+       # ...
+
+The configuration can be set to a default for each target:
+
+.. code-block:: python
+
+   @target(conf={ text: 'foo'  })
+   def my_target(conf):
+       print conf.text # Prints 'foo' unless the user provided configuration
+                       # overrides it with some other value.
 
 Deleting directories
 --------------------
