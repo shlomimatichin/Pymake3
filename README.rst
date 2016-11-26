@@ -29,6 +29,10 @@ On Linux, depending on your distribution, Python comes pre-installed. This means
 
 On Windows, you need to install Python manually. See `this link <https://wiki.python.org/moin/BeginnersGuide/Download>`_ for more information.
 
+**Download the latest pymake2 release.**
+
+The latest pymake2 scripts are always available `here <https://github.com/philiparvidsson/pymake2/releases/>`_. Download and save pymake2.py along with any make script you need for your project.
+
 Usage
 -----
 To familiarize yourself with pymake2, you can begin by writing a simple make script. You could also use one of the `example scripts <examples>`_, or the one below if you just want to try out pymake2 quickly. In case you use the script below, make sure to put pymake2 in the same directory.
