@@ -61,6 +61,10 @@ Save your script in a file named :code:`make.py` in your project directory. Make
 
 Running the Tests
 -----------------
+Run the tests by typing :code:`python runtests.py` in the src/tests directory. All tests in the tests directory will be built and run automatically, ending with a report of passing and failing tests, as well as how much time it took to run them.
+
+Deployment
+----------
 Deploying make scripts
 ~~~~~~~~~~~~~~~~~~~~~~
 Along with your make.py file, you need to store the pymake2 file in your project.
