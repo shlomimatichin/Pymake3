@@ -56,7 +56,6 @@ def compile(conf):
     """
     Compiles the executable program from its sources in the source directory.
     """
-
     exe_file = os.path.join(conf.bindir, conf.name)
 
     if os.path.isfile(exe_file):
