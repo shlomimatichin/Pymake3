@@ -64,7 +64,6 @@ def pymake2(conf=None, args=None):
 
     # Keep arguments *not* beginning with two hyphens.
     args = [arg for arg in args if arg not in opts]
-    name = args[1] if len(args) > 1 else None
 
     # Parse command line options.
     options.parse(opts)
@@ -81,16 +80,20 @@ def pymake2(conf=None, args=None):
 
     report_problems()
 
-    if not name and not Maker.inst().def_target:
-        println("\nNo target specified and there is no default target.")
-        info.print_targets()
+    targets = args[1:]
+    if not targets:
+        targets = [ None ]
+    for name in targets:
+        if not name and not Maker.inst().def_target:
+            println("\nNo target specified and there is no default target.")
+            info.print_targets()
 
-        sys.exit(EXIT_NO_MAKE)
+            sys.exit(EXIT_NO_MAKE)
 
-    try:
-        Maker.inst().make(name, conf)
-    except NoSuchTargetError as e:
-        fatal("no such target: '{}'", e.target_name)
+        try:
+            Maker.inst().make(name, conf)
+        except NoSuchTargetError as e:
+            fatal("no such target: '{}'", e.target_name)
 
     sys.exit(exit_code)
 
