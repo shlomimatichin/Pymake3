@@ -125,7 +125,8 @@ def find_files(path, pattern=None):
     pattern.
 
     :param path:    Path to a directory to search for files in.
-    :param pattern: Pattern to match filenames against.
+    :param pattern: Pattern to match filenames against. Can be an iterable to
+                    specify more than one pattern.
 
     :return: A list containing all files in the path that matches the pattern.
     """
@@ -135,8 +136,17 @@ def find_files(path, pattern=None):
         s = os.path.join(path, s)
 
         if os.path.isfile(s):
-            if not pattern or fnmatch.fnmatch(s, pattern):
+            if pattern is None:
                 filenames.append(s)
+            elif isinstance(pattern, str):
+                if fnmatch.fnmatch(s, pattern):
+                    filenames.append(s)
+            else:
+                for p in pattern:
+                    if fnmatch.fnmatch(s, p):
+                        filenames.append(s)
+                        break
+
         else:
             filenames.extend(find_files(s, pattern))
 

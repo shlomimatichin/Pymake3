@@ -6,6 +6,8 @@ Defines the Target class which represents a single make target.
 # IMPORTS
 #---------------------------------------
 
+import os
+
 from pymake2.core import makeconf
 
 #---------------------------------------
@@ -53,6 +55,8 @@ class Target(object):
         :param conf: Make configuration.
         """
 
+        cwd = os.getcwd()
+
         if isinstance(conf, dict):
             conf = makeconf.from_dict(conf)
 
@@ -65,3 +69,5 @@ class Target(object):
 
         for f in self.post_funcs:
             f(conf)
+
+        os.chdir(cwd)
