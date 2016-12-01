@@ -71,13 +71,14 @@ def depends_on(*args):
 def target(*args, **kwargs):
     def decorator(func):
         conf    = kwargs.get('conf'   , None )
+        bind    = kwargs.get('bind'   , None)
         default = kwargs.get('default', False)
         depends = kwargs.get('depends', None )
         desc    = kwargs.get('desc'   , None ) or func.__doc__
         name    = kwargs.get('name'   , None ) or func.__name__
         target  = Maker.inst().get_target(name)
 
-        if target.func:
+        if target.func and bind != 'override':
             report.error("target already bound: '{}'", name)
             return
 

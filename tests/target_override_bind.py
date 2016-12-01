@@ -16,16 +16,15 @@ from pymake2 import *
 def my_target1(conf):
     pass
 
-@target(name='my_target')
+@target(name='my_target', bind='override')
 def my_target2(conf):
     pass
+
 
 #---------------------------------------
 # SCRIPT
 #---------------------------------------
 
-test.should_fail()
-
-pymake2({}, [])
+pymake2({}, [ 'my_target' ])
 
 test.success()
