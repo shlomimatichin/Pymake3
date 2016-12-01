@@ -3,7 +3,7 @@
 #---------------------------------------
 
 __author__  = "Philip Arvidsson <contact@philiparvidsson.com>"
-__license__ = "MIT (see LICENSE.md)"
+__license__ = "MIT (see LICENSE)"
 __version__ = "0.4.7"
 
 #---------------------------------------
