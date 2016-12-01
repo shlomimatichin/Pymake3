@@ -3,7 +3,7 @@ What is pymake2?
 
 .. image:: assets/images/pymake2-banner.png
 .. image:: https://img.shields.io/travis/philiparvidsson/pymake2.svg
-   :target: https://travis-ci.org/philparvidsson/pymake2
+   :target: https://travis-ci.org/philiparvidsson/pymake2
 
 .. image:: https://img.shields.io/github/license/philiparvidsson/pymake2.svg
    :target: https://en.wikipedia.org/wiki/MIT_License
