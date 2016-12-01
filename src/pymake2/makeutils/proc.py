@@ -10,7 +10,7 @@ so we include this functionality here.
 
 import subprocess
 
-from pymake2 import cli
+from pymake2.cli import main
 
 #---------------------------------------
 # FUNCTIONS
@@ -29,5 +29,5 @@ def run_program(s, args=None):
         args = []
 
     result = subprocess.call([s] + args)
-    cli.exit_code = result
+    main.exit_code = result
     return result
