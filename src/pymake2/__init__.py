@@ -4,7 +4,7 @@
 
 __author__  = "Philip Arvidsson <contact@philiparvidsson.com>"
 __license__ = "MIT (see LICENSE.md)"
-__version__ = "0.4.2"
+__version__ = "0.4.7"
 
 #---------------------------------------
 # IMPORTS
