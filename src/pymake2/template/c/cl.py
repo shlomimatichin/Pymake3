@@ -1,7 +1,6 @@
 #!/usr/bin/env python
-
 """
-Template make script for Microsoft's C compiler c.
+Template make script for Microsoft's C compiler cl.
 """
 
 #---------------------------------------
@@ -17,7 +16,7 @@ from pymake2 import *
 #---------------------------------------
 
 # Path to the csc compiler to use.
-CL = r'C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\cl.exe'
+CL = r'C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\amd64\cl.exe'
 
 #---------------------------------------
 # GLOBALS
@@ -26,7 +25,7 @@ CL = r'C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\cl.exe'
 # Default configuration settings.
 conf = makeconf.from_dict({
     'name'  : 'main.exe',
-    'cflags': [ '/DUNICODE', '/O2', '/Wall' ],
+    'cflags': [ '/DNDEBUG', '/DUNICODE', '/O2', '/Wall' ],
     'lflags': [ '/MACHINE:AMD64' ],
 
     'includepaths': [ r'C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\include',

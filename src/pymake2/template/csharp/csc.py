@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-
 """
 Template make script for Microsoft's C# compiler csc.
 """
