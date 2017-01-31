@@ -6,6 +6,7 @@ Defines the Target class which represents a single make target.
 # IMPORTS
 #---------------------------------------
 
+import inspect
 import os
 
 from pymake2.core import makeconf
@@ -63,11 +64,20 @@ class Target(object):
         conf = makeconf.merge(self.def_conf, conf)
 
         for f in self.pre_funcs:
-            f(conf)
+            self.__call(f, conf)
 
-        self.func(conf)
+        self.__call(self.func, conf)
 
         for f in self.post_funcs:
-            f(conf)
+            self.__call(f, conf)
 
         os.chdir(cwd)
+
+    def __call(self, func, conf):
+        argspec = inspect.getargspec(func)
+        accepts_kwargs = len(argspec.args) > 1 and argspec.defaults is not None
+
+        if accepts_kwargs:
+            func(**conf.__dict__)
+        else:
+            func(conf)

@@ -95,7 +95,7 @@ def pymake2(conf=None, args=None):
         except NoSuchTargetError as e:
             fatal("no such target: '{}'", e.target_name)
 
-    sys.exit(exit_code)
+    #sys.exit(exit_code)
 
 def report_problems():
     any_errors = False
