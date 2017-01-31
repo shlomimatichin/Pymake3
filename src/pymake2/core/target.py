@@ -78,6 +78,12 @@ class Target(object):
         accepts_kwargs = len(argspec.args) > 1 and argspec.defaults is not None
 
         if accepts_kwargs:
-            func(**conf.__dict__)
+            dic = dict()
+
+            for k, v in conf.__dict__.iteritems():
+                if k in argspec.args:
+                    dic[k] = v
+
+            func(**dic)
         else:
             func(conf)
