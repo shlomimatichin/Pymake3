@@ -2,10 +2,10 @@ What is pymake2?
 ################
 
 .. image:: assets/images/pymake2-banner.png
-.. image:: https://img.shields.io/travis/philiparvidsson/pymake2.svg
-   :target: https://travis-ci.org/philiparvidsson/pymake2
+.. image:: https://img.shields.io/travis/philiparvidsson/Pymake2-Build-Tool.svg
+   :target: https://travis-ci.org/philiparvidsson/Pymake2-Build-Tool
 
-.. image:: https://img.shields.io/github/license/philiparvidsson/pymake2.svg
+.. image:: https://img.shields.io/github/license/philiparvidsson/Pymake2-Build-Tool.svg
    :target: https://en.wikipedia.org/wiki/MIT_License
 
 
