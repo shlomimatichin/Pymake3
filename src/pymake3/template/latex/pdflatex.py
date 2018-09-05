@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/python3
 """
 Template make script for pdflatex.
 """
@@ -10,7 +10,7 @@ Template make script for pdflatex.
 import os
 import time
 
-from pymake2 import *
+from pymake3 import *
 
 #---------------------------------------
 # GLOBALS
@@ -79,4 +79,4 @@ def compile(conf):
 #---------------------------------------
 
 if __name__ == '__main__':
-    pymake2()
+    pymake3()

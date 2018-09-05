@@ -1,5 +1,5 @@
 """
-Provides the command-line interface for pymake2.
+Provides the command-line interface for pymake3.
 """
 #---------------------------------------
 # IMPORTS
@@ -8,13 +8,13 @@ Provides the command-line interface for pymake2.
 import os
 import sys
 
-from pymake2                 import report
-from pymake2.cli             import info, options
-from pymake2.core            import makeconf
-from pymake2.core.exceptions import NoSuchTargetError
-from pymake2.core.maker      import Maker
-from pymake2.core.target     import Target
-from pymake2.utils           import color
+from pymake3                 import report
+from pymake3.cli             import info, options
+from pymake3.core            import makeconf
+from pymake3.core.exceptions import NoSuchTargetError
+from pymake3.core.maker      import Maker
+from pymake3.core.target     import Target
+from pymake3.utils           import color
 
 #---------------------------------------
 # CONSTANTS
@@ -52,11 +52,11 @@ def fatal(s, *args):
 def println(s=None, *args):
     if s:
         s = s.format(*args)
-        print s
+        print(s)
     else:
-        print
+        print()
 
-def pymake2(conf=None, args=None):
+def pymake3(conf=None, args=None):
     args = sys.argv if args is None else [sys.argv[0]] + args
 
     # Keep arguments beginning with two hyphens.

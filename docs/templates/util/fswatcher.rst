@@ -1,4 +1,4 @@
-Template: `fswatcher </src/pymake2/template/util/fswatcher.py>`_
+Template: `fswatcher </src/pymake3/template/util/fswatcher.py>`_
 ################################################################
 
 What does the fswatcher template do?
@@ -41,10 +41,10 @@ Example
 .. code-block:: python
 
    import os, sys
-   sys.path.insert(0, os.path.join('build', 'pymake2'))
+   sys.path.insert(0, os.path.join('build', 'pymake3'))
 
-   from pymake2 import *
-   from pymake2.template.util import fswatcher
+   from pymake3 import *
+   from pymake3.template.util import fswatcher
 
    fswatcher.conf.fswatcher.target = 'my_target'
 
@@ -52,4 +52,4 @@ Example
    def my_target(conf):
        print "a file has been changed in the 'src' directory!"
 
-   pymake2()
+   pymake3()

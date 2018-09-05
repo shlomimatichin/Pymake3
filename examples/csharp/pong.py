@@ -1,15 +1,15 @@
-#!/usr/bin/env python
+#!/usr/bin/python3
 
 # This is the make script for Pong - a C# source project - with some added
 # comments for clarity.  See https://github.com/philiparvidsson/Pong for  more
 # information.
 
 import os, sys
-sys.path.insert(0, os.path.join('build', 'pymake2'))
+sys.path.insert(0, os.path.join('build', 'pymake3'))
 
-from pymake2 import *
+from pymake3 import *
 
-from pymake2.template.csharp import csc
+from pymake3.template.csharp import csc
 
 # The configuration below depends on the backend used for the make process.  In
 # this case, we're using csc, which uses the options set below.
@@ -53,4 +53,4 @@ def libs(conf):
     # Copy the SharpDX dll-files to the bin directory.
     copy(r'lib\SharpDX', conf.bindir, '*.dll')
 
-pymake2(conf)
+pymake3(conf)

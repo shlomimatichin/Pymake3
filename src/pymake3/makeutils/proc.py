@@ -1,6 +1,6 @@
 """
 Provides functionality for starting process on the host operating system.
-    Easily done without pymake2, but we want pymake2 to be dead simple to use,
+    Easily done without pymake3, but we want pymake3 to be dead simple to use,
 so we include this functionality here.
 """
 
@@ -10,7 +10,7 @@ so we include this functionality here.
 
 import subprocess
 
-from pymake2.cli import main
+from pymake3.cli import main
 
 #---------------------------------------
 # FUNCTIONS

@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/python3
 
 #---------------------------------------
 # IMPORTS
@@ -6,7 +6,7 @@
 
 import test
 
-from pymake2 import *
+from pymake3 import *
 
 #---------------------------------------
 # GLOBALS
@@ -27,9 +27,9 @@ def my_target(conf):
 # SCRIPT
 #---------------------------------------
 
-pymake2({}, [ 'my_target' ])
-pymake2({}, [ 'my_target' ])
-pymake2({}, [ 'my_target' ])
+pymake3({}, [ 'my_target' ])
+pymake3({}, [ 'my_target' ])
+pymake3({}, [ 'my_target' ])
 
 test.equal(var, 3, "my_target was not made three times")
 test.success()

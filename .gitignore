@@ -3,3 +3,7 @@
 \#*\#
 bin
 obj
+src/build
+src/dist
+src/pymake3.egg-info
+*.swp

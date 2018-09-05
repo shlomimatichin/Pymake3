@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/python3
 
 #---------------------------------------
 # IMPORTS
@@ -6,7 +6,7 @@
 
 import test
 
-from pymake2 import *
+from pymake3 import *
 
 #---------------------------------------
 # FUNCTIONS
@@ -24,6 +24,6 @@ def my_target_2(conf):
 # SCRIPT
 #---------------------------------------
 
-pymake2({}, [])
+pymake3({}, [])
 
 test.fail("'my_target_2' was not made")

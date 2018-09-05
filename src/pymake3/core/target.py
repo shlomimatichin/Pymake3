@@ -9,7 +9,7 @@ Defines the Target class which represents a single make target.
 import inspect
 import os
 
-from pymake2.core import makeconf
+from pymake3.core import makeconf
 
 #---------------------------------------
 # CLASSES
@@ -80,7 +80,7 @@ class Target(object):
         if accepts_kwargs:
             dic = dict()
 
-            for k, v in conf.__dict__.iteritems():
+            for k, v in conf.__dict__.items():
                 if k in argspec.args:
                     dic[k] = v
 

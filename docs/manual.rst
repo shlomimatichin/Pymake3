@@ -13,24 +13,24 @@ Guide
 Configuring your project
 ------------------------
 
-To use pymake2 in your projects, download the latest pymake2 release and store the binary file in your project. Normally, pymake2 should be stored in a build directory in your project root, but this can be configured.
+To use pymake3 in your projects, download the latest pymake3 release and store the binary file in your project. Normally, pymake3 should be stored in a build directory in your project root, but this can be configured.
 
 You also need to write a make script. To get started quickly, you could take a look at one of the `examples <examples>`_
 
-When you have saved pymake2 and your make script into your project directory, you can run it by invoking your make script in the project root. If, for example, you saved your script to `make.py`, begin making your project by typing `python make.py` in your project root. Alternatively, you can just type :code:`./make.py` if you're using Linux.
+When you have saved pymake3 and your make script into your project directory, you can run it by invoking your make script in the project root. If, for example, you saved your script to `make.py`, begin making your project by typing `python make.py` in your project root. Alternatively, you can just type :code:`./make.py` if you're using Linux.
 
 Writing make scripts
 --------------------
 
-Make scripts for pymake2 are written in the Python programming language. For the sake of clarity, we discuss a few aspects of pymake2 individually before presenting a complete make script.
+Make scripts for pymake3 are written in the Python programming language. For the sake of clarity, we discuss a few aspects of pymake3 individually before presenting a complete make script.
 
-Firstly, you should place pymake2 in the build directory in your project root. Then, pymake2 can be imported into your make script in the following way:
+Firstly, you should place pymake3 in the build directory in your project root. Then, pymake3 can be imported into your make script in the following way:
 
 .. code-block:: python
 
    import sys
-   sys.path.insert(0, 'build/pymake2')
-   from pymake2 import *
+   sys.path.insert(0, 'build/pymake3')
+   from pymake3 import *
 
 After this, we can start building the make script by defining our targets. Defining a target is trivial:
 
@@ -40,7 +40,7 @@ After this, we can start building the make script by defining our targets. Defin
    def my_target(conf):
        print 'hello from my_target!'
 
-That's it! That is all that is needed for pymake2 to register your target and be able to make it. Some targets need to be sure that other targets have been completed first. For example, before linking an executable, we need to compile it. This can be achieved easily by specifying dependencies on your targets:
+That's it! That is all that is needed for pymake3 to register your target and be able to make it. Some targets need to be sure that other targets have been completed first. For example, before linking an executable, we need to compile it. This can be achieved easily by specifying dependencies on your targets:
 
 .. code-block:: python
 
@@ -55,13 +55,13 @@ That's it! That is all that is needed for pymake2 to register your target and be
 
 By specifying dependencies, you ensure that they will always be completed before a target is made. In the case above, the compile target will always be made before the link target.
 
-At the end of your make script, you need to begin the make process by calling the :code:`pymake2()` function. Normally, you want to pass a configuration object to the function and use it in your targets. In this example, we pass in a name since we used it in the target examples above:
+At the end of your make script, you need to begin the make process by calling the :code:`pymake3()` function. Normally, you want to pass a configuration object to the function and use it in your targets. In this example, we pass in a name since we used it in the target examples above:
 
 .. code-block:: python
 
-   pymake2({ 'name': 'my_program' })
+   pymake3({ 'name': 'my_program' })
 
-As we now have a basic understanding of how pymake2 operates, let's look at a more complex make script. Read the comments carefully.
+As we now have a basic understanding of how pymake3 operates, let's look at a more complex make script. Read the comments carefully.
 
 .. code-block:: python
 
@@ -69,13 +69,13 @@ As we now have a basic understanding of how pymake2 operates, let's look at a mo
 
    import os, sys
 
-   # We need to insert the path to pymake2.py below to be able to import it.  In
-   # this script, pymake2 is expected to be located in build/pymake2/.
-   sys.path.insert(0, os.path.join('build', 'pymake2'))
-   from pymake2 import *
+   # We need to insert the path to pymake3.py below to be able to import it.  In
+   # this script, pymake3 is expected to be located in build/pymake3/.
+   sys.path.insert(0, os.path.join('build', 'pymake3'))
+   from pymake3 import *
 
    # Import the C# template for csc.exe.
-   from pymake2.template.csharp import csc
+   from pymake3.template.csharp import csc
 
    @target
    def my_first_target(conf):
@@ -84,7 +84,7 @@ As we now have a basic understanding of how pymake2 operates, let's look at a mo
        # following way:
        print 'name is', conf.name
 
-       # Note that the attributes depend on the configuration passed to pymake2.
+       # Note that the attributes depend on the configuration passed to pymake3.
        # Pymake2 does not care about your configuration and will only pass it on to
        # your targets as you provided it.
        pass
@@ -111,7 +111,7 @@ As we now have a basic understanding of how pymake2 operates, let's look at a mo
 
    # The configuration below depends on the backend used for the make process.  In
    # this case, we're using csc, which uses the settings below, among others.
-   pymake2({
+   pymake3({
        'name': 'HelloWorld.exe',
 
        'flags': ['/target:exe',
@@ -130,16 +130,16 @@ As we now have a basic understanding of how pymake2 operates, let's look at a mo
 
        # We have our source files in the current directory in this example.  More
        # source could be added in the source directory, and they would all be
-       # automatically compiled by pymake2.
+       # automatically compiled by pymake3.
        'srcdir': '.'
    })
 
-As you can tell by now, pymake2 is almost infinitely flexible and can be used for any kind of project.
+As you can tell by now, pymake3 is almost infinitely flexible and can be used for any kind of project.
 
 Making your projects
 --------------------
 
-When you have written your make script and saved pymake2 in your project build directory, you can make your project easily by invoking your make script.
+When you have written your make script and saved pymake3 in your project build directory, you can make your project easily by invoking your make script.
 
 If, for example, you saved your script to make.py in your project root, you can run it by typing :code:`python make.py` to make the default target if there is one. If you want to specify what target to make, you can type :code:`python make.py my_target_name`. Dependencies will automatically be resolved, so even if you attempt to invoke the :code:`link` target from the examples above, the :code:`compile` target will be invoked before it.
 
@@ -179,7 +179,7 @@ The directory will be created if it does not already exist.
 Defining a target
 -----------------
 
-A pymake2 target is defined by applying the `@target` decorator to a function:
+A pymake3 target is defined by applying the `@target` decorator to a function:
 
 .. code-block:: python
 
@@ -187,7 +187,7 @@ A pymake2 target is defined by applying the `@target` decorator to a function:
    def my_target(conf):
        # ...
 
-A target function always takes in a :code:`conf` argument containing the pymake2 configuration. The target's name is the name of the function, unless another name is
+A target function always takes in a :code:`conf` argument containing the pymake3 configuration. The target's name is the name of the function, unless another name is
 specified:
 
 .. code-block:: python

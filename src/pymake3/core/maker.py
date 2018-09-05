@@ -1,5 +1,5 @@
 """
-Provides the Maker class, which is a sort of target manager in pymake2. This
+Provides the Maker class, which is a sort of target manager in pymake3. This
 class is where all the targets are stored.
 """
 
@@ -7,9 +7,9 @@ class is where all the targets are stored.
 # IMPORTS
 #---------------------------------------
 
-from pymake2                 import report
-from pymake2.core.exceptions import NoSuchTargetError
-from pymake2.core.target     import Target
+from pymake3                 import report
+from pymake3.core.exceptions import NoSuchTargetError
+from pymake3.core.target     import Target
 
 #---------------------------------------
 # CLASSES

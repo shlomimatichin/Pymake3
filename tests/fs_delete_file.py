@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/python3
 
 #---------------------------------------
 # IMPORTS
@@ -8,7 +8,7 @@ from os import path
 
 import test
 
-from pymake2 import *
+from pymake3 import *
 
 #---------------------------------------
 # CONSTANTS

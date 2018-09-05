@@ -1,3 +1,11 @@
+What is pymake3?
+################
+Python3 port of pymake3
+
+build: `PYTHONPATH=py ./make.py`
+clean: `PYTHONPATH=py ./make.py clean`
+install: `sudo pip3 install src/dist/pymake3-1.0.0-py3-none-any.whl`
+
 What is pymake2?
 ################
 
@@ -16,18 +24,18 @@ What is pymake2?
 
 Getting Started
 ===============
-1. Download and install `Python 2.7 <https://www.python.org/downloads/>`_.
+1. Download and install `Python 3 <https://www.python.org/downloads/>`_.
 2. Start with one of the `examples <examples>`_ or `template <src/pymake2/template>`_ scripts, picking one relevant to your type of project.
 3. Modify the script as needed for your project. See the `manual <docs/manual.rst>`_ for instructions on how to do so.
 4. Build your project by running your make script. You can either type :code:`python your_make_file.py` or :code:`./your_make_file.py` (only on Linux).
 
 Prerequisites
 -------------
-* `Python 2.7 <https://www.python.org/downloads/>`_
+* `Python 3 <https://www.python.org/downloads/>`_
 
 Installation
 ------------
-**Begin by downloading and installing Python 2.7.**
+**Begin by downloading and installing Python 3.**
 
 On Linux, depending on your distribution, Python comes pre-installed. This means that you do not need to install anything for pymake2 to work. If you don't have Python (you can check by typing python in a terminal), you might be able to install it by typing :code:`sudo apt-get install python`.
 
@@ -44,7 +52,7 @@ To familiarize yourself with pymake2, you can begin by writing a simple make scr
 .. code-block:: python
 
    #!/usr/bin/env python
-   from pymake2 import *
+   from pymake3 import *
 
    @target
    @depends_on('build', 'compile')
@@ -59,7 +67,7 @@ To familiarize yourself with pymake2, you can begin by writing a simple make scr
    def compile(conf):
        print 'compiling...'
 
-   pymake2({ 'name': 'some_program.bin' })
+   pymake3({ 'name': 'some_program.bin' })
 
 Since pymake2 scripts are written in Python, there is really no limit to what can be done. This allows you to easily create very complex and secure build and deployment scripts for your projects.
 

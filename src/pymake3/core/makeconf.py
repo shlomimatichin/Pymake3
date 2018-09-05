@@ -18,7 +18,7 @@ def from_dict(d):
     """
     o = lambda: None
 
-    for k, v in d.iteritems():
+    for k, v in d.items():
         if isinstance(v, dict):
             v = from_dict(v)
 
@@ -41,7 +41,7 @@ def merge(*args):
     d = {}
 
     for conf in args:
-        for key, value in conf.__dict__.iteritems():
+        for key, value in conf.__dict__.items():
             d[key] = value
 
     return from_dict(d)

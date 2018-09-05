@@ -1,14 +1,14 @@
 """
-Provides the core pymake2 decorators for marking functions as targets and more.
+Provides the core pymake3 decorators for marking functions as targets and more.
 """
 
 #---------------------------------------
 # IMPORTS
 #---------------------------------------
 
-from pymake2            import report
-from pymake2.core       import makeconf
-from pymake2.core.maker import Maker
+from pymake3            import report
+from pymake3.core       import makeconf
+from pymake3.core.maker import Maker
 
 #---------------------------------------
 # FUNCTIONS

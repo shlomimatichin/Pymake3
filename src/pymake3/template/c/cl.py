@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/python3
 """
 Template make script for Microsoft's C compiler cl.
 """
@@ -9,7 +9,7 @@ Template make script for Microsoft's C compiler cl.
 
 import os
 
-from pymake2 import *
+from pymake3 import *
 
 #---------------------------------------
 # CONSTANTS
@@ -109,4 +109,4 @@ def run(conf):
 #---------------------------------------
 
 if __name__ == '__main__':
-    pymake2()
+    pymake3()

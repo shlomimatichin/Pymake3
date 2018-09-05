@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/python3
 
 #---------------------------------------
 # IMPORTS
@@ -11,7 +11,7 @@ import zipfile
 
 sys.path.insert(0, 'src')
 
-from pymake2 import *
+from pymake3 import *
 
 #---------------------------------------
 # CONSTANTS
@@ -20,44 +20,30 @@ from pymake2 import *
 CONF={ 'bindir': 'bin',
        'objdir': 'obj',
        'srcdir': 'src',
-       'target': 'pymake2' }
+       'builddir': 'src/build',
+       'distdir': 'src/dist',
+       'egginfodir': 'src/pymake3.egg-info',
+       'target': 'pymake3' }
 
 #---------------------------------------
 # FUNCTIONS
 #---------------------------------------
 
-@default_target(conf=CONF, desc="builds the pymake2 zip package")
-@depends_on('compile')
+@default_target(conf=CONF, desc="builds the pymake3 egg package")
 def build(conf):
-    create_dir(conf.bindir)
+    os.chdir(conf.srcdir)
+    run_program('python3', args=['setup.py', 'bdist_egg'])
 
-    path = os.path.join(conf.bindir, conf.target)
-    zipf = zipfile.ZipFile(path, 'w', zipfile.ZIP_DEFLATED)
-
-    os.chdir(conf.objdir)
-    for s in find_files('.'):
-        zipf.write(s)
-
-    zipf.close()
-
-@target(conf=CONF, desc="cleans pymake2 by deleting the bin and obj "
+@target(conf=CONF, desc="cleans pymake3 by deleting the bin and obj "
                         "directories, as well as removing all .pyc-files")
 def clean(conf):
-    delete_dir(conf.bindir)
-    delete_dir(conf.objdir)
-
-    for s in find_files(conf.srcdir, '*.pyc'):
-        delete_file(s)
-
-@target(conf=CONF, desc="compiles pymake2 into the obj directory")
-def compile(conf):
-    args = find_files(conf.srcdir, '*.py')
-    py_compile.main(args)
-
-    copy(conf.srcdir, conf.objdir, '*.pyc')
+    for s in [conf.builddir, conf.distdir, conf.egginfodir]:
+        delete_dir(s)
+    for s in find_files(conf.srcdir, '__pycache__'):
+        delete_dir(s)
 
 #---------------------------------------
 # SCRIPT
 #---------------------------------------
 
-pymake2()
+pymake3()

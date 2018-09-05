@@ -1,5 +1,5 @@
 """
-Parses command-line options for pymake2.
+Parses command-line options for pymake3.
 """
 #---------------------------------------
 # IMPORTS
@@ -9,9 +9,9 @@ import ast
 import os
 import sys
 
-from pymake2      import report
-from pymake2.cli  import info
-from pymake2.core import makeconf
+from pymake3      import report
+from pymake3.cli  import info
+from pymake3.core import makeconf
 
 #---------------------------------------
 # GLOBALS
@@ -98,12 +98,12 @@ def option_targets(value):
 @option('--version')
 def option_version(value):
     """
-    Prints the pymake2 version number.
+    Prints the pymake3 version number.
 
     :param value: Not used.
     """
     from . import __version__
-    println("pymake2 v{}", __version__)
+    println("pymake3 v{}", __version__)
 
 def parse(opts):
     """

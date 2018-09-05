@@ -8,7 +8,7 @@ files has been changed, a target spceified in the configuration will be made.
 # IMPORTS
 #---------------------------------------
 
-from pymake2 import *
+from pymake3 import *
 
 #---------------------------------------
 # GLOBALS

@@ -6,7 +6,7 @@ from os import path
 
 import test
 
-from pymake2 import *
+from pymake3 import *
 
 #---------------------------------------
 # SCRIPT

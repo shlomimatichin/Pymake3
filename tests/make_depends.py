@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/python3
 
 #---------------------------------------
 # IMPORTS
@@ -6,7 +6,7 @@
 
 import test
 
-from pymake2 import *
+from pymake3 import *
 
 #---------------------------------------
 # FUNCTIONS
@@ -69,6 +69,6 @@ def my_target_5(conf):
 # SCRIPT
 #---------------------------------------
 
-pymake2({}, [ 'my_target_5' ])
+pymake3({}, [ 'my_target_5' ])
 
 test.success()

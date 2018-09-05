@@ -1,4 +1,4 @@
-Template: `csc </src/pymake2/template/csharp/csc.py>`_
+Template: `csc </src/pymake3/template/csharp/csc.py>`_
 ######################################################
 
 What does the csc template do?
@@ -47,9 +47,9 @@ Example
 .. code-block:: python
 
    import os, sys
-   sys.path.insert(0, os.path.join('build', 'pymake2'))
+   sys.path.insert(0, os.path.join('build', 'pymake3'))
 
-   from pymake2 import *
-   from pymake2.template.util import csc
+   from pymake3 import *
+   from pymake3.template.util import csc
 
-   pymake2()
+   pymake3()

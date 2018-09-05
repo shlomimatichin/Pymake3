@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/python3
 
 #---------------------------------------
 # IMPORTS
@@ -6,7 +6,7 @@
 
 import test
 
-from pymake2 import *
+from pymake3 import *
 
 #---------------------------------------
 # GLOBALS
@@ -38,7 +38,7 @@ def my_target2(bar='789', foo="xyz"):
 # SCRIPT
 #---------------------------------------
 
-pymake2({"foo": "123", "bar": "abc"}, ['my_target1', 'my_target2'])
+pymake3({"foo": "123", "bar": "abc"}, ['my_target1', 'my_target2'])
 
 test.equal(counter, 2, "both targets were not made properly")
 test.success()

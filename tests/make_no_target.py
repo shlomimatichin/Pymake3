@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/python3
 
 #---------------------------------------
 # IMPORTS
@@ -6,7 +6,7 @@
 
 import test
 
-from pymake2 import *
+from pymake3 import *
 
 #---------------------------------------
 # SCRIPT
@@ -14,6 +14,6 @@ from pymake2 import *
 
 test.should_fail()
 
-pymake2({}, [ 'my_target' ])
+pymake3({}, [ 'my_target' ])
 
 test.success()
