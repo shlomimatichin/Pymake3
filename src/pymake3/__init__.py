@@ -24,4 +24,4 @@ from pymake3.core.maker import make
 from pymake3.makeutils.fs import (copy, create_dir, delete_dir, delete_file,
                                   find_files, watch_files)
 
-from pymake3.makeutils.proc import run_program
+from pymake3.makeutils.proc import run_program, run

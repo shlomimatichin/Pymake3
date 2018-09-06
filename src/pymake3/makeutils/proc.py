@@ -31,3 +31,31 @@ def run_program(s, args=None):
     result = subprocess.call([s] + args)
     main.exit_code = result
     return result
+
+
+def run(spec, mode="auto"):
+    originalSpec = spec
+    assert mode in ["auto", "exec", "split", "shell"]
+    kwargs = {}
+    if mode == "auto":
+        if isinstance(spec, str):
+            if '|' in spec or '>' in spec:
+                mode = "shell"
+            elif ' ' in spec:
+                mode = "split"
+            else:
+                mode = "exec"
+                spec = [spec]
+        elif isinstance(spec, list):
+            mode = "exec"
+        else:
+            raise Exception("Unable to auto determine mode for spec '%s'" % spec)
+
+    if mode == "shell":
+        kwargs['shell'] = True
+    if mode == "split":
+        spec = spec.split(' ')
+    result = subprocess.call(spec, close_fds=True, **kwargs)
+    if result != 0:
+        raise Exception("Failed: run(%s)" % originalSpec)
+    return True
