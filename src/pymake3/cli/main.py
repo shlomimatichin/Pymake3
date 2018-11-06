@@ -7,6 +7,11 @@ Provides the command-line interface for pymake3.
 
 import os
 import sys
+import argparse
+try:
+    import argcomplete
+except:
+    argcomplete = None
 
 from pymake3                 import report
 from pymake3.cli             import info, options
@@ -57,16 +62,25 @@ def println(s=None, *args):
         print()
 
 def pymake3(conf=None, args=None):
-    args = sys.argv if args is None else [sys.argv[0]] + args
-
-    # Keep arguments beginning with two hyphens.
-    opts = [arg for arg in args if arg.startswith('--')]
-
-    # Keep arguments *not* beginning with two hyphens.
-    args = [arg for arg in args if arg not in opts]
-
-    # Parse command line options.
-    options.parse(opts)
+    targets = sorted(t.name for t in Maker.inst().targets)
+    parser = argparse.ArgumentParser()
+    parser.add_argument("todo", nargs="*", choices=targets, default=[])
+    parser.add_argument("--conf", help="set the configuration to use")
+    parser.add_argument("--no-color", action="store_true")
+    parser.add_argument("--targets", action="store_true")
+    parser.add_argument("--version", action="store_true")
+    if argcomplete is not None:
+        argcomplete.autocomplete(parser)
+    args = parser.parse_args()
+    if args.conf:
+        options.option_conf(args.conf)
+    options.disable_color = args.no_color
+    if args.version:
+        options.option_version()
+        return
+    if args.targets:
+        info.print_targets()
+        return
 
     if conf and isinstance(conf, dict):
         conf = makeconf.from_dict(conf)

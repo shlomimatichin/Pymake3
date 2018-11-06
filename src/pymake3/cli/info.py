@@ -66,8 +66,6 @@ def print_usage():
 Usage: python {} [options] {}
 
 Options:
-  --conf=<s> - set the configuration to use
-  --help     - display information about pymake3
   --no-color - disable text color
   --no-exit  - do not exit automatically after making
   --no-warn  - do not display warnings
