@@ -94,7 +94,7 @@ def pymake3(conf=None, args=None):
 
     report_problems()
 
-    targets = args[1:]
+    targets = args.todo
     if not targets:
         targets = [ None ]
     for name in targets:

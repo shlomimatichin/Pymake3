@@ -1,4 +1,6 @@
 #!/usr/bin/python3
+# PYTHON_ARGCOMPLETE_OK
+
 import os
 import py_compile
 import sys
@@ -30,7 +32,7 @@ def clean(conf):
 
 @target(conf=CONF)
 def upload(conf):
-    run('twine upload --repository-url=https://test.pypi.org/legacy/ %s/*' % conf.distdir, mode='shell')
+    run('twine upload %s/*' % conf.distdir, mode='shell')
 
 
 pymake3()

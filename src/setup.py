@@ -6,7 +6,7 @@ with open("README.md", "r") as fh:
 
 setup(
     name="pymake3",
-    version="0.0.1",
+    version="0.0.2",
     author="Shlomi Matichin",
     author_email="shlomomatichin@gmail.com",
     description=(
